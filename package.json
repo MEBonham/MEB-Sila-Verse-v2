@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "firebase": "^6.0.4",
+    "react-contexify": "^4.1.0",
+    "react-router-dom": "^5.0.0",
+    "reactn": "^2.0.2"
+  }
+}
