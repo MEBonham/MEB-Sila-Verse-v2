@@ -115,6 +115,68 @@
     margin-bottom: 2px;
 }
 
+.hero-info-form-envelope {
+    width: 70%;
+    padding: 24px 2%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.hero-info-form-envelope .delete-hero-button {
+    width: 48px;
+    height: 48px;
+}
+
+.hero-info-form {
+    width: 100%;
+}
+
+.hero-info-form input {
+    margin-bottom: 10px;
+}
+
+.hero-info-form header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-info-form h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-info-form section {
+    margin-top: 10px;   
+}
+
+.hero-info-form h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-info-form .abilities .abilities-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-info-form .abilities .ability-div {
+    width: 25%;
+}
+
+.hero-info-form .abilities .ability-div label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.hero-info-form .abilities .ability-div input {
+    width: 45%;
+}
+
 .login-form {
     width: 100%;
     height: calc(100% - 2.6rem - 10px);

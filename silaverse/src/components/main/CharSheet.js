@@ -4,7 +4,7 @@ import AbilitiesSection from './AbilitiesSection';
 
 const CharSheet = props => {
 
-    const urlid = props.match.params.id;
+    const { urlid } = props.match.params;
     const [ heroes ] = useGlobal('heroes');
     const filteredHeroes = heroes ?
         heroes.filter(hero => hero.urlid === urlid) :

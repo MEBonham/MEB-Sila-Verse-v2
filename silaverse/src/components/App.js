@@ -6,6 +6,7 @@ import firebase from '../fbConfig';
 import Header from './auth/Header';
 import Sidebar from './sidebar/Sidebar';
 import CharSheet from './main/CharSheet';
+import EditHeroForm from './main/EditHeroForm';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
@@ -32,8 +33,9 @@ const App = () => {
             <Header />
             <Route exact path="/" component={Sidebar} />
             <Route path="/viewhero" component={Sidebar} />
-            <Route path="/viewhero/:id" component={CharSheet} />
+            <Route path="/viewhero/:urlid" component={CharSheet} />
             <Route path="/edithero" component={Sidebar} />
+            <Route path="/edithero/:urlid" component={EditHeroForm} />
             <Route path="/newhero" component={Sidebar} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />

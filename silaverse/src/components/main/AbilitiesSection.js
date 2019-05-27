@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal, setGlobal, getGlobal } from 'reactn';
+import React, { useState, useEffect, useGlobal, setGlobal } from 'reactn';
 
 const AbilitiesSection = props => {
     const heroFlag = props.hero;    // Makes it so that useEffect will run again when props.hero updates
@@ -25,12 +25,6 @@ const AbilitiesSection = props => {
             }
         });
         setTotal(totalVar);
-        // setGlobal({
-        //     pptTotals: {
-        //         ...pptTotals,
-        //         abilities: total
-        //     }
-        // });
     }, [ heroFlag ]);
 
     useEffect(() => {
