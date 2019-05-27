@@ -60,6 +60,47 @@
     margin-top: 15px;
 }
 
+.char-sheet {
+    width: 68%;
+    margin: 10px auto;
+    padding: 24px 3%;
+    background: tan;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px brown;
+}
+
+.char-sheet strong {
+    font-weight: bold;
+}
+
+.char-sheet .lesser-note {
+    margin-top: 4px;
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.char-sheet h1 {
+    font-size: 3.4rem;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 3px;
+}
+
+.char-sheet header h2 {
+    font-size: 2.4rem;
+    margin-bottom: 4px;
+}
+
+.char-sheet .hero-type {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-bottom: 2px;
+}
+
+.char-sheet .last-header-line {
+    font-size: 1.4rem;
+}
+
 .login-form {
     width: 100%;
     height: calc(100% - 2.6rem - 10px);
