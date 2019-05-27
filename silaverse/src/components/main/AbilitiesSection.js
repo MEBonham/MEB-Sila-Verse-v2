@@ -1,7 +1,9 @@
-import React from 'reactn';
+import React, { useState, useEffect, useGlobal, setGlobal, getGlobal } from 'reactn';
 
 const AbilitiesSection = props => {
+    const heroFlag = props.hero;    // Makes it so that useEffect will run again when props.hero updates
     const abilities = props.hero.abilities;
+
     const strPlus = (!isNaN(abilities.str.eff) && abilities.str.eff >= 0) ? "+" : "";
     const staPlus = (!isNaN(abilities.sta.eff) && abilities.sta.eff >= 0) ? "+" : "";
     const aglPlus = (!isNaN(abilities.agl.eff) && abilities.agl.eff >= 0) ? "+" : "";
@@ -11,14 +13,34 @@ const AbilitiesSection = props => {
     const awePlus = (!isNaN(abilities.awe.eff) && abilities.awe.eff >= 0) ? "+" : "";
     const prePlus = (!isNaN(abilities.pre.eff) && abilities.pre.eff >= 0) ? "+" : "";
 
-    let total = 0;
-    Object.keys(abilities).filter(abilityName => abilityName !== "note").forEach(abilityName => {
-        if (isNaN(abilities[abilityName].base)) {
-            total -= 10;
-        } else {
-            total += 2 * abilities[abilityName].base;
-        }
-    });
+    const [ total, setTotal ] = useState(0);
+    const [ pptTotals ] = useGlobal('pptTotals');
+    useEffect(() => {
+        let totalVar = 0;
+        Object.keys(abilities).filter(abilityName => abilityName !== "note").forEach(abilityName => {
+            if (isNaN(abilities[abilityName].base)) {
+                totalVar -= 10;
+            } else {
+                totalVar += 2 * abilities[abilityName].base;
+            }
+        });
+        setTotal(totalVar);
+        // setGlobal({
+        //     pptTotals: {
+        //         ...pptTotals,
+        //         abilities: total
+        //     }
+        // });
+    }, [ heroFlag ]);
+
+    useEffect(() => {
+        setGlobal({
+            pptTotals: {
+                ...pptTotals,
+                abilities: total
+            }
+        });
+    }, [ total ])
 
     return(
         <section>

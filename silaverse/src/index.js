@@ -8,6 +8,16 @@ import './css/index.css';
 import App from './components/App';
 
 // Initialize Global store
+setGlobal({
+    pptTotals: {
+        abilities: 0,
+        powers: 0,
+        advantages: 0,
+        skills: 0,
+        defenses: 0
+    } 
+});
+
 const db = firebase.db;
 const heroLib = [];
 db.collection("heroes").get()
