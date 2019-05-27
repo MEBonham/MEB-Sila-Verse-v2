@@ -1,5 +1,7 @@
 import React, { useGlobal } from 'reactn';
 
+import AbilitiesSection from './AbilitiesSection';
+
 const CharSheet = props => {
 
     const urlid = props.match.params.id;
@@ -18,6 +20,7 @@ const CharSheet = props => {
                     <p className="hero-type">{thisHero.heroType}</p>
                     <p className="last-header-line">Power Level {thisHero.powerLevel}</p>
                 </header>
+                <AbilitiesSection hero={thisHero} />
             </section>
         );
     } else {
