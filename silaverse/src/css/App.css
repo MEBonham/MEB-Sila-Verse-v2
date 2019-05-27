@@ -1,0 +1,75 @@
+.App {
+    width: 100%;
+    max-width: 900px;
+    height: 100vh;
+    margin: 0 auto;
+    background: lightgray;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.App > header {
+    width: 100%;
+    height: calc(2.6rem + 10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 5px 3%;
+    background: gray;
+}
+
+.App > header h1 a {
+    font-size: 2.6rem;
+    color: white;
+}
+
+.App > header > ul {
+    display: flex;
+}
+
+.App > header > ul a,
+.App > header .logout {
+    font-size: 1.4rem;
+    color: white;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.App > header .username-display {
+    font-size: 1.4rem;
+    color: blue;
+    cursor: pointer;
+}
+
+.login-form {
+    width: 100%;
+    height: calc(100% - 2.6rem - 10px);
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.login-form h1 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    margin-bottom: 10px;
+}
+
+.login-form .buffer {
+    margin-top: 20px;
+}
+
+.login-form .error-message {
+    color: #dd0000;
+}
+
+.login-form a {
+    color: blue;
+}
