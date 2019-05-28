@@ -7,13 +7,15 @@ import EditSingleAbility from './EditSingleAbility';
 const EditAbilities = () => {
 
     const { inputs, handleInputChange, abilitiesInfo } = useContext(EditMultiformContext);
-    inputs.abilitiesNote = abilitiesInfo.note;
-
-    const noteVal = (abilitiesInfo && abilitiesInfo.note) ? abilitiesInfo.note : "";
+    
+    // const noteVal = (abilitiesInfo && abilitiesInfo.note) ? abilitiesInfo.note : "";
 
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
     useEffect(() => {
         if (abilitiesInfo) {
+            if (inputs.abilitiesNote === undefined) {
+                inputs.abilitiesNote = abilitiesInfo.note;
+            }
             setDisplay(
                 <div className="abilities-div">
                     <EditSingleAbility abbr="Str" name="Strength" nums={abilitiesInfo["str"]} />
@@ -29,12 +31,12 @@ const EditAbilities = () => {
                         id="abilitiesNote"
                         placeholder="e.g. Load limit 50 lb."
                         onChange={handleInputChange}
-                        value={inputs.abilitiesNote || noteVal}
+                        value={inputs.abilitiesNote || ""}
                     />
                 </div>
             );
         }
-    }, [ abilitiesInfo ]);
+    }, [ abilitiesInfo, inputs.abilitiesNote ]);
 
     return(
         <section className="abilities">

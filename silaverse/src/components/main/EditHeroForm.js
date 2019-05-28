@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'reactn';
+import React, { useState, useEffect, useGlobal, setGlobal } from 'reactn';
 
 import firebase from '../../fbConfig';
 
@@ -13,6 +13,8 @@ const EditHeroForm = props => {
 
     const { urlid } = props.match.params;
     const db = firebase.db;
+    const [ prevHeroes ] = useGlobal("heroes");
+
     const [ abilitiesInfo, setAbilitiesInfo ] = useState({});
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -45,8 +47,102 @@ const EditHeroForm = props => {
     }, [ urlid ]);
 
     const sendInfo = () => {
-        console.log("Sending form data");
-        console.log(inputs);
+        const inputsCopy = fixBlankInputFields(inputs);
+        db.collection("heroes").where("urlid", "==", urlid)
+            .get()
+            .then(querySnapshot => {
+                if (querySnapshot.empty) {
+                    console.log("Cannot find hero matching this page's URL.");
+                } else {
+                    const heroId = querySnapshot.docs[0].id;
+                    const editedHero = packageHeroForDB(inputsCopy);
+                    db.collection("heroes").doc(heroId)
+                        .set(editedHero)
+                        .then(() => {
+                            const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
+                            const formattedHero = packageHeroForGlobal(heroId, editedHero);
+                            setGlobal({
+                                heroes: [
+                                    ...minusOneHero,
+                                    formattedHero
+                                ]
+                            });
+                            props.history.push(`/viewhero/${inputs.urlid}`);
+                        })
+                        .catch(err => {
+                            console.log("Error editing hero: ", err);
+                        });
+                }
+            })
+            .catch(err => {
+                console.log("Error getting hero that goes with this page in order to edit: ", err);
+            });
+    }
+
+    const packageHeroForDB = inputs => ({
+        urlid: inputs.urlid,
+        name: inputs.name,
+        identity: inputs.identity,
+        heroType: inputs.heroType,
+        powerLevel: inputs.powerLevel,
+        abilities: JSON.stringify({
+            str: {
+                base: inputs.baseStr,
+                eff: inputs.effStr
+            },
+            sta: {
+                base: inputs.baseSta,
+                eff: inputs.effSta
+            },
+            agl: {
+                base: inputs.baseAgl,
+                eff: inputs.effAgl
+            },
+            dex: {
+                base: inputs.baseDex,
+                eff: inputs.effDex
+            },
+            fgt: {
+                base: inputs.baseFgt,
+                eff: inputs.effFgt
+            },
+            int: {
+                base: inputs.baseInt,
+                eff: inputs.effInt
+            },
+            awe: {
+                base: inputs.baseAwe,
+                eff: inputs.effAwe
+            },
+            pre: {
+                base: inputs.basePre,
+                eff: inputs.effPre
+            },
+            note: inputs.abilitiesNote
+        })
+    });
+
+    const packageHeroForGlobal = (heroId, heroDbVersion) => {
+        const formattedAbilities = JSON.parse(heroDbVersion.abilities);
+        return {
+            ...heroDbVersion,
+            abilities: formattedAbilities,
+            id: heroId
+        };
+    }
+
+    const fixBlankInputFields = inputs => {
+        const fixedInputs = { ...inputs };
+        if (!inputs.identity) {
+            fixedInputs.identity = "";
+        }
+        if (!inputs.heroType) {
+            fixedInputs.heroType = "";
+        }
+        if (!inputs.abilitiesNote) {
+            fixedInputs.abilitiesNote = "";
+        }
+        return fixedInputs;
     }
 
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
