@@ -10,6 +10,12 @@ import NewAbilities from './NewAbilities';
 
 const NewHeroForm = props => {
 
+    firebase.auth.onAuthStateChanged(user => {
+        if (!user) {
+            props.history.push("/login");
+        }
+    });
+
     const [ abilitiesInfo ] = useState({
         str: {},
         sta: {},

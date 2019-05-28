@@ -12,6 +12,12 @@ import EditAbilities from './EditAbilities';
 
 const EditHeroForm = props => {
 
+    firebase.auth.onAuthStateChanged(user => {
+        if (!user) {
+            props.history.push("/login");
+        }
+    });
+
     const { urlid } = props.match.params;
     const db = firebase.db;
     const [ prevHeroes, setPrevHeroes ] = useGlobal("heroes");
