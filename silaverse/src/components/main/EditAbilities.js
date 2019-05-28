@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from 'reactn';
+import React, { useState, useEffect, useContext } from 'reactn';
 
-import useForm from '../../hooks/useForm';
+import EditMultiformContext from '../../hooks/EditMultiformContext';
+
 import EditSingleAbility from './EditSingleAbility';
 
-const EditAbilities = props => {
+const EditAbilities = () => {
 
-    const { abilities } = props;
-    const { inputs, handleInputChange } = useForm();
-    const noteVal = (abilities && abilities.note) ? abilities.note : "";
+    const { inputs, handleInputChange, abilitiesInfo } = useContext(EditMultiformContext);
+    inputs.abilitiesNote = abilitiesInfo.note;
+
+    const noteVal = (abilitiesInfo && abilitiesInfo.note) ? abilitiesInfo.note : "";
 
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
     useEffect(() => {
-        setDisplay(
-            <div className="abilities-div">
-                <EditSingleAbility abbr="Str" name="Strength" nums={abilities["str"]} />
-                <EditSingleAbility abbr="Sta" name="Stamina" nums={abilities["sta"]} />
-                <EditSingleAbility abbr="Agl" name="Agility" nums={abilities["agl"]} />
-                <EditSingleAbility abbr="Dex" name="Dexterity" nums={abilities["dex"]} />
-                <EditSingleAbility abbr="Fgt" name="Fighting" nums={abilities["fgt"]} />
-                <EditSingleAbility abbr="Int" name="Intellect" nums={abilities["int"]} />
-                <EditSingleAbility abbr="Awe" name="Awareness" nums={abilities["awe"]} />
-                <EditSingleAbility abbr="Pre" name="Presence" nums={abilities["pre"]} />
-                <input
-                    type="text"
-                    id="abilitiesNote"
-                    placeholder="e.g. Load limit 50 lb."
-                    onChange={handleInputChange}
-                    value={inputs.abilitiesNote || noteVal}
-                />
-            </div>
-        );
-    }, [ abilities ]);
+        if (abilitiesInfo) {
+            setDisplay(
+                <div className="abilities-div">
+                    <EditSingleAbility abbr="Str" name="Strength" nums={abilitiesInfo["str"]} />
+                    <EditSingleAbility abbr="Sta" name="Stamina" nums={abilitiesInfo["sta"]} />
+                    <EditSingleAbility abbr="Agl" name="Agility" nums={abilitiesInfo["agl"]} />
+                    <EditSingleAbility abbr="Dex" name="Dexterity" nums={abilitiesInfo["dex"]} />
+                    <EditSingleAbility abbr="Fgt" name="Fighting" nums={abilitiesInfo["fgt"]} />
+                    <EditSingleAbility abbr="Int" name="Intellect" nums={abilitiesInfo["int"]} />
+                    <EditSingleAbility abbr="Awe" name="Awareness" nums={abilitiesInfo["awe"]} />
+                    <EditSingleAbility abbr="Pre" name="Presence" nums={abilitiesInfo["pre"]} />
+                    <input
+                        type="text"
+                        id="abilitiesNote"
+                        placeholder="e.g. Load limit 50 lb."
+                        onChange={handleInputChange}
+                        value={inputs.abilitiesNote || noteVal}
+                    />
+                </div>
+            );
+        }
+    }, [ abilitiesInfo ]);
 
     return(
         <section className="abilities">

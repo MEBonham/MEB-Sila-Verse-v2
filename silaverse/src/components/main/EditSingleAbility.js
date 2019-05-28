@@ -1,15 +1,17 @@
-import React from 'reactn';
+import React, { useContext } from 'reactn';
 
-import useForm from '../../hooks/useForm';
+import EditMultiformContext from '../../hooks/EditMultiformContext';
 
 const EditSingleAbility = props => {
 
     const baseId = `base${props.abbr}`;
     const effId = `eff${props.abbr}`;
     
-    const { inputs, handleInputChange } = useForm();
+    const { inputs, handleInputChange } = useContext(EditMultiformContext);
 
     if (props.nums) {
+        inputs[baseId] = props.nums.base;
+        inputs[effId] = props.nums.eff;
         return(
             <div className="ability-div">
                 <label>{props.name}</label>

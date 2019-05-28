@@ -11,8 +11,8 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 
-import '../css/App.css';
 import '../css/ContextMenu.css';
+import '../css/App.css';
 
 const App = () => {
 

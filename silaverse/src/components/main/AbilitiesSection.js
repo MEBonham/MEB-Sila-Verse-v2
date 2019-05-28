@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useGlobal, setGlobal } from 'reactn';
 
 const AbilitiesSection = props => {
-    const heroFlag = props.hero;    // Makes it so that useEffect will run again when props.hero updates
     const abilities = props.hero.abilities;
 
     const strPlus = (!isNaN(abilities.str.eff) && abilities.str.eff >= 0) ? "+" : "";
@@ -25,7 +24,7 @@ const AbilitiesSection = props => {
             }
         });
         setTotal(totalVar);
-    }, [ heroFlag ]);
+    }, [ props.hero ]);
 
     useEffect(() => {
         setGlobal({
