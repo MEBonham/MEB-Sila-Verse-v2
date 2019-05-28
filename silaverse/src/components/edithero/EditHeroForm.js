@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal, setGlobal } from 'reactn';
+import React, { useState, useEffect, useGlobal } from 'reactn';
 
 import firebase from '../../fbConfig';
 
@@ -14,7 +14,7 @@ const EditHeroForm = props => {
 
     const { urlid } = props.match.params;
     const db = firebase.db;
-    const [ prevHeroes ] = useGlobal("heroes");
+    const [ prevHeroes, setPrevHeroes ] = useGlobal("heroes");
 
     const [ abilitiesInfo, setAbilitiesInfo ] = useState({});
     useEffect(() => {
@@ -62,12 +62,10 @@ const EditHeroForm = props => {
                         .then(() => {
                             const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
                             const formattedHero = packageHeroForGlobal(heroId, editedHero);
-                            setGlobal({
-                                heroes: [
-                                    ...minusOneHero,
-                                    formattedHero
-                                ]
-                            });
+                            setPrevHeroes([
+                                ...minusOneHero,
+                                formattedHero
+                            ]);
                             props.history.push(`/viewhero/${inputs.urlid}`);
                         })
                         .catch(err => {
@@ -80,12 +78,39 @@ const EditHeroForm = props => {
             });
     }
 
+    const handleDelete = () => {
+        if (window.confirm("Are you sure you want to delete this hero?")) {
+            db.collection("heroes").where("urlid", "==", urlid).get()
+                .then(querySnapshot => {
+                    if (querySnapshot.empty) {
+                        console.log("Cannot find hero matching this page.");
+                    } else {
+                        const heroId = querySnapshot.docs[0].id;
+                        db.collection("heroes").doc(heroId).delete()
+                            .then(() => {
+                                const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
+                                setPrevHeroes([
+                                    ...minusOneHero
+                                ]);
+                                props.history.push("/");
+                            })
+                            .catch(err => {
+                                console.log("Error deleting hero from database: ", err);
+                            });
+                    }
+                })
+                .catch(err => {
+                    console.log("Error retrieving hero from database: ", err);
+                });
+        }
+    }
+
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
         <EditProvider value={{inputs, handleInputChange, abilitiesInfo}}>
             <section className="hero-info-form-envelope">
-                <img src={deleteIcon} alt="Delete Hero" className="delete-hero-button" />
+                <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>
                     <header>
                         <h1>Edit Hero Info</h1>

@@ -1,4 +1,4 @@
-import React, { useState } from 'reactn';
+import React, { useState, useGlobal } from 'reactn';
 
 import firebase from '../../fbConfig';
 
@@ -22,12 +22,36 @@ const NewHeroForm = props => {
         note: ""
     });
 
+    const [ prevHeroes, setHeroes ] = useGlobal("heroes");
     const sendInfo = () => {
+        const db = firebase.db;
         const inputsCopy = fixBlankInputFields(inputs);
-        console.log(inputsCopy);
+        const newHero = packageHeroForDB(inputsCopy);
+        db.collection("heroes").add(newHero)
+            .then(heroRef => {
+                db.collection("heroes").doc(heroRef.id).get()
+                    .then(querySnapshot => {
+                        if (!querySnapshot.exists) {
+                            console.log("Error getting newly created hero from database.");
+                        } else {
+                            const newHeroForGlobal = packageHeroForGlobal(heroRef.id, newHero);
+                            setHeroes([
+                                ...prevHeroes,
+                                newHeroForGlobal
+                            ]);
+                            props.history.push(`/viewhero/${newHero.urlid}`);
+                        }
+                    })
+                    .catch(err => {
+                        console.log("Error updating global variables with new hero info: ", err);
+                    });
+            })
+            .catch(err => {
+                console.log("Error adding hero to database: ", err);
+            });
     }
 
-    const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
+    const { inputs, handleInputChange, handleSubmit } = useForm(sendInfo);
     
     return(
         <NewProvider value={{inputs, handleInputChange, abilitiesInfo}}>
