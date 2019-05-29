@@ -1,8 +1,11 @@
 {
   "dependencies": {
+    "dompurify": "^1.0.10",
     "firebase": "^6.0.4",
+    "html-react-parser": "^0.7.1",
     "react-contexify": "^4.1.0",
     "react-router-dom": "^5.0.0",
-    "reactn": "^2.0.2"
+    "reactn": "^2.0.2",
+    "uuid": "^3.3.2"
   }
 }

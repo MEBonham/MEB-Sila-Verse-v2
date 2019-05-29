@@ -9,6 +9,7 @@ import deleteIcon from '../../images/delete-icon.png';
 
 import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from './EditHelperFcts';
 import EditAbilities from './EditAbilities';
+import EditPowers from './EditPowers';
 
 const EditHeroForm = props => {
 
@@ -23,6 +24,9 @@ const EditHeroForm = props => {
     const [ prevHeroes, setPrevHeroes ] = useGlobal("heroes");
 
     const [ abilitiesInfo, setAbilitiesInfo ] = useState({});
+    const [ powerCount, setPowerCount ] = useState(0);
+    const [ powerInfo, setPowerInfo ] = useState([]);
+    
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
             .get()
@@ -40,6 +44,8 @@ const EditHeroForm = props => {
                                 powerLevel: doc.data().powerLevel
                             });
                             setAbilitiesInfo(JSON.parse(doc.data().abilities));
+                            setPowerInfo(JSON.parse(doc.data().powers));
+                            setPowerCount(powerInfo.length);
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -54,7 +60,8 @@ const EditHeroForm = props => {
     }, [ urlid ]);
 
     const sendInfo = () => {
-        const inputsCopy = fixBlankInputFields(inputs);
+        console.log(inputs);
+        const inputsCopy = fixBlankInputFields(inputs, powerCount);
         db.collection("heroes").where("urlid", "==", urlid)
             .get()
             .then(querySnapshot => {
@@ -62,7 +69,7 @@ const EditHeroForm = props => {
                     console.log("Cannot find hero matching this page's URL.");
                 } else {
                     const heroId = querySnapshot.docs[0].id;
-                    const editedHero = packageHeroForDB(inputsCopy);
+                    const editedHero = packageHeroForDB(inputsCopy, powerCount);
                     db.collection("heroes").doc(heroId)
                         .set(editedHero)
                         .then(() => {
@@ -114,7 +121,7 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        <EditProvider value={{inputs, handleInputChange, abilitiesInfo}}>
+        <EditProvider value={{inputs, handleInputChange, abilitiesInfo, powerInfo, powerCount, setPowerCount}}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>
@@ -162,7 +169,8 @@ const EditHeroForm = props => {
                         />
                     </header>
                     <EditAbilities />
-                    <button type="submit">Save Hero</button>
+                    <EditPowers />
+                    <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>
         </EditProvider>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal, setGlobal } from 'reactn';
+import React, { useState, useEffect, useGlobal } from 'reactn';
 
 const AbilitiesSection = props => {
     const abilities = props.hero.abilities;
@@ -13,7 +13,7 @@ const AbilitiesSection = props => {
     const prePlus = (!isNaN(abilities.pre.eff) && abilities.pre.eff >= 0) ? "+" : "";
 
     const [ total, setTotal ] = useState(0);
-    const [ pptTotals ] = useGlobal('pptTotals');
+    const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
     useEffect(() => {
         let totalVar = 0;
         Object.keys(abilities).filter(abilityName => abilityName !== "note").forEach(abilityName => {
@@ -27,11 +27,9 @@ const AbilitiesSection = props => {
     }, [ props.hero ]);
 
     useEffect(() => {
-        setGlobal({
-            pptTotals: {
-                ...pptTotals,
-                abilities: total
-            }
+        setPptTotals({
+            ...pptTotals,
+            abilities: total
         });
     }, [ total ])
 

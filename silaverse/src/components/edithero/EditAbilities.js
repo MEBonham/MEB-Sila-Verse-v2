@@ -7,8 +7,6 @@ import EditSingleAbility from './EditSingleAbility';
 const EditAbilities = () => {
 
     const { inputs, handleInputChange, abilitiesInfo } = useContext(EditMultiformContext);
-    
-    // const noteVal = (abilitiesInfo && abilitiesInfo.note) ? abilitiesInfo.note : "";
 
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
     useEffect(() => {

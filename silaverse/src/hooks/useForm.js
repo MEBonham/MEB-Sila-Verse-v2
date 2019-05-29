@@ -12,9 +12,10 @@ const useForm = cb => {
 
     const handleInputChange = ev => {
         ev.persist();
+        const value = (ev.target.type === "checkbox") ? ev.target.checked : ev.target.value;
         setInputs(inputs => ({
             ...inputs,
-            [ev.target.id]: ev.target.value
+            [ev.target.id]: value
         }));
     }
 

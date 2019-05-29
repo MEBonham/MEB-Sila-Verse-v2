@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
 
 import AbilitiesSection from './AbilitiesSection';
+import PowersSection from './PowersSection';
 
 const CharSheet = props => {
 
@@ -34,6 +35,7 @@ const CharSheet = props => {
                     <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
                 </header>
                 <AbilitiesSection hero={thisHero} />
+                <PowersSection hero={thisHero} />
             </section>
         );
     } else {

@@ -26,6 +26,7 @@ db.collection("heroes").get()
             const hero = doc.data();
             hero.id = doc.id;
             hero.abilities = JSON.parse(doc.data().abilities);
+            hero.powers = JSON.parse(doc.data().powers);
             heroLib.push(hero);
         });
         setGlobal({
