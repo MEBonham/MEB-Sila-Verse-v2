@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useContext } from 'reactn';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
 
@@ -17,6 +17,7 @@ const EditSinglePower = props => {
                         alt="Delete Power"
                         onClick={props.handleDeletePower}
                         className="delete-power-button"
+                        id={`power-${props.powerNum}-delete`}
                         index={props.powerNum}
                     />
                 </div>
@@ -29,7 +30,7 @@ const EditSinglePower = props => {
                         checked={inputs[`power-${props.powerNum}-device`] || false}
                     />
                 </div>
-                <div>
+                <div className="for-name">
                     <label htmlFor={`power-${props.powerNum}-name`}>Name</label>
                     <input
                         type="text"
@@ -39,7 +40,7 @@ const EditSinglePower = props => {
                         required
                     />
                 </div>
-                <div>
+                <div className="for-cost">
                     <label htmlFor={`power-${props.powerNum}-cost`}>Power Point Cost</label>
                     <input
                         type="text"
@@ -49,7 +50,7 @@ const EditSinglePower = props => {
                         required
                     />
                 </div>
-                <div>
+                <div className="for-desc">
                     <label htmlFor={`power-${props.powerNum}-desc`}>Descriptors</label>
                     <input
                         type="text"
@@ -68,7 +69,7 @@ const EditSinglePower = props => {
                         placeholder="Damage 10"
                         required
                         rows="4"
-                        cols="70"
+                        cols="60"
                     />
                 </div>
             </div>

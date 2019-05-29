@@ -11,52 +11,74 @@ const EditPowers = () => {
     const uuidv1 = require('uuid/v1');
 
     const { inputs, setInputs, handleInputChange, powerInfo, powerCount, setPowerCount, totalPowersCost } = useContext(EditMultiformContext);
-    const [ editedPowers, setEditedPowers ] = useState(powerInfo || []);
     const [ powerList, setPowerList ] = useState();
+    const [ addPowerCooldown, setAddPowerCooldown ] = useState(false);
 
-    const stateToInputsFlow = () => {
+    const stateToInputsFlow = stateObject => {
         const inputsCopy = JSON.parse(JSON.stringify(inputs));
         inputsCopy.totalPowersCost = totalPowersCost;
         for (let i = 0; i < powerCount; i++) {
-            Object.keys(editedPowers[i]).forEach(key => {
+            Object.keys(stateObject[i]).forEach(key => {
                 const str = `power-${i}-${key}`;
-                inputsCopy[str] = editedPowers[i][key];
-            });
+                inputsCopy[str] = stateObject[i][key];
+            })
         }
-        setInputs({
-            ...inputs,
-            ...inputsCopy
-        });
+        return inputsCopy;
+    }
+
+    const inputsToStateFlow = () => {
+        const editedPowersCopy = [];
+        for (let i = 0; i < powerCount; i++) {
+            editedPowersCopy.push({});
+            editedPowersCopy[i].name = inputs[`power-${i}-name`] || "";
+            editedPowersCopy[i].device = inputs[`power-${i}-device`] || false;
+            editedPowersCopy[i].cost = inputs[`power-${i}-cost`] || "";
+            editedPowersCopy[i].desc = inputs[`power-${i}-desc`] || "";
+            editedPowersCopy[i].details = inputs[`power-${i}-details`] || "";
+        }
+        return editedPowersCopy;
     }
 
     useEffect(() => {
-        if (Array.isArray(editedPowers)) {
-            setPowerList(editedPowers.map((power, i) => (
-                <EditSinglePower key={uuidv1()} powerNum={i} power={power} handleDeletePower={handleDeletePower} />
-            )));
-        }
-    }, [ powerCount ]);
+        setPowerList(powerInfo.map((power, i) => (
+            <EditSinglePower key={uuidv1()} powerNum={i} power={power} handleDeletePower={handleDeletePower} />
+        )));
+        setInputs(stateToInputsFlow(powerInfo));
+    }, [ powerInfo ]);
 
     useEffect(() => {
-        setEditedPowers(powerInfo);
-        stateToInputsFlow();
+        setInputs(stateToInputsFlow(powerInfo));
     }, [ powerInfo, totalPowersCost ])
 
+    useEffect(() => {
+        console.log(powerCount);
+    }, [ powerCount ]);
+
     const handleAddPower = () => {
-        if (Array.isArray(editedPowers)) {
-            setEditedPowers([
-                ...editedPowers,
-                {}
-            ]);
+        if (!addPowerCooldown) {
+            const powersCopy = inputsToStateFlow();
+            powersCopy.push({});
+            setPowerCount(powerCount + 1);
+            setPowerList(powersCopy.map((power, i) => (
+                <EditSinglePower key={uuidv1()} powerNum={i} power={power} handleDeletePower={handleDeletePower} />
+            )));
+            setInputs(stateToInputsFlow(powersCopy));
+            setAddPowerCooldown(true);
+            setTimeout(() => {
+                setAddPowerCooldown(false);
+            }, 2000);
         }
-        setPowerCount(powerCount + 1);
     }
 
     const handleDeletePower = ev => {
-        const powersCopy = editedPowers;
-        powersCopy.splice(ev.target.index, 1);
-        setEditedPowers(powersCopy);
-        setPowerCount(powerCount - 1);
+        console.log(powerCount);
+        // const arrAroundIndex = ev.target.id.split("-");
+        // const index = parseInt(arrAroundIndex[1]);
+        // const powersCopy = inputsToStateFlow();
+        // const tempCount = powerCount - 1;
+        // setPowerCount(tempCount);
+        // powersCopy.splice(index, 1);
+        // setInputs(stateToInputsFlow(powersCopy));
     }
 
     return(
@@ -70,7 +92,7 @@ const EditPowers = () => {
                 value={inputs.totalPowersCost || 0}
             />
             {powerList}
-            <div className="add-power">
+            <div className={addPowerCooldown ? "add-power disabled" : "add-power"}>
                 <img src={addIcon} alt="Add Power" onClick={handleAddPower} />
                 <p>Add new power to hero</p>
             </div>
