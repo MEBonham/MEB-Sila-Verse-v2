@@ -10,28 +10,45 @@ const EditPowers = () => {
 
     const uuidv1 = require('uuid/v1');
 
-    const { inputs, handleInputChange, powersInfo, powerCount, setPowerCount } = useContext(EditMultiformContext);
-    const [ editedPowers, setEditedPowers ] = useState(powersInfo || []);
+    const { inputs, setInputs, handleInputChange, powerInfo, powerCount, setPowerCount, totalPowersCost } = useContext(EditMultiformContext);
+    const [ editedPowers, setEditedPowers ] = useState(powerInfo || []);
     const [ powerList, setPowerList ] = useState();
 
-    // if (powersInfo) {
-    //     powerCount = powersInfo.length;
-    // } else {
-    //     powerCount = 0;
-    // }
-    // const [ refreshFlag, setRefreshFlag ] = useState(0);
+    const stateToInputsFlow = () => {
+        const inputsCopy = JSON.parse(JSON.stringify(inputs));
+        inputsCopy.totalPowersCost = totalPowersCost;
+        for (let i = 0; i < powerCount; i++) {
+            Object.keys(editedPowers[i]).forEach(key => {
+                const str = `power-${i}-${key}`;
+                inputsCopy[str] = editedPowers[i][key];
+            });
+        }
+        setInputs({
+            ...inputs,
+            ...inputsCopy
+        });
+    }
 
     useEffect(() => {
-        setPowerList(editedPowers.map((power, i) => (
-            <EditSinglePower key={uuidv1()} powerNum={i} power={power} handleDeletePower={handleDeletePower} />
-        )));
+        if (Array.isArray(editedPowers)) {
+            setPowerList(editedPowers.map((power, i) => (
+                <EditSinglePower key={uuidv1()} powerNum={i} power={power} handleDeletePower={handleDeletePower} />
+            )));
+        }
     }, [ powerCount ]);
 
+    useEffect(() => {
+        setEditedPowers(powerInfo);
+        stateToInputsFlow();
+    }, [ powerInfo, totalPowersCost ])
+
     const handleAddPower = () => {
-        setEditedPowers([
-            ...editedPowers,
-            {}
-        ]);
+        if (Array.isArray(editedPowers)) {
+            setEditedPowers([
+                ...editedPowers,
+                {}
+            ]);
+        }
         setPowerCount(powerCount + 1);
     }
 

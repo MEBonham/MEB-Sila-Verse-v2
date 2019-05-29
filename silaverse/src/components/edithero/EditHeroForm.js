@@ -26,6 +26,7 @@ const EditHeroForm = props => {
     const [ abilitiesInfo, setAbilitiesInfo ] = useState({});
     const [ powerCount, setPowerCount ] = useState(0);
     const [ powerInfo, setPowerInfo ] = useState([]);
+    const [ totalPowersCost, setTotalPowersCost ] = useState(0);
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -45,7 +46,8 @@ const EditHeroForm = props => {
                             });
                             setAbilitiesInfo(JSON.parse(doc.data().abilities));
                             setPowerInfo(JSON.parse(doc.data().powers));
-                            setPowerCount(powerInfo.length);
+                            setPowerCount(JSON.parse(doc.data().powers).length);
+                            setTotalPowersCost(doc.data().totalPowersCost);
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -60,7 +62,6 @@ const EditHeroForm = props => {
     }, [ urlid ]);
 
     const sendInfo = () => {
-        console.log(inputs);
         const inputsCopy = fixBlankInputFields(inputs, powerCount);
         db.collection("heroes").where("urlid", "==", urlid)
             .get()
@@ -121,7 +122,7 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        <EditProvider value={{inputs, handleInputChange, abilitiesInfo, powerInfo, powerCount, setPowerCount}}>
+        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, powerCount, setPowerCount, totalPowersCost}}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>

@@ -143,7 +143,7 @@
 }
 
 .char-sheet .device-shadow {
-    box-shadow: 0 0 14px gray;
+    box-shadow: 0 0 6px black;
 }
 
 .char-sheet .power-display h3 {
