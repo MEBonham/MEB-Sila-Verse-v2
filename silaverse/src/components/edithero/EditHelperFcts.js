@@ -1,7 +1,7 @@
-export const packageHeroForDB = (inputs, powerCount) => {
-    const powersArray = [];
+export const inputsToStateFlow = (inputs, powerCount) => {
+    const powersCopy = [];
     for (let i = 0; i < powerCount; i++) {
-        powersArray.push({
+        powersCopy.push({
             name: inputs[`power-${i}-name`],
             device: inputs[`power-${i}-device`],
             cost: inputs[`power-${i}-cost`],
@@ -9,6 +9,23 @@ export const packageHeroForDB = (inputs, powerCount) => {
             details: inputs[`power-${i}-details`],
         });
     }
+    return powersCopy;
+}
+
+export const stateToInputsFlow = (stateArray, inputs) => {
+    const inputsCopy = JSON.parse(JSON.stringify(inputs));
+    // inputsCopy.totalPowersCost = totalPowersCost;
+    for (let i = 0; i < stateArray.length; i++) {
+        Object.keys(stateArray[i]).forEach(key => {
+            const str = `power-${i}-${key}`;
+            inputsCopy[str] = stateArray[i][key];
+        })
+    }
+    return inputsCopy;
+}
+
+export const packageHeroForDB = (inputs, powerCount) => {
+    const powersArray = inputsToStateFlow(inputs, powerCount);
     return {
         urlid: inputs.urlid,
         name: inputs.name,
