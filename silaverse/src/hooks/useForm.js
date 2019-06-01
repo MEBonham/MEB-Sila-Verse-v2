@@ -1,7 +1,7 @@
 import { useState } from 'reactn';
 
 const useForm = cb => {
-    const [inputs, setInputs] = useState({});
+    const [ inputs, setInputs ] = useState({});
 
     const handleSubmit = ev => {
         if (ev) {

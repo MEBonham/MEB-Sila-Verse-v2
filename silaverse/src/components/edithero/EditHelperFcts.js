@@ -1,6 +1,8 @@
-export const inputsToStateFlow = (inputs, powerCount) => {
+// export const inputsToStateFlow = (inputs, powerCount) => {
+export const inputsToStateFlow = (inputs) => {
     const powersCopy = [];
-    for (let i = 0; i < powerCount; i++) {
+    console.log(inputs);
+    for (let i = 0; i < inputs.powerCount; i++) {
         powersCopy.push({
             name: inputs[`power-${i}-name`],
             device: inputs[`power-${i}-device`],
@@ -9,12 +11,14 @@ export const inputsToStateFlow = (inputs, powerCount) => {
             details: inputs[`power-${i}-details`],
         });
     }
+    console.log(JSON.stringify(powersCopy));
     return powersCopy;
 }
 
 export const stateToInputsFlow = (stateArray, inputs) => {
     const inputsCopy = JSON.parse(JSON.stringify(inputs));
     // inputsCopy.totalPowersCost = totalPowersCost;
+    console.log(stateArray);
     for (let i = 0; i < stateArray.length; i++) {
         Object.keys(stateArray[i]).forEach(key => {
             const str = `power-${i}-${key}`;
@@ -24,8 +28,10 @@ export const stateToInputsFlow = (stateArray, inputs) => {
     return inputsCopy;
 }
 
-export const packageHeroForDB = (inputs, powerCount) => {
-    const powersArray = inputsToStateFlow(inputs, powerCount);
+// export const packageHeroForDB = (inputs, powerCount) => {
+export const packageHeroForDB = (inputs) => {
+    // const powersArray = inputsToStateFlow(inputs, powerCount);
+    const powersArray = inputsToStateFlow(inputs);
     return {
         urlid: inputs.urlid,
         name: inputs.name,
@@ -68,7 +74,9 @@ export const packageHeroForDB = (inputs, powerCount) => {
             note: inputs.abilitiesNote
         }),
         totalPowersCost: inputs.totalPowersCost,
-        powers: JSON.stringify(powersArray)
+        powers: JSON.stringify(powersArray),
+        totalAdvantagesCost: inputs.totalAdvantagesCost,
+        advantagesList: inputs.advantagesList
     }
 };
 
@@ -83,7 +91,8 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     };
 }
 
-export const fixBlankInputFields = (inputs, powerCount) => {
+// export const fixBlankInputFields = (inputs, powerCount) => {
+export const fixBlankInputFields = (inputs) => {
     const fixedInputs = { ...inputs };
     if (!inputs.identity) {
         fixedInputs.identity = "";
@@ -100,10 +109,16 @@ export const fixBlankInputFields = (inputs, powerCount) => {
     if (!inputs.totalPowersCost) {
         fixedInputs.totalPowersCost = 0;
     }
-    for (let i = 0; i < powerCount; i++) {
+    for (let i = 0; i < inputs.powerCount; i++) {
         if (inputs[`power-${i}-device`] === undefined) {
             fixedInputs[`power-${i}-device`] = false;
         }
+    }
+    if (!inputs.totalAdvantagesCost) {
+        fixedInputs.totalAdvantagesCost = 0;
+    }
+    if (!inputs.advantagesList) {
+        fixedInputs.advantagesList = "";
     }
     return fixedInputs;
 }

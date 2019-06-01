@@ -16,15 +16,18 @@ const EditPowers = () => {
         setInputs,
         handleInputChange,
         powerInfo,
-        powerCount,
-        setPowerCount,
+        // powerCount,
+        // setPowerCount,
         totalPowersCost
     } = useContext(EditMultiformContext);
+    // console.log(inputs);
     const [ powersToRender, setPowersToRender ] = useState();
     const [ addPowerCooldown, setAddPowerCooldown ] = useState(false);
 
     useEffect(() => {
-        setPowerCount(powerInfo.length);
+        console.log(powerInfo);
+        // setPowerCount(powerInfo.length);
+        inputs.powerCount = powerInfo.length;
         setPowersToRender(powerInfo.map((power, i) => (
             <EditSinglePower
                 key={uuidv1()}
@@ -37,21 +40,27 @@ const EditPowers = () => {
     }, [ powerInfo ]);
 
     useEffect(() => {
-        setInputs({
-            ...inputs,
-            totalPowersCost: totalPowersCost
-        });
-    }, [ totalPowersCost ])
+        console.log(inputs);
+    }, [ inputs ]);
 
-    useEffect(() => {
-        console.log(powerCount);
-    }, [ powerCount ]);
+    // useEffect(() => {
+    //     setInputs({
+    //         ...inputs,
+    //         totalPowersCost: totalPowersCost
+    //     });
+    // }, [ totalPowersCost ])
+
+    // useEffect(() => {
+    //     console.log(powerCount);
+    // }, [ powerCount ]);
 
     const handleAddPower = () => {
         if (!addPowerCooldown) {
-            const powersCopy = inputsToStateFlow(inputs, powerCount);
+            // const powersCopy = inputsToStateFlow(inputs, powerCount);
+            const powersCopy = inputsToStateFlow(inputs);
             powersCopy.push({});
-            setPowerCount(powerCount + 1);
+            // setPowerCount(powerCount => powerCount + 1);
+            inputs.powerCount += 1;
             setPowersToRender(powersCopy.map((power, i) => (
                 <EditSinglePower
                     key={uuidv1()}
@@ -69,13 +78,18 @@ const EditPowers = () => {
     }
 
     const handleDeletePower = ev => {
-        console.log(powerCount);
+        console.log(inputs);
+        // console.log(powerCount);
         if (window.confirm("Are you sure you want to delete this power?")) {
             const arrAroundIndex = ev.target.id.split("-");
             const index = parseInt(arrAroundIndex[1]);
-            const powersCopy = inputsToStateFlow(inputs, powerCount);
-            setPowerCount(powerCount - 1);
+            // const powersCopy = inputsToStateFlow(inputs, powerCount);
+            const powersCopy = inputsToStateFlow(inputs);
+            console.log(powersCopy);
+            // setPowerCount(powerCount => powerCount - 1);
+            inputs.powerCount -= 1;
             powersCopy.splice(index, 1);
+            console.log(powersCopy);
             setPowersToRender(powersCopy.map((power, i) => (
                 <EditSinglePower
                     key={uuidv1()}
@@ -90,7 +104,7 @@ const EditPowers = () => {
 
     return(
         <section className="powers">
-            <h2>Powers ({powerCount})</h2>
+            <h2>Powers ({inputs.powerCount})</h2>
             <label htmlFor="totalPowersCost">Total Cost of Powers</label>
             <input
                 type="number"
