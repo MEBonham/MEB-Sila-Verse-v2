@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'reactn';
 
-import EditMultiformContext from '../../hooks/EditMultiformContext';
+import NewMultiformContext from '../../hooks/NewMultiformContext';
 
-const EditAdvantages = () => {
+const NewAdvantages = () => {
 
-    const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(EditMultiformContext);
+    const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(NewMultiformContext);
 
     useEffect(() => {
         if (advantagesInfo) {
@@ -41,4 +41,4 @@ const EditAdvantages = () => {
     );
 }
 
-export default EditAdvantages;
+export default NewAdvantages;

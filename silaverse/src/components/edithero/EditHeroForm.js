@@ -25,9 +25,9 @@ const EditHeroForm = props => {
     const [ prevHeroes, setPrevHeroes ] = useGlobal("heroes");
 
     const [ abilitiesInfo, setAbilitiesInfo ] = useState({});
-    // const [ powerCount, setPowerCount ] = useState();
     const [ powerInfo, setPowerInfo ] = useState([]);
     const [ totalPowersCost, setTotalPowersCost ] = useState(0);
+    const [ advantagesInfo, setAdvantagesInfo ] = useState({});
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -47,8 +47,11 @@ const EditHeroForm = props => {
                             });
                             setAbilitiesInfo(JSON.parse(doc.data().abilities));
                             setPowerInfo(JSON.parse(doc.data().powers));
-                            // setPowerCount(JSON.parse(doc.data().powers).length);
                             setTotalPowersCost(doc.data().totalPowersCost);
+                            setAdvantagesInfo({
+                                advantagesList: doc.data().advantagesList,
+                                totalAdvantagesCost: doc.data().totalAdvantagesCost
+                            });
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -123,7 +126,7 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost}}>
+        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost, advantagesInfo}}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>

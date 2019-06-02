@@ -20,6 +20,10 @@ export const stateToInputsFlow = (stateArray, inputs) => {
             inputsCopy[str] = stateArray[i][key];
         })
     }
+    [ 'name', 'device', 'cost', 'dexc', 'details' ].forEach(key => {
+        const str = `power-${stateArray.length}-${key}`;
+        delete inputsCopy[str];
+    })
     return inputsCopy;
 }
 

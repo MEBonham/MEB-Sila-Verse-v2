@@ -62,9 +62,15 @@
     margin-top: 15px;
 }
 
+.char-sheet-envelope {
+    width: 72%;
+    height: calc(100% - 2.6rem - 10px);
+    overflow-y: auto;
+}
+
 .char-sheet {
-    width: 68%;
-    margin: 10px auto;
+    width: 94%;
+    margin: 20px auto;
     padding: 24px 3%;
     background: #b59f82;
     border-radius: 8px;
@@ -156,6 +162,18 @@
 .char-sheet .power-display .power-details {
     margin: 10px 0 6px;
     font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.char-sheet .power-display .power-details p {
+    margin: 10px 0;
+}
+
+.char-sheet .advantages-list {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    font-weight: bold;
 }
 
 .hero-info-form-envelope {
@@ -292,6 +310,7 @@
 }
 
 .hero-info-form .add-power .disabled {
+    background: blue;
     opacity: 0.5;
 }
 
@@ -300,7 +319,7 @@
 }
 
 .hero-info-form .submit-button {
-    margin-bottom: 20px;
+    margin: 24px auto;
 }
 
 .login-form {

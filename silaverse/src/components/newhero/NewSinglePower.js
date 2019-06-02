@@ -1,12 +1,12 @@
 import React, { useContext } from 'reactn';
 
-import EditMultiformContext from '../../hooks/EditMultiformContext';
+import NewMultiformContext from '../../hooks/NewMultiformContext';
 
 import deleteIcon from '../../images/delete-icon.png';
 
-const EditSinglePower = props => {
+const NewSinglePower = props => {
     
-    const { inputs, handleInputChange } = useContext(EditMultiformContext);
+    const { inputs, handleInputChange } = useContext(NewMultiformContext);
 
     if (props.power) {
         return(
@@ -79,4 +79,4 @@ const EditSinglePower = props => {
     }
 }
 
-export default EditSinglePower;
+export default NewSinglePower;

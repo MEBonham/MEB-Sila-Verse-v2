@@ -7,6 +7,8 @@ import { NewProvider } from '../../hooks/NewMultiformContext';
 
 import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from '../edithero/EditHelperFcts';
 import NewAbilities from './NewAbilities';
+import NewPowers from './NewPowers';
+import NewAdvantages from './NewAdvantages';
 
 const NewHeroForm = props => {
 
@@ -27,6 +29,8 @@ const NewHeroForm = props => {
         pre: {},
         note: ""
     });
+    const [ powerInfo ] = useState([]);
+    const [ totalPowersCost ] = useState(0);
 
     const [ prevHeroes, setHeroes ] = useGlobal("heroes");
     const sendInfo = () => {
@@ -57,10 +61,10 @@ const NewHeroForm = props => {
             });
     }
 
-    const { inputs, handleInputChange, handleSubmit } = useForm(sendInfo);
+    const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
     
     return(
-        <NewProvider value={{inputs, handleInputChange, abilitiesInfo}}>
+        <NewProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost}}>
             <section className="hero-info-form-envelope">
                 <form className="hero-info-form" onSubmit={handleSubmit}>
                     <header>
@@ -107,7 +111,9 @@ const NewHeroForm = props => {
                         />
                     </header>
                     <NewAbilities />
-                    <button type="submit">Create New Hero</button>
+                    <NewPowers />
+                    <NewAdvantages />
+                    <button type="submit" className="submit-button">Create New Hero</button>
                 </form>
             </section>
         </NewProvider>

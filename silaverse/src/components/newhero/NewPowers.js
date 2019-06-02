@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext, useRef } from 'reactn';
 
-import EditMultiformContext from '../../hooks/EditMultiformContext';
+import NewMultiformContext from '../../hooks/NewMultiformContext';
 
 import addIcon from '../../images/add-icon.png';
 
-import { inputsToStateFlow, stateToInputsFlow } from './EditHelperFcts';
-import EditSinglePower from './EditSinglePower';
+import { inputsToStateFlow, stateToInputsFlow } from '../edithero/EditHelperFcts';
+import NewSinglePower from './NewSinglePower';
 
-const EditPowers = () => {
+const NewPowers = () => {
 
     const uuidv1 = require('uuid/v1');
 
@@ -17,7 +17,7 @@ const EditPowers = () => {
         handleInputChange,
         powerInfo,
         totalPowersCost
-    } = useContext(EditMultiformContext);
+    } = useContext(NewMultiformContext);
     const [ powersToRender, setPowersToRender ] = useState();
 
     const addPowerCooldown = useRef(false);
@@ -28,16 +28,18 @@ const EditPowers = () => {
     });
 
     useEffect(() => {
-        inputs.powerCount = powerInfo.length;
-        setPowersToRender(powerInfo.map((power, i) => (
-            <EditSinglePower
-                key={uuidv1()}
-                powerNum={i}
-                power={power}
-                handleDeletePower={handleDeletePower}
-            />
-        )));
-        setInputs(stateToInputsFlow(powerInfo, inputs));
+        if (powerInfo) {
+            inputs.powerCount = powerInfo.length;
+            setPowersToRender(powerInfo.map((power, i) => (
+                <NewSinglePower
+                    key={uuidv1()}
+                    powerNum={i}
+                    power={power}
+                    handleDeletePower={handleDeletePower}
+                />
+            )));
+            setInputs(stateToInputsFlow(powerInfo, inputs));
+        }
     }, [ powerInfo ]);
 
     useEffect(() => {
@@ -53,7 +55,7 @@ const EditPowers = () => {
             powersCopy.push({});
             latestInputs.current.powerCount += 1;
             setPowersToRender(powersCopy.map((power, i) => (
-                <EditSinglePower
+                <NewSinglePower
                     key={uuidv1()}
                     powerNum={i}
                     power={power}
@@ -76,7 +78,7 @@ const EditPowers = () => {
             latestInputs.current.powerCount -= 1;
             powersCopy.splice(index, 1);
             setPowersToRender(powersCopy.map((power, i) => (
-                <EditSinglePower
+                <NewSinglePower
                     key={uuidv1()}
                     powerNum={i}
                     power={power}
@@ -106,4 +108,4 @@ const EditPowers = () => {
     );
 }
 
-export default EditPowers;
+export default NewPowers;
