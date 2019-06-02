@@ -63,7 +63,6 @@ const EditHeroForm = props => {
     }, [ urlid ]);
 
     const sendInfo = () => {
-        // const inputsCopy = fixBlankInputFields(inputs, powerCount);
         const inputsCopy = fixBlankInputFields(inputs);
         db.collection("heroes").where("urlid", "==", urlid)
             .get()
@@ -72,7 +71,6 @@ const EditHeroForm = props => {
                     console.log("Cannot find hero matching this page's URL.");
                 } else {
                     const heroId = querySnapshot.docs[0].id;
-                    // const editedHero = packageHeroForDB(inputsCopy, powerCount);
                     const editedHero = packageHeroForDB(inputsCopy);
                     db.collection("heroes").doc(heroId)
                         .set(editedHero)
@@ -125,7 +123,6 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        // <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, powerCount, setPowerCount, totalPowersCost}}>
         <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost}}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />

@@ -116,7 +116,7 @@
     margin-bottom: 8px;
 }
 
-.char-sheet section p {
+.char-sheet section > p {
     font-size: 1.4rem;
     margin-bottom: 2px;
 }
@@ -126,6 +126,11 @@
     border-radius: 4px;
     background: #917755;
     box-shadow: 0 0 6px black;
+}
+
+.char-sheet .device-shadow {
+    border: 1px #aaaaaa solid;
+    box-shadow: 0 0 7px black;
 }
 
 .char-sheet .power-display .power-heading {
@@ -143,17 +148,13 @@
     font-style: italic;
 }
 
-.char-sheet .device-shadow {
-    border: 1px #aaaaaa solid;
-    box-shadow: 0 0 7px black;
-}
-
 .char-sheet .power-display h3 {
+    margin-top: 4px;
     font-size: 1.8rem;
 }
 
 .char-sheet .power-display .power-details {
-    margin: 10px 0;
+    margin: 10px 0 6px;
     font-size: 1.4rem;
 }
 
@@ -223,12 +224,13 @@
 
 .hero-info-form .powers .power-div {
     width: 96%;
-    margin: 8px 0;
+    margin: 8px 0 12px;
     padding: 10px 2% 0;
     display: flex;
     flex-wrap: wrap;
     background: #bbbbbb;
     border-radius: 4px;
+    box-shadow: 0 0 6px black;
 }
 
 .hero-info-form .powers .power-div > div {
@@ -289,7 +291,7 @@
     cursor: pointer;
 }
 
-.hero-info-form .add-power .disabled img {
+.hero-info-form .add-power .disabled {
     opacity: 0.5;
 }
 

@@ -36,7 +36,6 @@ const PowersSection = props => {
                     </div>
                     <p className="lesser-note">{power.desc}</p>
                     {detailsArray[i]}
-                    {/* {detailsArray[i].getElementsByTagName('body').toString()} */}
                 </section>
             ))}
         </section>

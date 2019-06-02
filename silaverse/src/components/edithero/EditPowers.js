@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'reactn';
+import React, { useState, useEffect, useContext, useRef } from 'reactn';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
 
@@ -16,17 +16,18 @@ const EditPowers = () => {
         setInputs,
         handleInputChange,
         powerInfo,
-        // powerCount,
-        // setPowerCount,
         totalPowersCost
     } = useContext(EditMultiformContext);
-    // console.log(inputs);
     const [ powersToRender, setPowersToRender ] = useState();
-    const [ addPowerCooldown, setAddPowerCooldown ] = useState(false);
+
+    const addPowerCooldown = useRef(false);
+    
+    const latestInputs = useRef({});
+    useEffect(() => {
+        latestInputs.current = inputs;
+    });
 
     useEffect(() => {
-        console.log(powerInfo);
-        // setPowerCount(powerInfo.length);
         inputs.powerCount = powerInfo.length;
         setPowersToRender(powerInfo.map((power, i) => (
             <EditSinglePower
@@ -40,26 +41,16 @@ const EditPowers = () => {
     }, [ powerInfo ]);
 
     useEffect(() => {
-        console.log(inputs);
-    }, [ inputs ]);
-
-    // useEffect(() => {
-    //     setInputs({
-    //         ...inputs,
-    //         totalPowersCost: totalPowersCost
-    //     });
-    // }, [ totalPowersCost ])
-
-    // useEffect(() => {
-    //     console.log(powerCount);
-    // }, [ powerCount ]);
+        setInputs(inputs => ({
+            ...inputs,
+            totalPowersCost: totalPowersCost
+        }));
+    }, [ totalPowersCost ])
 
     const handleAddPower = () => {
-        if (!addPowerCooldown) {
-            // const powersCopy = inputsToStateFlow(inputs, powerCount);
-            const powersCopy = inputsToStateFlow(inputs);
+        if (!addPowerCooldown.current) {
+            const powersCopy = inputsToStateFlow(latestInputs.current);
             powersCopy.push({});
-            // setPowerCount(powerCount => powerCount + 1);
             inputs.powerCount += 1;
             setPowersToRender(powersCopy.map((power, i) => (
                 <EditSinglePower
@@ -70,26 +61,22 @@ const EditPowers = () => {
                 />
             )));
             setInputs(stateToInputsFlow(powersCopy, inputs));
-            setAddPowerCooldown(true);
+            // setAddPowerCooldown(true);
+            addPowerCooldown.current = true;
             setTimeout(() => {
-                setAddPowerCooldown(false);
+                addPowerCooldown.current = false;
             }, 2000);
         }
     }
 
     const handleDeletePower = ev => {
-        console.log(inputs);
-        // console.log(powerCount);
         if (window.confirm("Are you sure you want to delete this power?")) {
             const arrAroundIndex = ev.target.id.split("-");
             const index = parseInt(arrAroundIndex[1]);
-            // const powersCopy = inputsToStateFlow(inputs, powerCount);
-            const powersCopy = inputsToStateFlow(inputs);
-            console.log(powersCopy);
-            // setPowerCount(powerCount => powerCount - 1);
-            inputs.powerCount -= 1;
+            console.log(index);
+            const powersCopy = inputsToStateFlow(latestInputs.current);
+            latestInputs.current.powerCount -= 1;
             powersCopy.splice(index, 1);
-            console.log(powersCopy);
             setPowersToRender(powersCopy.map((power, i) => (
                 <EditSinglePower
                     key={uuidv1()}
@@ -98,13 +85,13 @@ const EditPowers = () => {
                     handleDeletePower={handleDeletePower}
                 />
             )));
-            setInputs(stateToInputsFlow(powersCopy, inputs));
+            setInputs(stateToInputsFlow(powersCopy, latestInputs.current));
         }
     }
 
     return(
         <section className="powers">
-            <h2>Powers ({inputs.powerCount})</h2>
+            <h2>Powers ({latestInputs.current.powerCount})</h2>
             <label htmlFor="totalPowersCost">Total Cost of Powers</label>
             <input
                 type="number"
@@ -113,7 +100,7 @@ const EditPowers = () => {
                 value={inputs.totalPowersCost || 0}
             />
             {powersToRender}
-            <div className={addPowerCooldown ? "add-power disabled" : "add-power"}>
+            <div className={addPowerCooldown.current ? "add-power disabled" : "add-power"}>
                 <img src={addIcon} alt="Add Power" onClick={handleAddPower} />
                 <p>Add new power to hero</p>
             </div>
