@@ -139,7 +139,7 @@
 .char-sheet .advantages .languages {
     padding: 5px 2%;
     border-radius: 4px;
-    background: #a38552;
+    background: #b4996a;
     box-shadow: 0 0 6px black;
 }
 
@@ -181,8 +181,6 @@
     text-decoration: underline;
 }
 
-
-
 .char-sheet .power-display .power-details {
     margin: 10px 0 6px;
     font-size: 1.4rem;
@@ -216,7 +214,7 @@
 .char-sheet .advantages .equipment {
     padding: 5px 2%;
     border-radius: 4px;
-    background: #a38552;
+    background: #b4996a;
     border: 1px #aaaaaa solid;
     box-shadow: 0 0 7px black;
 }
