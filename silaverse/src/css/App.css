@@ -176,12 +176,17 @@
     margin: 10px 0;
 }
 
+.char-sheet .power-display .power-details p.with-ul {
+    margin: 10px 0 3px;
+}
+
 .char-sheet .power-display .power-details ul {
     margin: 0;
 }
 
 .char-sheet .power-display .power-details li {
-    margin-left: 20px;
+    margin: 2px 0 2px 20px;
+    line-height: 1.2;
 }
 
 .char-sheet .advantages-list {
