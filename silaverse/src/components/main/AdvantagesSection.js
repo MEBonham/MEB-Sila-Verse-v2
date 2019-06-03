@@ -19,12 +19,30 @@ const AdvantagesSection = props => {
     }
 
     const parse = require('html-react-parser');
-    const cleaned = DOMPurify.sanitize(`<div class="advantages-list">${props.hero.advantagesList}</div>`);
+    const cleanedAdvantages = DOMPurify.sanitize(`<div class="advantages-list">${props.hero.advantagesList}</div>`);
+    const cleanedEquipment = DOMPurify.sanitize(`<div>${props.hero.equipmentInfo}</div>`);
+    const cleanedLanguages = DOMPurify.sanitize(`<div>${props.hero.languages}</div>`);
+    
+    const equipmentSection = (props.hero.equipmentInfo !== "") ?
+        (<section className="equipment">
+            <h3>Equipment [{props.hero.totalEquipmentCost} ep]</h3>
+            {parse(cleanedEquipment)}
+        </section>) :
+        null;
+    
+    const languagesSection = (props.hero.languages !== "") ?
+        (<section className="languages">
+            <h3>Languages</h3>
+            {parse(cleanedLanguages)}
+        </section>) :
+        null;
 
     return(
-        <section>
+        <section className="advantages">
             <h2><strong>Advantages</strong> [{total} ppt]</h2>
-            {parse(cleaned)}
+            {parse(cleanedAdvantages)}
+            {equipmentSection}
+            {languagesSection}
         </section>
     );
 }

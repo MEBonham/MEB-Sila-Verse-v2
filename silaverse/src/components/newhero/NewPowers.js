@@ -15,10 +15,10 @@ const NewPowers = () => {
         inputs,
         setInputs,
         handleInputChange,
-        powerInfo,
-        totalPowersCost
+        // powerInfo,
+        // totalPowersCost
     } = useContext(NewMultiformContext);
-    const [ powersToRender, setPowersToRender ] = useState();
+    const [ powersToRender, setPowersToRender ] = useState([]);
 
     const addPowerCooldown = useRef(false);
     
@@ -27,27 +27,27 @@ const NewPowers = () => {
         latestInputs.current = inputs;
     });
 
-    useEffect(() => {
-        if (powerInfo) {
-            inputs.powerCount = powerInfo.length;
-            setPowersToRender(powerInfo.map((power, i) => (
-                <NewSinglePower
-                    key={uuidv1()}
-                    powerNum={i}
-                    power={power}
-                    handleDeletePower={handleDeletePower}
-                />
-            )));
-            setInputs(stateToInputsFlow(powerInfo, inputs));
-        }
-    }, [ powerInfo ]);
+    // useEffect(() => {
+    //     if (powerInfo) {
+    //         inputs.powerCount = powerInfo.length;
+    //         setPowersToRender(powerInfo.map((power, i) => (
+    //             <NewSinglePower
+    //                 key={uuidv1()}
+    //                 powerNum={i}
+    //                 power={power}
+    //                 handleDeletePower={handleDeletePower}
+    //             />
+    //         )));
+    //         setInputs(stateToInputsFlow(powerInfo, inputs));
+    //     }
+    // }, [ powerInfo ]);
 
-    useEffect(() => {
-        setInputs(inputs => ({
-            ...inputs,
-            totalPowersCost: totalPowersCost
-        }));
-    }, [ totalPowersCost ])
+    // useEffect(() => {
+    //     setInputs(inputs => ({
+    //         ...inputs,
+    //         totalPowersCost: totalPowersCost
+    //     }));
+    // }, [ totalPowersCost ])
 
     const handleAddPower = () => {
         if (!addPowerCooldown.current) {
@@ -91,7 +91,7 @@ const NewPowers = () => {
 
     return(
         <section className="powers">
-            <h2>Powers ({latestInputs.current.powerCount})</h2>
+            <h2>Powers ({latestInputs.current.powerCount || 0})</h2>
             <label htmlFor="totalPowersCost">Total Cost of Powers</label>
             <input
                 type="number"

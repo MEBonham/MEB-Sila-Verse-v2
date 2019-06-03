@@ -29,8 +29,12 @@ const NewHeroForm = props => {
         pre: {},
         note: ""
     });
-    const [ powerInfo ] = useState([]);
-    const [ totalPowersCost ] = useState(0);
+    // const [ powerInfo ] = useState([]);
+    // const [ totalPowersCost ] = useState(0);
+    // const [ advantagesInfo ] = useState({
+    //     totalAdvantagesCost: 0,
+    //     advantagesList: ""
+    // });
 
     const [ prevHeroes, setHeroes ] = useGlobal("heroes");
     const sendInfo = () => {
@@ -64,7 +68,8 @@ const NewHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
     
     return(
-        <NewProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost}}>
+        // <NewProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost, advantagesInfo}}>
+        <NewProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo}}>
             <section className="hero-info-form-envelope">
                 <form className="hero-info-form" onSubmit={handleSubmit}>
                     <header>

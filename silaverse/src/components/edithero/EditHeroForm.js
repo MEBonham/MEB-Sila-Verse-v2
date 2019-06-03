@@ -50,7 +50,10 @@ const EditHeroForm = props => {
                             setTotalPowersCost(doc.data().totalPowersCost);
                             setAdvantagesInfo({
                                 advantagesList: doc.data().advantagesList,
-                                totalAdvantagesCost: doc.data().totalAdvantagesCost
+                                totalAdvantagesCost: doc.data().totalAdvantagesCost,
+                                totalEquipmentCost: doc.data().totalEquipmentCost,
+                                equipmentInfo: doc.data().equipmentInfo,
+                                languagesInfo: doc.data().languages
                             });
                         })
                         .catch(err => {

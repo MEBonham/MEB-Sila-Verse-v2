@@ -73,7 +73,10 @@ export const packageHeroForDB = (inputs) => {
         totalPowersCost: inputs.totalPowersCost,
         powers: JSON.stringify(powersArray),
         totalAdvantagesCost: inputs.totalAdvantagesCost,
-        advantagesList: inputs.advantagesList
+        advantagesList: inputs.advantagesList,
+        totalEquipmentCost: inputs.totalEquipmentCost,
+        equipmentInfo: inputs.equipmentInfo,
+        languages: inputs.languagesInfo
     }
 };
 
@@ -115,6 +118,15 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.advantagesList) {
         fixedInputs.advantagesList = "";
+    }
+    if (!inputs.totalEquipmentCost) {
+        fixedInputs.totalEquipmentCost = 0;
+    }
+    if (!inputs.equipmentInfo) {
+        fixedInputs.equipmentInfo = "";
+    }
+    if (!inputs.languagesInfo) {
+        fixedInputs.languagesInfo = "";
     }
     return fixedInputs;
 }

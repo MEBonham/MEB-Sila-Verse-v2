@@ -7,8 +7,28 @@ import NewSingleAbility from './NewSingleAbility';
 const NewAbilities = () => {
 
     const { inputs, handleInputChange, abilitiesInfo } = useContext(NewMultiformContext);
+    // const { inputs, handleInputChange } = useContext(NewMultiformContext);
 
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
+    // const [ display ] = useState(
+    //     <div className="abilities-div">
+    //         <NewSingleAbility abbr="Str" name="Strength" nums={{}} />
+    //         <NewSingleAbility abbr="Sta" name="Stamina" nums={{}} />
+    //         <NewSingleAbility abbr="Agl" name="Agility" nums={{}} />
+    //         <NewSingleAbility abbr="Dex" name="Dexterity" nums={{}} />
+    //         <NewSingleAbility abbr="Fgt" name="Fighting" nums={{}} />
+    //         <NewSingleAbility abbr="Int" name="Intellect" nums={{}} />
+    //         <NewSingleAbility abbr="Awe" name="Awareness" nums={{}} />
+    //         <NewSingleAbility abbr="Pre" name="Presence" nums={{}} />
+    //         <input
+    //             type="text"
+    //             id="abilitiesNote"
+    //             placeholder="e.g. Load limit 50 lb."
+    //             onChange={handleInputChange}
+    //             value={inputs.abilitiesNote || ""}
+    //         />
+    //     </div>
+    // );
     useEffect(() => {
         if (abilitiesInfo) {
             if (inputs.abilitiesNote === undefined) {
@@ -35,6 +55,7 @@ const NewAbilities = () => {
             );
         }
     }, [ abilitiesInfo, inputs.abilitiesNote ]);
+    // }, [ abilitiesInfo ]);
 
     return(
         <section className="abilities">

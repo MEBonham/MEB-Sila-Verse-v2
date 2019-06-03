@@ -1,20 +1,24 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useContext } from 'reactn';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
 
 const NewAdvantages = () => {
 
-    const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(NewMultiformContext);
+    // const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(NewMultiformContext);
+    const { inputs, handleInputChange } = useContext(NewMultiformContext);
 
-    useEffect(() => {
-        if (advantagesInfo) {
-            setInputs(inputs => ({
-                ...inputs,
-                totalAdvantagesCost: advantagesInfo.totalAdvantagesCost,
-                advantagesList: advantagesInfo.advantagesList
-            }));
-        }
-    }, [ advantagesInfo ]);
+    // useEffect(() => {
+    //     if (advantagesInfo) {
+    //         setInputs(inputs => ({
+    //             ...inputs,
+    //             totalAdvantagesCost: advantagesInfo.totalAdvantagesCost,
+    //             advantagesList: advantagesInfo.advantagesList,
+    //             totalEquipmentCost: advantagesInfo.totalEquipmentCost,
+    //             equipmentInfo: advantagesInfo.equipmentInfo,
+    //             languagesInfo: advantagesInfo.languagesInfo
+    //         }));
+    //     }
+    // }, [ advantagesInfo ]);
 
     return(
         <section className="advantages">
@@ -33,6 +37,35 @@ const NewAdvantages = () => {
                     onChange={handleInputChange}
                     value={inputs.advantagesList || ""}
                     placeholder="Accurate Attack"
+                    rows="6"
+                    cols="70"
+                />
+            </div>
+            <label htmlFor="totalEquipmentCost">Total Equipment Points (ep)</label>
+            <input
+                type="number"
+                id="totalEquipmentCost"
+                onChange={handleInputChange}
+                value={inputs.totalEquipmentCost || 0}
+            />
+            <div className="textarea">
+                <label htmlFor={`equipmentInfo`}>Equipment Information (can include HTML)</label>
+                <textarea
+                    id={`equipmentInfo`}
+                    onChange={handleInputChange}
+                    value={inputs.equipmentInfo || ""}
+                    placeholder={`<ul><li><strong>Commlink &middot;</strong> <span class="lesser-note">1 ep</span><li></ul>`}
+                    rows="6"
+                    cols="70"
+                />
+            </div>
+            <div className="textarea">
+                <label htmlFor={`languagesInfo`}>Languages (can include HTML)</label>
+                <textarea
+                    id={`languagesInfo`}
+                    onChange={handleInputChange}
+                    value={inputs.languagesInfo || ""}
+                    placeholder={`<strong>&middot;</strong> native: <strong>English &middot;</strong>`}
                     rows="6"
                     cols="70"
                 />

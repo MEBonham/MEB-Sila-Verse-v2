@@ -37,8 +37,10 @@ const CharSheet = props => {
                         <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
                     </header>
                     <AbilitiesSection hero={thisHero} />
-                    <PowersSection hero={thisHero} />
-                    <AdvantagesSection hero={thisHero} />
+                    {(thisHero.powers.length) ? <PowersSection hero={thisHero} /> : null}
+                    {(thisHero.advantagesList || thisHero.equipmentInfo || thisHero.languages) ?
+                        <AdvantagesSection hero={thisHero} /> :
+                        null}
                 </section>
             </div>
         );
