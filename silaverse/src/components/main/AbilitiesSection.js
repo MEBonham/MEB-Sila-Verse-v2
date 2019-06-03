@@ -17,7 +17,7 @@ const AbilitiesSection = props => {
     const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
     useEffect(() => {
         let totalVar = 0;
-        Object.keys(abilities).filter(abilityName => abilityName !== "note").forEach(abilityName => {
+        Object.keys(abilities).filter(abilityName => (abilityName !== "note" && abilityName !== "altAbilities")).forEach(abilityName => {
             if (isNaN(abilities[abilityName].base)) {
                 totalVar -= 10;
             } else {
