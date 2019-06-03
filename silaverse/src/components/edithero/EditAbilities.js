@@ -14,6 +14,9 @@ const EditAbilities = () => {
             if (inputs.abilitiesNote === undefined) {
                 inputs.abilitiesNote = abilitiesInfo.note;
             }
+            if (inputs.altAbilities === undefined) {
+                inputs.altAbilities = abilitiesInfo.altAbilities;
+            }
             setDisplay(
                 <div className="abilities-div">
                     <EditSingleAbility abbr="Str" name="Strength" nums={abilitiesInfo["str"]} />
@@ -31,10 +34,21 @@ const EditAbilities = () => {
                         onChange={handleInputChange}
                         value={inputs.abilitiesNote || ""}
                     />
+                    <div className="textarea">
+                        <label htmlFor={`altAbilities`}>Alternate Abilities (can include HTML)</label>
+                        <textarea
+                            id={`altAbilities`}
+                            onChange={handleInputChange}
+                            value={inputs.altAbilities || ""}
+                            placeholder=""
+                            rows="5"
+                            cols="70"
+                        />
+                    </div>
                 </div>
             );
         }
-    }, [ abilitiesInfo, inputs.abilitiesNote ]);
+    }, [ abilitiesInfo, inputs.abilitiesNote, inputs.altAbilities ]);
 
     return(
         <section className="abilities">

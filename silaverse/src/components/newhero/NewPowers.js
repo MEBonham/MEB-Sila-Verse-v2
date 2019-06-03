@@ -20,6 +20,10 @@ const NewPowers = () => {
     } = useContext(NewMultiformContext);
     const [ powersToRender, setPowersToRender ] = useState([]);
 
+    useEffect(() => {
+        inputs.powerCount = 0;
+    }, []);
+
     const addPowerCooldown = useRef(false);
     
     const latestInputs = useRef({});

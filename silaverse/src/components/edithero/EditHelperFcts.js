@@ -68,7 +68,8 @@ export const packageHeroForDB = (inputs) => {
                 base: inputs.basePre,
                 eff: inputs.effPre
             },
-            note: inputs.abilitiesNote
+            note: inputs.abilitiesNote,
+            altAbilities: inputs.altAbilities
         }),
         totalPowersCost: inputs.totalPowersCost,
         powers: JSON.stringify(powersArray),
@@ -104,6 +105,9 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.abilitiesNote) {
         fixedInputs.abilitiesNote = "";
+    }
+    if (!inputs.altAbilities) {
+        fixedInputs.altAbilities = "";
     }
     if (!inputs.totalPowersCost) {
         fixedInputs.totalPowersCost = 0;

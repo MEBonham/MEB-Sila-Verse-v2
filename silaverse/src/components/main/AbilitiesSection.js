@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
+import DOMPurify from 'dompurify';
 
 const AbilitiesSection = props => {
     const abilities = props.hero.abilities;
@@ -33,6 +34,9 @@ const AbilitiesSection = props => {
         });
     }, [ total ])
 
+    const parse = require('html-react-parser');
+    const cleaned = DOMPurify.sanitize(`<div class="alt-abilities">${abilities.altAbilities}</div>`);
+
     return(
         <section>
             <h2><strong>Abilities</strong> [{total} ppt]</h2>
@@ -45,6 +49,7 @@ const AbilitiesSection = props => {
                 </strong> {abilities.awe.base} <strong>({awePlus}{abilities.awe.eff}) &middot; Presence
                 </strong> {abilities.pre.base} <strong>({prePlus}{abilities.pre.eff}) &middot;</strong></p>
             { abilities.note ? (<p className="lesser-note">{abilities.note}</p>) : null }
+            { abilities.altAbilities ? (parse(cleaned)) : null }
         </section>
     );
 }
