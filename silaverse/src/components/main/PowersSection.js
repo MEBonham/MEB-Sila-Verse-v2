@@ -26,20 +26,24 @@ const PowersSection = props => {
         detailsArray.push(parse(cleaned));
     }
 
-    return(
-        <section>
-            <h2><strong>Powers</strong> [{total} ppt]</h2>
-            {powers.map((power, i) => (
-                <section className={powers[i].device ? "power-display device-shadow" : "power-display"} key={i}>
-                    <div className="power-heading">
-                        <h3><strong>{power.name}:</strong></h3><span> <strong>&middot;</strong> <span className="cost-note">{power.cost}</span></span>
-                    </div>
-                    <p className="lesser-note">{power.desc}</p>
-                    {detailsArray[i]}
-                </section>
-            ))}
-        </section>
-    );
+    if (powers.length) {
+        return(
+            <section>
+                <h2><strong>Powers</strong> [{total} ppt]</h2>
+                {powers.map((power, i) => (
+                    <section className={powers[i].device ? "power-display device-shadow" : "power-display"} key={i}>
+                        <div className="power-heading">
+                            <h3><strong>{power.name}:</strong></h3><span> <strong>&middot;</strong> <span className="cost-note">{power.cost}</span></span>
+                        </div>
+                        <p className="lesser-note">{power.desc}</p>
+                        {detailsArray[i]}
+                    </section>
+                ))}
+            </section>
+        );
+    } else {
+        return null;
+    }
 }
 
 export default PowersSection;

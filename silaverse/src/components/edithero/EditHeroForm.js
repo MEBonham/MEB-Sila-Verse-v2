@@ -11,6 +11,7 @@ import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from './E
 import EditAbilities from './EditAbilities';
 import EditPowers from './EditPowers';
 import EditAdvantages from './EditAdvantages';
+import EditSkills from './EditSkills';
 
 const EditHeroForm = props => {
 
@@ -28,6 +29,7 @@ const EditHeroForm = props => {
     const [ powerInfo, setPowerInfo ] = useState([]);
     const [ totalPowersCost, setTotalPowersCost ] = useState(0);
     const [ advantagesInfo, setAdvantagesInfo ] = useState({});
+    const [ skillsInfo, setSkillsInfo ] = useState({});
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -55,6 +57,7 @@ const EditHeroForm = props => {
                                 equipmentInfo: doc.data().equipmentInfo,
                                 languagesInfo: doc.data().languages
                             });
+                            setSkillsInfo(JSON.parse(doc.data().skills));
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -83,6 +86,7 @@ const EditHeroForm = props => {
                         .then(() => {
                             const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
                             const formattedHero = packageHeroForGlobal(heroId, editedHero);
+                            console.log(formattedHero);
                             setPrevHeroes([
                                 ...minusOneHero,
                                 formattedHero
@@ -129,7 +133,7 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost, advantagesInfo}}>
+        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost, advantagesInfo, skillsInfo}}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>
@@ -179,6 +183,7 @@ const EditHeroForm = props => {
                     <EditAbilities />
                     <EditPowers />
                     <EditAdvantages />
+                    <EditSkills />
                     <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>

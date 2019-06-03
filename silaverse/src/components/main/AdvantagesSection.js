@@ -37,14 +37,18 @@ const AdvantagesSection = props => {
         </section>) :
         null;
 
-    return(
-        <section className="advantages">
-            <h2><strong>Advantages</strong> [{total} ppt]</h2>
-            {parse(cleanedAdvantages)}
-            {equipmentSection}
-            {languagesSection}
-        </section>
-    );
+    if (props.hero.advantagesList !== "" || props.hero.equipmentInfo !== "" || props.hero.languages !== "") {
+        return(
+            <section className="advantages">
+                <h2><strong>Advantages</strong> [{total} ppt]</h2>
+                {parse(cleanedAdvantages)}
+                {equipmentSection}
+                {languagesSection}
+            </section>
+        );
+    } else {
+        return null;
+    }
 }
 
 export default AdvantagesSection;

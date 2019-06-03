@@ -20,8 +20,40 @@ export const stateToInputsFlow = (stateArray, inputs) => {
             inputsCopy[str] = stateArray[i][key];
         })
     }
-    [ 'name', 'device', 'cost', 'dexc', 'details' ].forEach(key => {
+    [ 'name', 'device', 'cost', 'desc', 'details' ].forEach(key => {
         const str = `power-${stateArray.length}-${key}`;
+        delete inputsCopy[str];
+    })
+    return inputsCopy;
+}
+
+export const inputsToStateFlowSkills = (inputs) => {
+    const skillsCopy = {};
+    for (let i = 0; i < inputs.skillsCount; i++) {
+        const name = inputs[`skill-${i}-name`];
+        // console.log(name);
+        skillsCopy[name] = {
+            ranks: inputs[`skill-${i}-ranks`],
+            mod: inputs[`skill-${i}-mod`]
+        };
+        // console.log(skillsCopy[name]);
+    }
+    return skillsCopy;
+}
+
+export const stateToInputsFlowSkills = (stateObject, inputs) => {
+    const inputsCopy = JSON.parse(JSON.stringify(inputs));
+    const keyArray = Object.keys(stateObject).sort();
+    keyArray.forEach((skillName, i) => {
+        let str = `skill-${i}-name`;
+        inputsCopy[str] = skillName;
+        str = `skill-${i}-ranks`;
+        inputsCopy[str] = stateObject[skillName].ranks;
+        str = `skill-${i}-mod`;
+        inputsCopy[str] = stateObject[skillName].mod;
+    });
+    [ 'name', 'ranks', 'mod' ].forEach(key => {
+        const str = `skill-${keyArray.length}-${key}`;
         delete inputsCopy[str];
     })
     return inputsCopy;
@@ -29,6 +61,7 @@ export const stateToInputsFlow = (stateArray, inputs) => {
 
 export const packageHeroForDB = (inputs) => {
     const powersArray = inputsToStateFlow(inputs);
+    const skillsObject = inputsToStateFlowSkills(inputs);
     return {
         urlid: inputs.urlid,
         name: inputs.name,
@@ -77,17 +110,21 @@ export const packageHeroForDB = (inputs) => {
         advantagesList: inputs.advantagesList,
         totalEquipmentCost: inputs.totalEquipmentCost,
         equipmentInfo: inputs.equipmentInfo,
-        languages: inputs.languagesInfo
+        languages: inputs.languagesInfo,
+        skills: JSON.stringify(skillsObject)
     }
 };
 
 export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     const formattedAbilities = JSON.parse(heroDbVersion.abilities);
     const formattedPowers = JSON.parse(heroDbVersion.powers);
+    const formattedSkills = JSON.parse(heroDbVersion.skills);
+    // console.log(Object.keys(formattedSkills));
     return {
         ...heroDbVersion,
         abilities: formattedAbilities,
         powers: formattedPowers,
+        skills: formattedSkills,
         id: heroId
     };
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useGlobal } from 'reactn';
 import AbilitiesSection from './AbilitiesSection';
 import PowersSection from './PowersSection';
 import AdvantagesSection from './AdvantagesSection';
+import SkillsSection from './SkillsSection';
 
 const CharSheet = props => {
 
@@ -15,6 +16,7 @@ const CharSheet = props => {
     if (filteredHeroes.length && thisHero !== filteredHeroes[0]) {
         setThisHero(filteredHeroes[0]);
     }
+    // console.log(thisHero);
     
     const [ finalTotal, setFinalTotal ] = useState(0);
     const [ pptTotals ] = useGlobal('pptTotals');
@@ -37,10 +39,9 @@ const CharSheet = props => {
                         <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
                     </header>
                     <AbilitiesSection hero={thisHero} />
-                    {(thisHero.powers.length) ? <PowersSection hero={thisHero} /> : null}
-                    {(thisHero.advantagesList || thisHero.equipmentInfo || thisHero.languages) ?
-                        <AdvantagesSection hero={thisHero} /> :
-                        null}
+                    <PowersSection hero={thisHero} />
+                    <AdvantagesSection hero={thisHero} />
+                    <SkillsSection hero={thisHero} />
                 </section>
             </div>
         );
