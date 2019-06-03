@@ -2,7 +2,7 @@ import React, { useState, useEffect, useGlobal, getGlobal } from 'reactn';
 import DOMPurify from 'dompurify';
 
 const SkillsSection = props => {
-    const skills = JSON.parse(props.hero.skills);      // Not sure why parse is necessary
+    const skills = props.hero.skills;
     const [ skillsList, setSkillsList ] = useState([]);
 
     const [ totalRanks, setTotalRanks ] = useState(0);
