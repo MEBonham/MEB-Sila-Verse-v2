@@ -73,7 +73,8 @@
     width: 94%;
     margin: 20px auto;
     padding: 24px 3%;
-    background: #b59f82;
+    background-color: #b59f82;
+    background-image: url("../images/paper-texture.png");
     border-radius: 8px;
     box-shadow: 2px 2px 14px #735e3a;
 }
