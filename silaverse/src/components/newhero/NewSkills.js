@@ -11,7 +11,7 @@ const NewSkills = () => {
 
     const uuidv1 = require('uuid/v1');
 
-    const { inputs, setInputs } = useContext(NewMultiformContext);
+    const { inputs, setInputs, handleInputChange } = useContext(NewMultiformContext);
     const [ skillsToRender, setSkillsToRender ] = useState([]);
     
     const latestInputs = useRef({});
@@ -90,6 +90,17 @@ const NewSkills = () => {
                     <img src={addIcon} alt="Add Skill" />
                     Add Skill
                 </div>
+            </div>
+            <div className="textarea">
+                <label htmlFor={`altSkills`}>Alternate Skills (can include HTML)</label>
+                <textarea
+                    id={`altSkills`}
+                    onChange={handleInputChange}
+                    value={inputs.altSkills || ""}
+                    placeholder=""
+                    rows="4"
+                    cols="70"
+                />
             </div>
         </section>
     );
