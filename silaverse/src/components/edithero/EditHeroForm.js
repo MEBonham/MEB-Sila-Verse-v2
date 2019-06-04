@@ -12,6 +12,7 @@ import EditAbilities from './EditAbilities';
 import EditPowers from './EditPowers';
 import EditAdvantages from './EditAdvantages';
 import EditSkills from './EditSkills';
+import EditDefenses from './EditDefenses';
 
 const EditHeroForm = props => {
 
@@ -30,6 +31,7 @@ const EditHeroForm = props => {
     const [ totalPowersCost, setTotalPowersCost ] = useState(0);
     const [ advantagesInfo, setAdvantagesInfo ] = useState({});
     const [ skillsInfo, setSkillsInfo ] = useState({});
+    const [ defensesInfo, setDefensesInfo ] = useState({});
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -61,6 +63,7 @@ const EditHeroForm = props => {
                                 ...JSON.parse(doc.data().skills),
                                 altSkills: doc.data().altSkills
                             });
+                            setDefensesInfo(JSON.parse(doc.data().defenses));
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -135,7 +138,17 @@ const EditHeroForm = props => {
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
 
     return(
-        <EditProvider value={{inputs, setInputs, handleInputChange, abilitiesInfo, powerInfo, totalPowersCost, advantagesInfo, skillsInfo}}>
+        <EditProvider value={{
+            inputs,
+            setInputs,
+            handleInputChange,
+            abilitiesInfo,
+            powerInfo,
+            totalPowersCost,
+            advantagesInfo,
+            skillsInfo,
+            defensesInfo
+        }}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
                 <form className="hero-info-form" onSubmit={handleSubmit}>
@@ -186,6 +199,7 @@ const EditHeroForm = props => {
                     <EditPowers />
                     <EditAdvantages />
                     <EditSkills />
+                    <EditDefenses />
                     <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>

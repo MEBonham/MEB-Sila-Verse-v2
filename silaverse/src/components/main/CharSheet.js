@@ -4,6 +4,7 @@ import AbilitiesSection from './AbilitiesSection';
 import PowersSection from './PowersSection';
 import AdvantagesSection from './AdvantagesSection';
 import SkillsSection from './SkillsSection';
+import DefensesSection from './DefensesSection';
 
 const CharSheet = props => {
 
@@ -42,6 +43,7 @@ const CharSheet = props => {
                     <PowersSection hero={thisHero} />
                     <AdvantagesSection hero={thisHero} />
                     <SkillsSection hero={thisHero} />
+                    <DefensesSection hero={thisHero} />
                 </section>
             </div>
         );

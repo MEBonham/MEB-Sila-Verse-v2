@@ -114,7 +114,30 @@ export const packageHeroForDB = (inputs) => {
         equipmentInfo: inputs.equipmentInfo,
         languages: inputs.languagesInfo,
         skills: JSON.stringify(skillsObject),
-        altSkills: inputs.altSkills
+        altSkills: inputs.altSkills,
+        defenses: JSON.stringify({
+            dodge: {
+                base: inputs.baseDodge,
+                eff: inputs.effDodge
+            },
+            parry: {
+                base: inputs.baseParry,
+                eff: inputs.effParry
+            },
+            fortitude: {
+                base: inputs.baseFortitude,
+                eff: inputs.effFortitude
+            },
+            toughness: {
+                defRoll: inputs.defRoll,
+                eff: inputs.effToughness
+            },
+            will: {
+                base: inputs.baseWill,
+                eff: inputs.effWill
+            },
+            altDefenses: inputs.altDefenses
+        })
     }
 };
 
@@ -122,11 +145,13 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     const formattedAbilities = JSON.parse(heroDbVersion.abilities);
     const formattedPowers = JSON.parse(heroDbVersion.powers);
     const formattedSkills = JSON.parse(heroDbVersion.skills);
+    const formattedDefenses = JSON.parse(heroDbVersion.defenses);
     return {
         ...heroDbVersion,
         abilities: formattedAbilities,
         powers: formattedPowers,
         skills: formattedSkills,
+        defenses: formattedDefenses,
         id: heroId
     };
 }
@@ -178,6 +203,24 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.altSkills) {
         fixedInputs.altSkills = "";
+    }
+    if (!inputs.baseDodge) {
+        fixedInputs.baseDodge = 0;
+    }
+    if (!inputs.baseParry) {
+        fixedInputs.baseParry = 0;
+    }
+    if (!inputs.baseFortitude) {
+        fixedInputs.baseFortitude = 0;
+    }
+    if (!inputs.baseWill) {
+        fixedInputs.baseWill = 0;
+    }
+    if (!inputs.defRoll) {
+        fixedInputs.defRoll = 0;
+    }
+    if (!inputs.altDefenses) {
+        fixedInputs.altDefenses = "";
     }
     return fixedInputs;
 }
