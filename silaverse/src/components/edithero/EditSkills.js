@@ -26,8 +26,7 @@ const EditSkills = () => {
                 <EditSingleSkill
                     key={uuidv1()}
                     skillNum={i}
-                    skill={skillsInfo[skillName]}
-                    // handleDeleteSkill={handleDeleteSkill}
+                    handleDeleteSkill={handleDeleteSkill}
                 />
             )));
             setInputs(stateToInputsFlowSkills(skillsInfo, inputs));
@@ -41,21 +40,39 @@ const EditSkills = () => {
                 <EditSingleSkill
                     key={uuidv1()}
                     skillNum={i}
-                    skill={skillsCopy[skillName]}
-                    // handleDeleteSkill={handleDeleteSkill}
+                    handleDeleteSkill={handleDeleteSkill}
                 />
             )),
             <EditSingleSkill
                 key={uuidv1()}
                 skillNum={Object.keys(skillsCopy).length}
-                skill={{ name: { ranks: 0, mod: "" }}}
-                // handleDeleteSkill={handleDeleteSkill}
+                handleDeleteSkill={handleDeleteSkill}
             />
         ])
         latestInputs.current.skillsCount += 1;
         setInputs(stateToInputsFlowSkills(skillsCopy, latestInputs.current));
     }
     
+    const handleDeleteSkill = ev => {
+        if (window.confirm("Are you sure you want to delete this skill?")) {
+            const arrAroundIndex = ev.target.id.split("-");
+            const index = parseInt(arrAroundIndex[1]);
+            delete latestInputs.current[`skill-${index}-name`];
+            delete latestInputs.current[`skill-${index}-ranks`];
+            delete latestInputs.current[`skill-${index}-mod`];
+            const skillsCopy = inputsToStateFlowSkills(latestInputs.current);
+            latestInputs.current.skillsCount -= 1;
+            setSkillsToRender(Object.keys(skillsCopy).map((skillName, i) => {
+                return(<EditSingleSkill
+                    key={uuidv1()}
+                    skillNum={i}
+                    handleDeleteSkill={handleDeleteSkill}
+                />);
+            }));
+            setInputs(stateToInputsFlowSkills(skillsCopy, latestInputs.current));
+        }
+    }
+
     return(
         <section className="skills">
             <h2>Skills</h2>

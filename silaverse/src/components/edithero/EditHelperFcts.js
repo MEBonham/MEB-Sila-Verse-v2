@@ -31,12 +31,12 @@ export const inputsToStateFlowSkills = (inputs) => {
     const skillsCopy = {};
     for (let i = 0; i < inputs.skillsCount; i++) {
         const name = inputs[`skill-${i}-name`];
-        // console.log(name);
-        skillsCopy[name] = {
-            ranks: inputs[`skill-${i}-ranks`],
-            mod: inputs[`skill-${i}-mod`]
-        };
-        // console.log(skillsCopy[name]);
+        if (name) {
+            skillsCopy[name] = {
+                ranks: inputs[`skill-${i}-ranks`],
+                mod: inputs[`skill-${i}-mod`]
+            };
+        }
     }
     return skillsCopy;
 }
@@ -119,7 +119,6 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     const formattedAbilities = JSON.parse(heroDbVersion.abilities);
     const formattedPowers = JSON.parse(heroDbVersion.powers);
     const formattedSkills = JSON.parse(heroDbVersion.skills);
-    // console.log(Object.keys(formattedSkills));
     return {
         ...heroDbVersion,
         abilities: formattedAbilities,
@@ -168,6 +167,11 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.languagesInfo) {
         fixedInputs.languagesInfo = "";
+    }
+    for (let i = 0; i < inputs.skillsCount; i++) {
+        if (inputs[`skill-${i}-ranks`] === undefined) {
+            fixedInputs[`skill-${i}-ranks`] = 0;
+        }
     }
     return fixedInputs;
 }
