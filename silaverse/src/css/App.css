@@ -235,6 +235,15 @@
     padding-bottom: 10px;
 }
 
+.char-sheet .skills .alt-skills {
+    font-size: 1.4rem;
+    line-height: 1.1;
+}
+
+.char-sheet .skills .alt-skills p {
+    margin: 10px 0;
+}
+
 .hero-info-form-envelope {
     width: 72%;
     height: calc(100% - 2.6rem - 10px);

@@ -45,12 +45,14 @@ export const stateToInputsFlowSkills = (stateObject, inputs) => {
     const inputsCopy = JSON.parse(JSON.stringify(inputs));
     const keyArray = Object.keys(stateObject).sort();
     keyArray.forEach((skillName, i) => {
-        let str = `skill-${i}-name`;
-        inputsCopy[str] = skillName;
-        str = `skill-${i}-ranks`;
-        inputsCopy[str] = stateObject[skillName].ranks;
-        str = `skill-${i}-mod`;
-        inputsCopy[str] = stateObject[skillName].mod;
+        if (skillName !== "altSkills") {
+            let str = `skill-${i}-name`;
+            inputsCopy[str] = skillName;
+            str = `skill-${i}-ranks`;
+            inputsCopy[str] = stateObject[skillName].ranks;
+            str = `skill-${i}-mod`;
+            inputsCopy[str] = stateObject[skillName].mod;
+        }
     });
     [ 'name', 'ranks', 'mod' ].forEach(key => {
         const str = `skill-${keyArray.length}-${key}`;
@@ -111,7 +113,8 @@ export const packageHeroForDB = (inputs) => {
         totalEquipmentCost: inputs.totalEquipmentCost,
         equipmentInfo: inputs.equipmentInfo,
         languages: inputs.languagesInfo,
-        skills: JSON.stringify(skillsObject)
+        skills: JSON.stringify(skillsObject),
+        altSkills: inputs.altSkills
     }
 };
 
@@ -172,6 +175,9 @@ export const fixBlankInputFields = (inputs) => {
         if (inputs[`skill-${i}-ranks`] === undefined) {
             fixedInputs[`skill-${i}-ranks`] = 0;
         }
+    }
+    if (!inputs.altSkills) {
+        fixedInputs.altSkills = "";
     }
     return fixedInputs;
 }

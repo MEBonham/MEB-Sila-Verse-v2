@@ -2,16 +2,24 @@ import React, { useState, useEffect, useGlobal, getGlobal } from 'reactn';
 import DOMPurify from 'dompurify';
 
 const SkillsSection = props => {
+    const parse = require('html-react-parser');
+
     const skills = props.hero.skills;
     const [ skillsList, setSkillsList ] = useState([]);
 
     const [ totalRanks, setTotalRanks ] = useState(0);
     const [ display, setDisplay ] = useState(<p></p>)
+    const [ altDisplay, setAltDisplay ] = useState(<p></p>)
     const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
     useEffect(() => {
         if (skills) {
             setSkillsList(Object.keys(skills).sort())
         }
+        const divVar = `<div class="alt-skills">${props.hero.altSkills}</div>`;
+        setAltDisplay((props.hero && props.hero.altSkills !== "") ?
+            parse(DOMPurify.sanitize(divVar)) :
+            null
+        );
     }, [ props.hero ]);
 
     useEffect(() => {
@@ -35,13 +43,12 @@ const SkillsSection = props => {
         }
     }, [ totalRanks ]);
 
-    const parse = require('html-react-parser');
-
     if (skillsList.length) {
         return(
-            <section>
+            <section className="skills">
                 <h2><strong>Skills</strong> [{Math.ceil(totalRanks / 2)} ppt]</h2>
                 {parse(DOMPurify.sanitize(display))}
+                {altDisplay}
             </section>
         );
     } else {

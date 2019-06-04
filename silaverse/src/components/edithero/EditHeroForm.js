@@ -57,7 +57,10 @@ const EditHeroForm = props => {
                                 equipmentInfo: doc.data().equipmentInfo,
                                 languagesInfo: doc.data().languages
                             });
-                            setSkillsInfo(JSON.parse(doc.data().skills));
+                            setSkillsInfo({
+                                ...JSON.parse(doc.data().skills),
+                                altSkills: doc.data().altSkills
+                            });
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -86,7 +89,6 @@ const EditHeroForm = props => {
                         .then(() => {
                             const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
                             const formattedHero = packageHeroForGlobal(heroId, editedHero);
-                            console.log(formattedHero);
                             setPrevHeroes([
                                 ...minusOneHero,
                                 formattedHero
