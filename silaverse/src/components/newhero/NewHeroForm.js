@@ -9,6 +9,7 @@ import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from '../
 import NewAbilities from './NewAbilities';
 import NewPowers from './NewPowers';
 import NewAdvantages from './NewAdvantages';
+import NewSkills from './NewSkills';
 
 const NewHeroForm = props => {
 
@@ -118,6 +119,7 @@ const NewHeroForm = props => {
                     <NewAbilities />
                     <NewPowers />
                     <NewAdvantages />
+                    <NewSkills />
                     <button type="submit" className="submit-button">Create New Hero</button>
                 </form>
             </section>
