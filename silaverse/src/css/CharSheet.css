@@ -199,3 +199,7 @@
 .char-sheet .complications .complication {
     margin: 8px 0;
 }
+
+.char-sheet .pointTotals h3 {
+    font-size: 1.5rem;
+}
