@@ -10,6 +10,7 @@ import NewAbilities from './NewAbilities';
 import NewPowers from './NewPowers';
 import NewAdvantages from './NewAdvantages';
 import NewSkills from './NewSkills';
+import NewDefenses from './NewDefenses';
 
 const NewHeroForm = props => {
 
@@ -120,6 +121,7 @@ const NewHeroForm = props => {
                     <NewPowers />
                     <NewAdvantages />
                     <NewSkills />
+                    <NewDefenses />
                     <button type="submit" className="submit-button">Create New Hero</button>
                 </form>
             </section>

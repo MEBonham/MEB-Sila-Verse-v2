@@ -1,28 +1,10 @@
 import React, { useEffect, useContext } from 'reactn';
 
-import EditMultiformContext from '../../hooks/EditMultiformContext';
+import NewMultiformContext from '../../hooks/NewMultiformContext';
 
-const EditDefenses = () => {
+const NewDefenses = () => {
 
-    const { inputs, setInputs, handleInputChange, defensesInfo } = useContext(EditMultiformContext);
-
-    useEffect(() => {
-        if (defensesInfo.dodge) {
-            setInputs(inputs => ({
-                ...inputs,
-                baseDodge: defensesInfo.dodge.base,
-                effDodge: defensesInfo.dodge.eff,
-                baseParry: defensesInfo.parry.base,
-                effParry: defensesInfo.parry.eff,
-                baseFortitude: defensesInfo.fortitude.base,
-                effFortitude: defensesInfo.fortitude.eff,
-                effToughness: defensesInfo.toughness.eff,
-                baseWill: defensesInfo.will.base,
-                effWill: defensesInfo.will.eff,
-                defRoll: defensesInfo.toughness.defRoll
-            }));
-        }
-    }, [ defensesInfo ]);
+    const { inputs, handleInputChange } = useContext(NewMultiformContext);
 
     return(
         <section className="defenses">
@@ -143,4 +125,4 @@ const EditDefenses = () => {
     );
 }
 
-export default EditDefenses;
+export default NewDefenses;
