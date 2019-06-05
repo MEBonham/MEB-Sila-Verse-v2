@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'reactn';
+import React from 'reactn';
 import DOMPurify from 'dompurify';
 
 const OffenseSection = props => {

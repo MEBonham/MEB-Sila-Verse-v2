@@ -8,6 +8,9 @@ import AdvantagesSection from './AdvantagesSection';
 import SkillsSection from './SkillsSection';
 import DefensesSection from './DefensesSection';
 import OffenseSection from './OffenseSection';
+import ComplicationsSection from './ComplicationsSection';
+
+import '../../css/CharSheet.css';
 
 const CharSheet = props => {
 
@@ -55,6 +58,7 @@ const CharSheet = props => {
                         <SkillsSection hero={thisHero} />
                         <DefensesSection hero={thisHero} />
                         <OffenseSection hero={thisHero} />
+                        <ComplicationsSection hero={thisHero} />
                     </section>
                 </div>
             </PptTotalsProvider>

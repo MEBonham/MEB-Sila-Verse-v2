@@ -1,0 +1,201 @@
+.char-sheet-envelope {
+    width: 72%;
+    height: calc(100% - 2.6rem - 10px);
+    overflow-y: auto;
+}
+
+.char-sheet {
+    width: 94%;
+    margin: 20px auto;
+    padding: 24px 3%;
+    background-color: #b59f82;
+    background-image: url("../images/paper-texture.png");
+    border-radius: 8px;
+    box-shadow: 2px 2px 14px #735e3a;
+}
+
+.char-sheet strong {
+    font-weight: bold;
+}
+
+.char-sheet em {
+    font-style: italic;
+}
+
+.char-sheet .lesser-note {
+    margin-top: 4px;
+    font-size: 1rem;
+    font-style: italic;
+}
+
+.char-sheet h1 {
+    font-size: 3.4rem;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 3px;
+}
+
+.char-sheet header h2 {
+    font-size: 2.4rem;
+    margin-bottom: 4px;
+}
+
+.char-sheet .hero-type {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-bottom: 2px;
+}
+
+.char-sheet .last-header-line {
+    font-size: 1.4rem;
+}
+
+.char-sheet section {
+    margin-top: 20px;
+}
+
+.char-sheet section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    text-decoration: underline;
+}
+
+.char-sheet section > p {
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+}
+
+.char-sheet .alt-abilities {
+    margin: 12px 0 8px;
+    font-size: 1.4rem;
+}
+
+.char-sheet .power-display,
+.char-sheet .advantages .languages {
+    padding: 5px 2%;
+    border-radius: 4px;
+    background: #b4996a;
+    box-shadow: 0 0 6px black;
+}
+
+.char-sheet .device-shadow {
+    border: 1px #cccccc solid;
+    box-shadow: 0 0 7px black;
+}
+
+.char-sheet .power-display .power-heading {
+    display: flex;
+    align-items: baseline;
+}
+
+.char-sheet .power-display .power-heading span {
+    margin-left: 6px;
+    font-size: 1.2rem;
+}
+
+.char-sheet .power-display .power-heading .cost-note {
+    margin-left: 4px;
+    font-style: italic;
+}
+
+.char-sheet .power-display h3,
+.char-sheet .power-display .power-details .h3-style,
+.char-sheet .advantages .equipment h3,
+.char-sheet .advantages .languages h3 {
+    margin-top: 4px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1.1;
+    text-decoration: underline;
+}
+
+.char-sheet .advantages .equipment .h4-style {
+    margin-right: 4px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.char-sheet .power-display .power-details {
+    margin: 10px 0 6px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.char-sheet .power-display .power-details p {
+    margin: 10px 0;
+}
+
+.char-sheet .power-display .power-details p.with-ul {
+    margin: 10px 0 3px;
+}
+
+.char-sheet .power-display .power-details ul {
+    margin: 0;
+}
+
+.char-sheet .power-display .power-details li {
+    margin: 2px 0 2px 20px;
+    line-height: 1.2;
+}
+
+.char-sheet .advantages-list {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.char-sheet .advantages .equipment {
+    padding: 5px 2%;
+    border-radius: 4px;
+    background: #b4996a;
+    border: 1px #cccccc solid;
+    box-shadow: 0 0 7px black;
+}
+
+.char-sheet .advantages .equipment ul {
+    margin: 10px 0 10px 20px;
+}
+
+.char-sheet .advantages .equipment li,
+.char-sheet .advantages .equipment p,
+.char-sheet .advantages .languages div {
+    margin-top: 4px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.char-sheet .advantages .languages {
+    padding-bottom: 10px;
+}
+
+.char-sheet .skills .alt-skills {
+    font-size: 1.4rem;
+    line-height: 1.1;
+}
+
+.char-sheet .skills .alt-skills p {
+    margin: 10px 0;
+}
+
+.char-sheet .offense .attacks-list {
+    margin: 8px 0 10px;
+    padding: 5px 2%;
+    border-radius: 4px;
+    background: #b4996a;
+    box-shadow: 0 0 6px black;
+    font-size: 1.4rem;
+}
+
+.char-sheet .offense .attacks-list ul {
+    margin: 2px 0 2px 20px;
+}
+
+.char-sheet .offense .attacks-list li {
+    line-height: 1.2;
+}
+
+.char-sheet .complications .complication {
+    margin: 8px 0;
+}

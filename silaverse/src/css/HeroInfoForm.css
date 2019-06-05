@@ -1,0 +1,240 @@
+.hero-info-form-envelope {
+    width: 72%;
+    height: calc(100% - 2.6rem - 10px);
+    padding: 24px 2%;
+    display: flex;
+    flex-direction: row-reverse;
+    overflow-y: auto;
+}
+
+.hero-info-form-envelope .delete-hero-button {
+    width: 48px;
+    height: 48px;
+}
+
+.hero-info-form {
+    width: 100%;
+}
+
+.hero-info-form input {
+    margin-bottom: 10px;
+}
+
+.hero-info-form header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-info-form h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero-info-form section {
+    margin-top: 10px;   
+}
+
+.hero-info-form h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.hero-info-form .abilities .abilities-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-info-form .abilities .ability-div {
+    width: 25%;
+}
+
+.hero-info-form section label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.hero-info-form .abilities .ability-div input,
+.hero-info-form .defenses .defense-div input {
+    width: 45%;
+}
+
+.hero-info-form .powers .power-div {
+    width: 96%;
+    margin: 8px 0 12px;
+    padding: 10px 2% 0;
+    display: flex;
+    flex-wrap: wrap;
+    background: #bbbbbb;
+    border-radius: 4px;
+    box-shadow: 0 0 6px black;
+}
+
+.hero-info-form .powers .power-div > div {
+    width: 25%;
+    margin-right: 10px;
+}
+
+.hero-info-form .powers .power-div .buttons,
+.hero-info-form .powers .power-div .checkbox {
+    width: auto;
+}
+
+.hero-info-form .powers .power-div .for-name {
+    width: 60%;
+}
+
+.hero-info-form .powers .power-div .for-cost {
+    margin-left: 36px;
+    width: 30%;
+}
+
+.hero-info-form .powers .power-div .for-desc {
+    width: 30%;
+}
+
+.hero-info-form .powers .power-div .delete-power-button {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.hero-info-form .powers .power-div .checkbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-info-form .powers .power-div input {
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.hero-info-form .powers .power-div .textarea,
+.hero-info-form .textarea {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.hero-info-form .add-power,
+.hero-info-form .add-complication {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hero-info-form .add-power img,
+.hero-info-form .add-complication img {
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.hero-info-form .add-power .disabled {
+    background: blue;
+    opacity: 0.5;
+}
+
+.hero-info-form .add-power p,
+.hero-info-form .add-complication p {
+    font-size: 1.2rem;
+}
+
+.hero-info-form .skills .skills-envelope {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-info-form .skills .one-skill {
+    width: 30%;
+    margin: 2px 12px 8px 0;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    background: #bbbbbb;
+    border-radius: 4px;
+    box-shadow: 0 0 6px black;
+}
+
+.hero-info-form .skills .one-skill img {
+    width: 32px;
+    height: 32px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.hero-info-form .skills .one-skill > div {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hero-info-form .skills .one-skill .skill-name {
+    width: 100%;
+}
+
+.hero-info-form .skills .one-skill .skill-ranks,
+.hero-info-form .skills .one-skill .skill-mod {
+    width: 45%;
+}
+
+.hero-info-form .skills .one-skill input {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.hero-info-form .skills .add-skill {
+    padding: 0 32px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero-info-form .defenses .defenses-div {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-info-form .defenses .defense-div,
+.hero-info-form .defenses .defense-buffer {
+    width: 33%;
+}
+
+.hero-info-form .defenses .defense-div .singular-input {
+    width: 90%;
+}
+
+.hero-info-form .defenses .defensive-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-info-form .complications .complication {
+    width: 100%;
+    margin: 8px 0 12px;
+    padding: 10px 2% 0;
+    display: flex;
+    justify-content: flex-start;
+    background: #bbbbbb;
+    border-radius: 4px;
+    box-shadow: 0 0 6px black;
+}
+
+.hero-info-form .complications .complication .buttons img {
+    width: 32px;
+    height: 32px;
+    margin: 50px 20px 50px 4px;
+    cursor: pointer;
+}
+
+.hero-info-form .submit-button {
+    margin: 24px auto;
+}

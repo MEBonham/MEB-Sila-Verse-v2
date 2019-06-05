@@ -16,6 +16,8 @@ import EditDefenses from './EditDefenses';
 import EditOffense from './EditOffense';
 import EditComplications from './EditComplications';
 
+import '../../css/HeroInfoForm.css';
+
 const EditHeroForm = props => {
 
     firebase.auth.onAuthStateChanged(user => {

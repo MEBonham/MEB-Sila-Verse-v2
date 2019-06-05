@@ -14,6 +14,8 @@ import NewDefenses from './NewDefenses';
 import NewOffense from './NewOffense';
 import NewComplications from './NewComplications';
 
+import '../../css/HeroInfoForm.css';
+
 const NewHeroForm = props => {
 
     firebase.auth.onAuthStateChanged(user => {
