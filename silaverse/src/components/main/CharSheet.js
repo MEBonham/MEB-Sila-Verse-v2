@@ -62,8 +62,8 @@ const CharSheet = props => {
                         <section className="pointTotals">
                             <h3><strong>ABILITIES</strong> [ {pptTotals.abilities} ] + <strong>SKILLS</strong> [ {pptTotals.skills} ] 
                                 + <strong>ADVANTAGES</strong> [ {pptTotals.advantages} ] + <strong>POWERS</strong> [ {pptTotals.powers} ] 
-                                + <strong>DEFENSES</strong> [ {pptTotals.defenses} ]<br />
-                                <strong>= {finalTotal} PPT TOTAL</strong></h3>
+                                + <strong>DEFENSES</strong> [ {pptTotals.defenses} ]</h3>
+                            <h2><strong>= {finalTotal} PPT TOTAL</strong></h2>
                         </section>
                     </section>
                 </div>
