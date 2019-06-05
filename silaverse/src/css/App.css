@@ -244,6 +244,23 @@
     margin: 10px 0;
 }
 
+.char-sheet .offense .attacks-list {
+    margin: 8px 0 10px;
+    padding: 5px 2%;
+    border-radius: 4px;
+    background: #b4996a;
+    box-shadow: 0 0 6px black;
+    font-size: 1.4rem;
+}
+
+.char-sheet .offense .attacks-list ul {
+    margin: 2px 0 2px 20px;
+}
+
+.char-sheet .offense .attacks-list li {
+    line-height: 1.2;
+}
+
 .hero-info-form-envelope {
     width: 72%;
     height: calc(100% - 2.6rem - 10px);
