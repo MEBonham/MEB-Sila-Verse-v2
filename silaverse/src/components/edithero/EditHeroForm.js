@@ -14,6 +14,7 @@ import EditAdvantages from './EditAdvantages';
 import EditSkills from './EditSkills';
 import EditDefenses from './EditDefenses';
 import EditOffense from './EditOffense';
+import EditComplications from './EditComplications';
 
 const EditHeroForm = props => {
 
@@ -34,6 +35,7 @@ const EditHeroForm = props => {
     const [ skillsInfo, setSkillsInfo ] = useState({});
     const [ defensesInfo, setDefensesInfo ] = useState({});
     const [ offenseInfo, setOffenseInfo ] = useState({});
+    const [ complicationsInfo, setComplicationsInfo ] = useState([]);
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -67,6 +69,7 @@ const EditHeroForm = props => {
                             });
                             setDefensesInfo(JSON.parse(doc.data().defenses));
                             setOffenseInfo(JSON.parse(doc.data().offense));
+                            setComplicationsInfo(JSON.parse(doc.data().complications));
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -151,7 +154,8 @@ const EditHeroForm = props => {
             advantagesInfo,
             skillsInfo,
             defensesInfo,
-            offenseInfo
+            offenseInfo,
+            complicationsInfo
         }}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
@@ -205,6 +209,7 @@ const EditHeroForm = props => {
                     <EditSkills />
                     <EditDefenses />
                     <EditOffense />
+                    <EditComplications />
                     <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>

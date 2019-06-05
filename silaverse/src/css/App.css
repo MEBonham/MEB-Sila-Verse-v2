@@ -383,13 +383,15 @@
     margin-bottom: 8px;
 }
 
-.hero-info-form .add-power {
+.hero-info-form .add-power,
+.hero-info-form .add-complication {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-.hero-info-form .add-power img {
+.hero-info-form .add-power img,
+.hero-info-form .add-complication img {
     width: 32px;
     height: 32px;
     margin: 0 5px;
@@ -401,7 +403,8 @@
     opacity: 0.5;
 }
 
-.hero-info-form .add-power p {
+.hero-info-form .add-power p,
+.hero-info-form .add-complication p {
     font-size: 1.2rem;
 }
 
@@ -456,6 +459,7 @@
 }
 
 .hero-info-form .defenses .defenses-div {
+    width: 90%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -474,6 +478,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.hero-info-form .complications .complication {
+    width: 100%;
+    margin: 8px 0 12px;
+    padding: 10px 2% 0;
+    display: flex;
+    justify-content: flex-start;
+    background: #bbbbbb;
+    border-radius: 4px;
+    box-shadow: 0 0 6px black;
+}
+
+.hero-info-form .complications .complication .buttons img {
+    width: 32px;
+    height: 32px;
+    margin: 50px 20px 50px 4px;
+    cursor: pointer;
 }
 
 .hero-info-form .submit-button {

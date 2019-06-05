@@ -30,6 +30,7 @@ db.collection("heroes").get()
             hero.skills = JSON.parse(doc.data().skills);
             hero.defenses = JSON.parse(doc.data().defenses);
             hero.offense = JSON.parse(doc.data().offense);
+            hero.complications = JSON.parse(doc.data().complications);
             heroLib.push(hero);
         });
         setGlobal({

@@ -61,9 +61,36 @@ export const stateToInputsFlowSkills = (stateObject, inputs) => {
     return inputsCopy;
 }
 
+export const inputsToStateFlowComplications = (inputs) => {
+    const complicationsCopy = [];
+    for (let i = 0; i < inputs.complicationsCount; i++) {
+        complicationsCopy.push({
+            name: inputs[`complication-${i}-name`],
+            desc: inputs[`complication-${i}-desc`]
+        });
+    }
+    return complicationsCopy;
+}
+
+export const stateToInputsFlowComplications = (stateArray, inputs) => {
+    const inputsCopy = JSON.parse(JSON.stringify(inputs));
+    for (let i = 0; i < stateArray.length; i++) {
+        Object.keys(stateArray[i]).forEach(key => {
+            const str = `complication-${i}-${key}`;
+            inputsCopy[str] = stateArray[i][key];
+        })
+    }
+    [ 'name', 'desc' ].forEach(key => {
+        const str = `complication-${stateArray.length}-${key}`;
+        delete inputsCopy[str];
+    })
+    return inputsCopy;
+}
+
 export const packageHeroForDB = (inputs) => {
     const powersArray = inputsToStateFlow(inputs);
     const skillsObject = inputsToStateFlowSkills(inputs);
+    const complicationsArray = inputsToStateFlowComplications(inputs);
     return {
         urlid: inputs.urlid,
         name: inputs.name,
@@ -141,7 +168,8 @@ export const packageHeroForDB = (inputs) => {
         offense: JSON.stringify({
             initiative: inputs.initiative,
             attacksList: inputs.attacksList
-        })
+        }),
+        complications: JSON.stringify(complicationsArray)
     }
 };
 
@@ -151,6 +179,7 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     const formattedSkills = JSON.parse(heroDbVersion.skills);
     const formattedDefenses = JSON.parse(heroDbVersion.defenses);
     const formattedOffense = JSON.parse(heroDbVersion.offense);
+    const formattedComplications = JSON.parse(heroDbVersion.complications);
     return {
         ...heroDbVersion,
         abilities: formattedAbilities,
@@ -158,6 +187,7 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
         skills: formattedSkills,
         defenses: formattedDefenses,
         offense: formattedOffense,
+        complications: formattedComplications,
         id: heroId
     };
 }
@@ -233,6 +263,14 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.attacksList) {
         fixedInputs.attacksList = "";
+    }
+    for (let i = 0; i < inputs.complicationsCount; i++) {
+        if (inputs[`complication-${i}-name`] === undefined) {
+            fixedInputs[`complication-${i}-name`] = "";
+        }
+        if (inputs[`complication-${i}-desc`] === undefined) {
+            fixedInputs[`complication-${i}-desc`] = "";
+        }
     }
     return fixedInputs;
 }

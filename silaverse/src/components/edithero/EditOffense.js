@@ -36,7 +36,7 @@ const EditOffense = () => {
                     onChange={handleInputChange}
                     value={inputs.attacksList || ""}
                     placeholder=""
-                    rows="5"
+                    rows="7"
                     cols="70"
                 />
             </div>
