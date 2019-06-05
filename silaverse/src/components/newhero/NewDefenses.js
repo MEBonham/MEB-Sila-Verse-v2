@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useContext } from 'reactn';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
 

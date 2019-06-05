@@ -137,6 +137,10 @@ export const packageHeroForDB = (inputs) => {
                 eff: inputs.effWill
             },
             altDefenses: inputs.altDefenses
+        }),
+        offense: JSON.stringify({
+            initiative: inputs.initiative,
+            attacksList: inputs.attacksList
         })
     }
 };
@@ -146,12 +150,14 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
     const formattedPowers = JSON.parse(heroDbVersion.powers);
     const formattedSkills = JSON.parse(heroDbVersion.skills);
     const formattedDefenses = JSON.parse(heroDbVersion.defenses);
+    const formattedOffense = JSON.parse(heroDbVersion.offense);
     return {
         ...heroDbVersion,
         abilities: formattedAbilities,
         powers: formattedPowers,
         skills: formattedSkills,
         defenses: formattedDefenses,
+        offense: formattedOffense,
         id: heroId
     };
 }
@@ -221,6 +227,12 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.altDefenses) {
         fixedInputs.altDefenses = "";
+    }
+    if (!inputs.initiative) {
+        fixedInputs.initiative = "+0";
+    }
+    if (!inputs.attacksList) {
+        fixedInputs.attacksList = "";
     }
     return fixedInputs;
 }

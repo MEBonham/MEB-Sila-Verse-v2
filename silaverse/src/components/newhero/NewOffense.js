@@ -1,20 +1,10 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useContext } from 'reactn';
 
-import EditMultiformContext from '../../hooks/EditMultiformContext';
+import NewMultiformContext from '../../hooks/NewMultiformContext';
 
-const EditOffense = () => {
+const NewOffense = () => {
 
-    const { inputs, setInputs, handleInputChange, offenseInfo } = useContext(EditMultiformContext);
-
-    useEffect(() => {
-        if (offenseInfo) {
-            setInputs(inputs => ({
-                ...inputs,
-                initiative: offenseInfo.initiative,
-                attacksList: offenseInfo.attacksList
-            }));
-        }
-    }, [ offenseInfo ]);
+    const { inputs, handleInputChange } = useContext(NewMultiformContext);
 
     return(
         <section className="offense">
@@ -44,4 +34,4 @@ const EditOffense = () => {
     );
 }
 
-export default EditOffense;
+export default NewOffense;

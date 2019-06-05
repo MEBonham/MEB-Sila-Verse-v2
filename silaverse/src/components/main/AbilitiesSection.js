@@ -26,7 +26,6 @@ const AbilitiesSection = props => {
                 totalVar += 2 * abilities[abilityName].base;
             }
         });
-        console.log(totalVar);
         setTotal(totalVar);
     }, [ props.hero ]);
 

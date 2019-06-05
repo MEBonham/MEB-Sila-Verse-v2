@@ -33,6 +33,7 @@ const EditHeroForm = props => {
     const [ advantagesInfo, setAdvantagesInfo ] = useState({});
     const [ skillsInfo, setSkillsInfo ] = useState({});
     const [ defensesInfo, setDefensesInfo ] = useState({});
+    const [ offenseInfo, setOffenseInfo ] = useState({});
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -65,6 +66,7 @@ const EditHeroForm = props => {
                                 altSkills: doc.data().altSkills
                             });
                             setDefensesInfo(JSON.parse(doc.data().defenses));
+                            setOffenseInfo(JSON.parse(doc.data().offense));
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -148,7 +150,8 @@ const EditHeroForm = props => {
             totalPowersCost,
             advantagesInfo,
             skillsInfo,
-            defensesInfo
+            defensesInfo,
+            offenseInfo
         }}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
