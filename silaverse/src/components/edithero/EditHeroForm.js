@@ -15,6 +15,8 @@ import EditSkills from './EditSkills';
 import EditDefenses from './EditDefenses';
 import EditOffense from './EditOffense';
 import EditComplications from './EditComplications';
+import EditBio from './EditBio';
+import EditNotes from './EditNotes';
 
 import '../../css/HeroInfoForm.css';
 
@@ -38,6 +40,8 @@ const EditHeroForm = props => {
     const [ defensesInfo, setDefensesInfo ] = useState({});
     const [ offenseInfo, setOffenseInfo ] = useState({});
     const [ complicationsInfo, setComplicationsInfo ] = useState([]);
+    const [ bioInfo, setBioInfo ] = useState("");
+    const [ notesInfo, setNotesInfo ] = useState("");
     
     useEffect(() => {
         db.collection("heroes").where("urlid", "==", urlid)
@@ -72,6 +76,8 @@ const EditHeroForm = props => {
                             setDefensesInfo(JSON.parse(doc.data().defenses));
                             setOffenseInfo(JSON.parse(doc.data().offense));
                             setComplicationsInfo(JSON.parse(doc.data().complications));
+                            setBioInfo(doc.data().bio);
+                            setBioInfo(doc.data().notes);
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);
@@ -157,7 +163,9 @@ const EditHeroForm = props => {
             skillsInfo,
             defensesInfo,
             offenseInfo,
-            complicationsInfo
+            complicationsInfo,
+            bioInfo,
+            notesInfo
         }}>
             <section className="hero-info-form-envelope">
                 <img src={deleteIcon} alt="Delete Hero" onClick={handleDelete} className="delete-hero-button" />
@@ -212,6 +220,8 @@ const EditHeroForm = props => {
                     <EditDefenses />
                     <EditOffense />
                     <EditComplications />
+                    <EditBio />
+                    <EditNotes />
                     <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>

@@ -169,7 +169,9 @@ export const packageHeroForDB = (inputs) => {
             initiative: inputs.initiative,
             attacksList: inputs.attacksList
         }),
-        complications: JSON.stringify(complicationsArray)
+        complications: JSON.stringify(complicationsArray),
+        bio: inputs.bio,
+        notes: inputs.notes
     }
 };
 
@@ -271,6 +273,12 @@ export const fixBlankInputFields = (inputs) => {
         if (inputs[`complication-${i}-desc`] === undefined) {
             fixedInputs[`complication-${i}-desc`] = "";
         }
+    }
+    if (!inputs.bio) {
+        fixedInputs.bio = "";
+    }
+    if (!inputs.notes) {
+        fixedInputs.notes = "";
     }
     return fixedInputs;
 }

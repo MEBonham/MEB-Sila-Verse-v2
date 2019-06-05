@@ -30,9 +30,27 @@ const SkillsSection = props => {
         })
         setTotalRanks(totalVar);
 
-        setDisplay(`<p><strong>&middot; ${skillsList.map(skillName => (
-            `${skillName}</strong> ${skills[skillName].ranks} <strong>(${skills[skillName].mod})`
-        )).join(" &middot; ")} &middot;</strong></p>`);
+        if (skillsList) {
+            let displayString = `<div class="three-col"><div class="column">`;
+            const firstDiv = Math.ceil(skillsList.length / 3);
+            const secondDiv = ((skillsList.length % 3 === 2) ? Math.ceil(skillsList.length / 3) : Math.floor(skillsList.length / 3));
+            for (let i = 0; i < firstDiv; i++) {
+                const skillName = skillsList[i];
+                displayString += `<p><strong>${skillName}</strong> ${skills[skillName].ranks} <strong>(${skills[skillName].mod})</strong></p>`;
+            }
+            displayString += `</div><div class="column">`;
+            for (let i = firstDiv; i < firstDiv + secondDiv; i++) {
+                const skillName = skillsList[i];
+                displayString += `<p><strong>${skillName}</strong> ${skills[skillName].ranks} <strong>(${skills[skillName].mod})</strong></p>`;
+            }
+            displayString += `</div><div class="column">`;
+            for (let i = firstDiv + secondDiv; i < skillsList.length; i++) {
+                const skillName = skillsList[i];
+                displayString += `<p><strong>${skillName}</strong> ${skills[skillName].ranks} <strong>(${skills[skillName].mod})</strong></p>`;
+            }
+            displayString += `</div></div>`;
+            setDisplay(displayString);
+        }
     }, [ skillsList ]);
 
     const { pptTotals, setPptTotals } = useContext(PptTotalsContext);

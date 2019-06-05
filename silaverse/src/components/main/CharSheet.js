@@ -9,6 +9,8 @@ import SkillsSection from './SkillsSection';
 import DefensesSection from './DefensesSection';
 import OffenseSection from './OffenseSection';
 import ComplicationsSection from './ComplicationsSection';
+import BioSection from './BioSection';
+import NotesSection from './NotesSection';
 
 import '../../css/CharSheet.css';
 
@@ -65,7 +67,9 @@ const CharSheet = props => {
                                 + <strong>DEFENSES</strong> [ {pptTotals.defenses} ]</h3>
                             <h2><strong>= {finalTotal} PPT TOTAL</strong></h2>
                         </section>
+                        <BioSection hero={thisHero} />
                     </section>
+                    <NotesSection hero={thisHero} />
                 </div>
             </PptTotalsProvider>
         );
