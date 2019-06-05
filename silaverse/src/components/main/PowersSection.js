@@ -1,5 +1,7 @@
-import React, { useGlobal, getGlobal } from 'reactn';
+import React, { useContext } from 'reactn';
 import DOMPurify from 'dompurify';
+
+import PptTotalsContext from '../../hooks/PptTotalsContext';
 
 const PowersSection = props => {
     const powers = props.hero.powers;
@@ -11,10 +13,10 @@ const PowersSection = props => {
     } else {
         total = totalStr;
     }
-    const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
+    const { pptTotals, setPptTotals } = useContext(PptTotalsContext);
     if (pptTotals.powers !== total) {
         setPptTotals({
-            ...getGlobal().pptTotals,
+            ...pptTotals,
             powers: total
         });
     }

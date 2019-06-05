@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useGlobal } from 'reactn';
+import React, { useState, useEffect, useContext } from 'reactn';
 import DOMPurify from 'dompurify';
+
+import PptTotalsContext from '../../hooks/PptTotalsContext';
 
 const AbilitiesSection = props => {
     const abilities = props.hero.abilities;
@@ -14,7 +16,7 @@ const AbilitiesSection = props => {
     const prePlus = (!isNaN(abilities.pre.eff) && abilities.pre.eff >= 0) ? "+" : "";
 
     const [ total, setTotal ] = useState(0);
-    const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
+    const { pptTotals, setPptTotals } = useContext(PptTotalsContext);
     useEffect(() => {
         let totalVar = 0;
         Object.keys(abilities).filter(abilityName => (abilityName !== "note" && abilityName !== "altAbilities")).forEach(abilityName => {
@@ -24,15 +26,16 @@ const AbilitiesSection = props => {
                 totalVar += 2 * abilities[abilityName].base;
             }
         });
+        console.log(totalVar);
         setTotal(totalVar);
     }, [ props.hero ]);
 
-    useEffect(() => {
+    if (pptTotals.abilities !== total) {
         setPptTotals({
             ...pptTotals,
             abilities: total
         });
-    }, [ total ])
+    }
 
     const parse = require('html-react-parser');
     const cleaned = DOMPurify.sanitize(`<div class="alt-abilities">${abilities.altAbilities}</div>`);

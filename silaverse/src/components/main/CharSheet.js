@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
 
+import { PptTotalsProvider } from '../../hooks/PptTotalsContext';
+
 import AbilitiesSection from './AbilitiesSection';
 import PowersSection from './PowersSection';
 import AdvantagesSection from './AdvantagesSection';
@@ -9,6 +11,7 @@ import DefensesSection from './DefensesSection';
 const CharSheet = props => {
 
     const { urlid } = props.match.params;
+    
     const [ heroes ] = useGlobal('heroes');
     const filteredHeroes = heroes ?
         heroes.filter(hero => hero.urlid === urlid) :
@@ -17,35 +20,42 @@ const CharSheet = props => {
     if (filteredHeroes.length && thisHero !== filteredHeroes[0]) {
         setThisHero(filteredHeroes[0]);
     }
-    // console.log(thisHero);
     
     const [ finalTotal, setFinalTotal ] = useState(0);
-    const [ pptTotals ] = useGlobal('pptTotals');
+    const [ pptTotals, setPptTotals ] = useState({
+        abilities: 0,
+        powers: 0,
+        advantages: 0,
+        skills: 0,
+        defenses: 0
+    });
     useEffect(() => {
         let totalVar = 0;
         Object.keys(pptTotals).forEach(type => {
             totalVar += pptTotals[type];
         });
         setFinalTotal(totalVar);
-    }, [ thisHero, pptTotals ]);
+    }, [ pptTotals ]);
 
     if (thisHero) {
         return(
-            <div className="char-sheet-envelope">
-                <section className="char-sheet">
-                    <header>
-                        <h1>{thisHero.name}</h1>
-                        <h2>{thisHero.identity}</h2>
-                        <p className="hero-type">{thisHero.heroType}</p>
-                        <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
-                    </header>
-                    <AbilitiesSection hero={thisHero} />
-                    <PowersSection hero={thisHero} />
-                    <AdvantagesSection hero={thisHero} />
-                    <SkillsSection hero={thisHero} />
-                    <DefensesSection hero={thisHero} />
-                </section>
-            </div>
+            <PptTotalsProvider value={{ pptTotals, setPptTotals }}>
+                <div className="char-sheet-envelope">
+                    <section className="char-sheet">
+                        <header>
+                            <h1>{thisHero.name}</h1>
+                            <h2>{thisHero.identity}</h2>
+                            <p className="hero-type">{thisHero.heroType}</p>
+                            <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
+                        </header>
+                        <AbilitiesSection hero={thisHero} />
+                        <PowersSection hero={thisHero} />
+                        <AdvantagesSection hero={thisHero} />
+                        <SkillsSection hero={thisHero} />
+                        <DefensesSection hero={thisHero} />
+                    </section>
+                </div>
+            </PptTotalsProvider>
         );
     } else {
         return(<section></section>);

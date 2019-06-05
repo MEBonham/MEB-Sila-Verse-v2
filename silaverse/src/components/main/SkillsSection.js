@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useGlobal, getGlobal } from 'reactn';
+import React, { useState, useEffect, useContext } from 'reactn';
 import DOMPurify from 'dompurify';
+
+import PptTotalsContext from '../../hooks/PptTotalsContext';
 
 const SkillsSection = props => {
     const parse = require('html-react-parser');
@@ -10,7 +12,6 @@ const SkillsSection = props => {
     const [ totalRanks, setTotalRanks ] = useState(0);
     const [ display, setDisplay ] = useState(<p></p>)
     const [ altDisplay, setAltDisplay ] = useState(<p></p>)
-    const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
     useEffect(() => {
         if (skills) {
             setSkillsList(Object.keys(skills).sort())
@@ -34,14 +35,13 @@ const SkillsSection = props => {
         )).join(" &middot; ")} &middot;</strong></p>`);
     }, [ skillsList ]);
 
-    useEffect(() => {
-        if (Math.ceil(totalRanks / 2) !== pptTotals.skills) {
-            setPptTotals({
-                ...getGlobal().pptTotals,
-                skills: Math.ceil(totalRanks / 2)
-            });
-        }
-    }, [ totalRanks ]);
+    const { pptTotals, setPptTotals } = useContext(PptTotalsContext);
+    if (pptTotals.skills !== Math.ceil(totalRanks / 2)) {
+        setPptTotals({
+            ...pptTotals,
+            skills: Math.ceil(totalRanks / 2)
+        });
+    }
 
     if (skillsList.length) {
         return(

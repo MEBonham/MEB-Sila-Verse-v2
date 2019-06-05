@@ -13,6 +13,7 @@ import EditPowers from './EditPowers';
 import EditAdvantages from './EditAdvantages';
 import EditSkills from './EditSkills';
 import EditDefenses from './EditDefenses';
+import EditOffense from './EditOffense';
 
 const EditHeroForm = props => {
 
@@ -200,6 +201,7 @@ const EditHeroForm = props => {
                     <EditAdvantages />
                     <EditSkills />
                     <EditDefenses />
+                    <EditOffense />
                     <button type="submit" className="submit-button">Save Hero</button>
                 </form>
             </section>

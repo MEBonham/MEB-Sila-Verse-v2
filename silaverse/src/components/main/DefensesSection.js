@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useGlobal, getGlobal } from 'reactn';
+import React, { useState, useEffect, useContext } from 'reactn';
 import DOMPurify from 'dompurify';
+
+import PptTotalsContext from '../../hooks/PptTotalsContext';
 
 const DefensesSection = props => {
     const defenses = props.hero.defenses;
 
     const [ total, setTotal ] = useState(0);
     const [ showDefRoll, setShowDefRoll ] = useState(false);
-    const [ pptTotals, setPptTotals ] = useGlobal('pptTotals');
+    const { pptTotals, setPptTotals } = useContext(PptTotalsContext);
     useEffect(() => {
         let totalVar = 0;
         Object.keys(defenses).filter(defenseName => (defenseName !== "toughness" && defenseName !== "altDefenses")).forEach(defenseName => {
@@ -30,9 +32,9 @@ const DefensesSection = props => {
         }
     }, [ props.hero ]);
 
-    if (total !== pptTotals.defenses) {
+    if (pptTotals.defenses !== total) {
         setPptTotals({
-            ...getGlobal().pptTotals,
+            ...pptTotals,
             defenses: total
         });
     }
