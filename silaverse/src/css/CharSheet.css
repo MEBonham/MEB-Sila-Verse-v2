@@ -65,9 +65,11 @@
     margin-bottom: 2px;
 }
 
-.char-sheet .alt-abilities {
+.char-sheet .alt-abilities,
+.char-sheet .alt-defenses {
     margin: 12px 0 8px;
     font-size: 1.4rem;
+    line-height: 1.2;
 }
 
 .char-sheet .power-display,

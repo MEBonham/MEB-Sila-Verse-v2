@@ -77,7 +77,7 @@ const EditHeroForm = props => {
                             setOffenseInfo(JSON.parse(doc.data().offense));
                             setComplicationsInfo(JSON.parse(doc.data().complications));
                             setBioInfo(doc.data().bio);
-                            setBioInfo(doc.data().notes);
+                            setNotesInfo(doc.data().notes);
                         })
                         .catch(err => {
                             console.log("Error getting hero data: ", err);

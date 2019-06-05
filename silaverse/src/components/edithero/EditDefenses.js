@@ -19,7 +19,8 @@ const EditDefenses = () => {
                 effToughness: defensesInfo.toughness.eff,
                 baseWill: defensesInfo.will.base,
                 effWill: defensesInfo.will.eff,
-                defRoll: defensesInfo.toughness.defRoll
+                defRoll: defensesInfo.toughness.defRoll,
+                altDefenses: defensesInfo.altDefenses
             }));
         }
     }, [ defensesInfo ]);
@@ -128,11 +129,11 @@ const EditDefenses = () => {
                     />
                 </div>
                 <div className="textarea">
-                    <label htmlFor={`altAbilities`}>Alternate Defenses (can include HTML)</label>
+                    <label htmlFor={`altDefenses`}>Alternate Defenses (can include HTML)</label>
                     <textarea
-                        id={`altAbilities`}
+                        id={`altDefenses`}
                         onChange={handleInputChange}
-                        value={inputs.altAbilities || ""}
+                        value={inputs.altDefenses || ""}
                         placeholder=""
                         rows="5"
                         cols="70"
