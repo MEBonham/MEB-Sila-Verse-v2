@@ -14,11 +14,13 @@
     box-shadow: 2px 2px 14px #735e3a;
 }
 
-.char-sheet strong {
+.char-sheet strong,
+.char-sheet-envelope .notes strong {
     font-weight: bold;
 }
 
-.char-sheet em {
+.char-sheet em,
+.char-sheet-envelope .notes em {
     font-style: italic;
 }
 
