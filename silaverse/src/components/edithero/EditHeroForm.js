@@ -222,7 +222,9 @@ const EditHeroForm = props => {
                     <EditComplications />
                     <EditBio />
                     <EditNotes />
-                    <button type="submit" className="submit-button">Save Hero</button>
+                    <div className="save-button-div">
+                        <button type="submit" className="submit-button">Save Hero</button>
+                    </div>
                 </form>
             </section>
         </EditProvider>

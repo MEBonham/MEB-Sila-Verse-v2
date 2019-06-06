@@ -92,11 +92,11 @@
 
 .char-sheet .power-display .power-heading span {
     margin-left: 6px;
-    font-size: 1.2rem;
 }
 
-.char-sheet .power-display .power-heading .cost-note {
+.char-sheet .power-display .cost-note {
     margin-left: 4px;
+    font-size: 1.2rem;
     font-style: italic;
 }
 
@@ -108,13 +108,6 @@
     font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.1;
-    text-decoration: underline;
-}
-
-.char-sheet .advantages .equipment .h4-style {
-    margin-right: 4px;
-    font-size: 1.6rem;
-    font-weight: bold;
     text-decoration: underline;
 }
 
@@ -156,20 +149,38 @@
     box-shadow: 0 0 7px black;
 }
 
+.char-sheet .advantages .equipment .h4-style {
+    margin-right: 4px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .char-sheet .advantages .equipment ul {
     margin: 10px 0 10px 20px;
 }
 
 .char-sheet .advantages .equipment li,
-.char-sheet .advantages .equipment p,
 .char-sheet .advantages .languages div {
     margin-top: 4px;
     font-size: 1.2rem;
     line-height: 1.2;
 }
 
+.char-sheet .advantages .equipment p {
+    margin-top: 6px;
+    font-size: 1.2rem;
+    line-height: 1.3;
+}
+
 .char-sheet .advantages .languages {
     padding-bottom: 10px;
+}
+
+.char-sheet .advantages .languages p,
+.char-sheet .bio p,
+.char-sheet-envelope .notes p {
+    margin: 8px 0;
 }
 
 .char-sheet .skills .three-col {
@@ -189,7 +200,7 @@
     border-radius: 4px;
     background: #b4996a;
     box-shadow: 0 0 6px black;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     line-height: 1.1;
 }
 

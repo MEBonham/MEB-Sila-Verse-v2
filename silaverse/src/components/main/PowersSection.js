@@ -35,9 +35,12 @@ const PowersSection = props => {
                 {powers.map((power, i) => (
                     <section className={powers[i].device ? "power-display device-shadow" : "power-display"} key={i}>
                         <div className="power-heading">
-                            <h3><strong>{power.name}:</strong></h3><span> <strong>&middot;</strong> <span className="cost-note">{power.cost}</span></span>
+                            <h3><strong>{power.name}:</strong></h3><span> <strong>&middot;</strong> <span className="cost-note">
+                                {power.cost}</span></span>
                         </div>
-                        <p className="lesser-note">{power.desc}</p>
+                        <p><span className="lesser-note">{power.desc}</span>{power.note ?
+                            (<div>{parse(DOMPurify.sanitize(power.note))}</div>) :
+                            null}</p>
                         {detailsArray[i]}
                     </section>
                 ))}

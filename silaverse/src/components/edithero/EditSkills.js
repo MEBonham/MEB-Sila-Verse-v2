@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext, useRef } from 'reactn';
+import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
 
 import addIcon from '../../images/add-icon.png';
+import goldStar from '../../images/gold-star.png';
 
 import { inputsToStateFlowSkills, stateToInputsFlowSkills } from './EditHelperFcts';
 import EditSingleSkill from './EditSingleSkill';
+import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 
 const EditSkills = () => {
 
@@ -90,14 +93,24 @@ const EditSkills = () => {
             </div>
             <div className="textarea">
                 <label htmlFor={`altSkills`}>Alternate Skills (can include HTML)</label>
-                <textarea
-                    id={`altSkills`}
-                    onChange={handleInputChange}
-                    value={inputs.altSkills || ""}
-                    placeholder=""
-                    rows="4"
-                    cols="70"
-                />
+                <div className="sub-textarea">
+                    <textarea
+                        id={`altSkills`}
+                        onChange={handleInputChange}
+                        value={inputs.altSkills || ""}
+                        placeholder=""
+                        rows="4"
+                        cols="70"
+                    />
+                    <MenuProvider id={`htmlHelp-altSkills`}>
+                        <img
+                            src={goldStar}
+                            alt="HTML-help Menu"
+                            className="star-menu"
+                        />
+                    </MenuProvider>
+                    <HTMLHelpContextMenu menuId={`htmlHelp-altSkills`} input={`altSkills`} />
+                </div>
             </div>
         </section>
     );

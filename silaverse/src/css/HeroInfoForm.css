@@ -1,9 +1,10 @@
 .hero-info-form-envelope {
     width: 72%;
     height: calc(100% - 2.6rem - 10px);
-    padding: 24px 2%;
+    padding: 24px 2% 24px 3%;
     display: flex;
     flex-direction: row-reverse;
+    justify-content: flex-end;
     overflow-y: auto;
 }
 
@@ -13,7 +14,7 @@
 }
 
 .hero-info-form {
-    width: 100%;
+    width: 94%;
 }
 
 .hero-info-form input {
@@ -90,11 +91,12 @@
 
 .hero-info-form .powers .power-div .for-cost {
     margin-left: 36px;
-    width: 30%;
+    width: 28%;
 }
 
-.hero-info-form .powers .power-div .for-desc {
-    width: 30%;
+.hero-info-form .powers .power-div .for-desc,
+.hero-info-form .powers .power-div .for-note {
+    width: 28%;
 }
 
 .hero-info-form .powers .power-div .delete-power-button {
@@ -118,6 +120,10 @@
 .hero-info-form .textarea {
     width: 100%;
     margin-bottom: 8px;
+}
+
+.hero-info-form .textarea .sub-textarea {
+    display: flex;
 }
 
 .hero-info-form .add-power,
@@ -235,6 +241,11 @@
     cursor: pointer;
 }
 
-.hero-info-form .submit-button {
-    margin: 24px auto;
+.hero-info-form .save-button-div {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

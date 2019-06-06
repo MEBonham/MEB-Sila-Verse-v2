@@ -1,6 +1,11 @@
 import React, { useContext } from 'reactn';
+import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
+
+import goldStar from '../../images/gold-star.png';
+
+import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 
 const NewDefenses = () => {
 
@@ -110,15 +115,25 @@ const NewDefenses = () => {
                     />
                 </div>
                 <div className="textarea">
-                    <label htmlFor={`altAbilities`}>Alternate Defenses (can include HTML)</label>
-                    <textarea
-                        id={`altAbilities`}
-                        onChange={handleInputChange}
-                        value={inputs.altAbilities || ""}
-                        placeholder=""
-                        rows="5"
-                        cols="70"
-                    />
+                    <label htmlFor={`altDefenses`}>Alternate Defenses (can include HTML)</label>
+                    <div className="sub-textarea">
+                        <textarea
+                            id={`altDefenses`}
+                            onChange={handleInputChange}
+                            value={inputs.altDefenses || ""}
+                            placeholder=""
+                            rows="5"
+                            cols="70"
+                        />
+                        <MenuProvider id={`htmlHelp-altDefenses`}>
+                            <img
+                                src={goldStar}
+                                alt="HTML-help Menu"
+                                className="star-menu"
+                            />
+                        </MenuProvider>
+                        <HTMLHelpContextMenu2 menuId={`htmlHelp-altDefenses`} input={`altDefenses`} />
+                    </div>
                 </div>
             </div>
         </section>

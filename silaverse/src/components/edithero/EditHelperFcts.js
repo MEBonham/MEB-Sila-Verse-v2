@@ -6,6 +6,7 @@ export const inputsToStateFlow = (inputs) => {
             device: inputs[`power-${i}-device`],
             cost: inputs[`power-${i}-cost`],
             desc: inputs[`power-${i}-desc`],
+            note: inputs[`power-${i}-note`],
             details: inputs[`power-${i}-details`],
         });
     }
@@ -20,7 +21,7 @@ export const stateToInputsFlow = (stateArray, inputs) => {
             inputsCopy[str] = stateArray[i][key];
         })
     }
-    [ 'name', 'device', 'cost', 'desc', 'details' ].forEach(key => {
+    [ 'name', 'device', 'cost', 'desc', 'note', 'details' ].forEach(key => {
         const str = `power-${stateArray.length}-${key}`;
         delete inputsCopy[str];
     })
@@ -217,6 +218,9 @@ export const fixBlankInputFields = (inputs) => {
     for (let i = 0; i < inputs.powerCount; i++) {
         if (inputs[`power-${i}-device`] === undefined) {
             fixedInputs[`power-${i}-device`] = false;
+        }
+        if (inputs[`power-${i}-note`] === undefined) {
+            fixedInputs[`power-${i}-note`] = "";
         }
     }
     if (!inputs.totalAdvantagesCost) {

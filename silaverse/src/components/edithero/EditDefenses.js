@@ -1,6 +1,11 @@
 import React, { useEffect, useContext } from 'reactn';
+import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
+
+import goldStar from '../../images/gold-star.png';
+
+import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 
 const EditDefenses = () => {
 
@@ -130,14 +135,24 @@ const EditDefenses = () => {
                 </div>
                 <div className="textarea">
                     <label htmlFor={`altDefenses`}>Alternate Defenses (can include HTML)</label>
-                    <textarea
-                        id={`altDefenses`}
-                        onChange={handleInputChange}
-                        value={inputs.altDefenses || ""}
-                        placeholder=""
-                        rows="5"
-                        cols="70"
-                    />
+                    <div className="sub-textarea">
+                        <textarea
+                            id={`altDefenses`}
+                            onChange={handleInputChange}
+                            value={inputs.altDefenses || ""}
+                            placeholder=""
+                            rows="5"
+                            cols="70"
+                        />
+                        <MenuProvider id={`htmlHelp-altDefenses`}>
+                            <img
+                                src={goldStar}
+                                alt="HTML-help Menu"
+                                className="star-menu"
+                            />
+                        </MenuProvider>
+                        <HTMLHelpContextMenu menuId={`htmlHelp-altDefenses`} input={`altDefenses`} />
+                    </div>
                 </div>
             </div>
         </section>

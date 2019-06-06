@@ -132,7 +132,9 @@ const NewHeroForm = props => {
                     <NewComplications />
                     <NewBio />
                     <NewNotes />
-                    <button type="submit" className="submit-button">Create New Hero</button>
+                    <div className="save-button-div">
+                        <button type="submit" className="submit-button">Save Hero</button>
+                    </div>
                 </form>
             </section>
         </NewProvider>

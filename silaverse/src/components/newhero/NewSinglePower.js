@@ -1,8 +1,12 @@
 import React, { useContext } from 'reactn';
+import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
 
 import deleteIcon from '../../images/delete-icon.png';
+import goldStar from '../../images/gold-star.png';
+
+import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 
 const NewSinglePower = props => {
     
@@ -60,17 +64,37 @@ const NewSinglePower = props => {
                         required
                     />
                 </div>
+                <div className="for-note">
+                    <label htmlFor={`power-${props.powerNum}-note`}>Descriptors</label>
+                    <input
+                        type="text"
+                        id={`power-${props.powerNum}-note`}
+                        onChange={handleInputChange}
+                        placeholder="e.g. whole power is Subtle"
+                        value={inputs[`power-${props.powerNum}-note`] || ""}
+                    />
+                </div>
                 <div className="textarea">
                     <label htmlFor={`power-${props.powerNum}-details`}>Details (can include HTML)</label>
-                    <textarea
-                        id={`power-${props.powerNum}-details`}
-                        onChange={handleInputChange}
-                        value={inputs[`power-${props.powerNum}-details`] || ""}
-                        placeholder="Damage 10"
-                        required
-                        rows="6"
-                        cols="60"
-                    />
+                    <div className="sub-textarea">
+                        <textarea
+                            id={`power-${props.powerNum}-details`}
+                            onChange={handleInputChange}
+                            value={inputs[`power-${props.powerNum}-details`] || ""}
+                            placeholder="Damage 10"
+                            required
+                            rows="6"
+                            cols="60"
+                        />
+                        <MenuProvider id={`htmlHelp-power-${props.powerNum}`}>
+                            <img
+                                src={goldStar}
+                                alt="HTML-help Menu"
+                                className="star-menu"
+                            />
+                        </MenuProvider>
+                        <HTMLHelpContextMenu2 menuId={`htmlHelp-power-${props.powerNum}`} input={`power-${props.powerNum}-details`} />
+                    </div>
                 </div>
             </div>
         );

@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useContext } from 'reactn';
+import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
 
+import goldStar from '../../images/gold-star.png';
+
 import NewSingleAbility from './NewSingleAbility';
+import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 
 const NewAbilities = () => {
 
@@ -56,14 +60,24 @@ const NewAbilities = () => {
                     />
                     <div className="textarea">
                         <label htmlFor={`altAbilities`}>Alternate Abilities (can include HTML)</label>
-                        <textarea
-                            id={`altAbilities`}
-                            onChange={handleInputChange}
-                            value={inputs.altAbilities || ""}
-                            placeholder=""
-                            rows="5"
-                            cols="70"
-                        />
+                        <div className="sub-textarea">
+                            <textarea
+                                id={`altAbilities`}
+                                onChange={handleInputChange}
+                                value={inputs.altAbilities || ""}
+                                placeholder=""
+                                rows="5"
+                                cols="70"
+                            />
+                            <MenuProvider id={`htmlHelp-altAbilities`}>
+                                <img
+                                    src={goldStar}
+                                    alt="HTML-help Menu"
+                                    className="star-menu"
+                                />
+                            </MenuProvider>
+                            <HTMLHelpContextMenu2 menuId={`htmlHelp-altAbilities`} input={`altAbilities`} />
+                        </div>
                     </div>
                 </div>
             );
