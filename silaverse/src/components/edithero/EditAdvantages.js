@@ -21,7 +21,7 @@ const EditAdvantages = () => {
 
     return(
         <section className="advantages">
-            <h2>Advantages</h2>
+            <h2 id="advantages-section">Advantages</h2>
             <label htmlFor="totalAdvantagesCost">Total Cost of Advantages</label>
             <input
                 type="number"

@@ -18,7 +18,7 @@ const EditOffense = () => {
 
     return(
         <section className="offense">
-            <h2>Offense</h2>
+            <h2 id="offense-section">Offense</h2>
             <div className="initiative">
                 <label htmlFor="initiative">Initiative</label>
                 <input

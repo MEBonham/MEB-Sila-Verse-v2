@@ -52,7 +52,7 @@ const EditAbilities = () => {
 
     return(
         <section className="abilities">
-            <h2>Abilities</h2>
+            <h2 id="abilities-section">Abilities</h2>
             {display}
         </section>
     );

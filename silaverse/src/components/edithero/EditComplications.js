@@ -79,7 +79,7 @@ const EditComplications = () => {
 
     return(
         <section className="complications">
-            <h2>Complications</h2>
+            <h2 id="complications-section">Complications</h2>
             {complicationsToRender}
             <div className={addComplicationCooldown.current ? "add-complication disabled" : "add-complication"}>
                 <img src={addIcon} alt="Add Complication" onClick={handleAddComplication} />

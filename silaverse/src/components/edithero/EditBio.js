@@ -17,7 +17,7 @@ const EditBio = () => {
 
     return(
         <section className="bio">
-            <h2>Bio</h2>
+            <h2 id="bio-section">Bio</h2>
             <div className="textarea">
                 <label htmlFor={`bio`}>Bio (can include HTML)</label>
                 <textarea

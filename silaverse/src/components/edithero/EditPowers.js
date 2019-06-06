@@ -89,7 +89,7 @@ const EditPowers = () => {
 
     return(
         <section className="powers">
-            <h2>Powers ({latestInputs.current.powerCount})</h2>
+            <h2 id="powers-section">Powers ({latestInputs.current.powerCount})</h2>
             <label htmlFor="totalPowersCost">Total Cost of Powers</label>
             <input
                 type="number"

@@ -80,7 +80,7 @@ const EditSkills = () => {
 
     return(
         <section className="skills">
-            <h2>Skills</h2>
+            <h2 id="skills-section">Skills</h2>
             <div className="skills-envelope">
                 {skillsToRender}
                 <div className="one-skill add-skill" onClick={handleAddSkill}>

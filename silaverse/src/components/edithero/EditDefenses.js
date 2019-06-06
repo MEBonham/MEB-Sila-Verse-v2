@@ -27,7 +27,7 @@ const EditDefenses = () => {
 
     return(
         <section className="defenses">
-            <h2>Defenses</h2>
+            <h2 id="defenses-section">Defenses</h2>
             <div className="defenses-div">
                 <div className="defense-div">
                     <label>Dodge</label>

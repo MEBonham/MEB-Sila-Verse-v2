@@ -17,7 +17,7 @@ const EditNotes = () => {
 
     return(
         <section className="notes">
-            <h2>Notes</h2>
+            <h2 id="notes-section">Notes</h2>
             <div className="textarea">
                 <label htmlFor={`notes`}>Notes (can include HTML)</label>
                 <textarea
