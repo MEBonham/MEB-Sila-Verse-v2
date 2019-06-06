@@ -36,11 +36,17 @@ const HTMLHelpContextMenu = props => {
                 <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `<strong></strong>` }}>
                     Bold Tag
                 </Item>
-                <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `&middot;` }}>
-                    Middot
-                </Item>
                 <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `<strong>&middot;</strong>` }}>
                     Bold Middot
+                </Item>
+                <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `<span class=""></span>` }}>
+                    Generic span-Tag
+                </Item>
+                <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `<ul>\n<li><strong> &middot;</strong> <span class="lesser-note"> ppt</span></li>\n</ul>` }}>
+                    List Beginning
+                </Item>
+                <Item onClick={onClick} data={{ type: "insert", input: props.input, payload: `<p><strong> &middot;</strong> <span class="lesser-note"> ppt</span></p>` }}>
+                    Paragraph Beginning
                 </Item>
             </Submenu>
             <Separator />

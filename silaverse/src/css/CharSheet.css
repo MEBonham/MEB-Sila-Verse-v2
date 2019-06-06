@@ -104,11 +104,15 @@
 .char-sheet .power-display .power-details .h3-style,
 .char-sheet .advantages .equipment h3,
 .char-sheet .advantages .languages h3 {
-    margin-top: 4px;
+    margin-top: 6px;
     font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.1;
     text-decoration: underline;
+}
+
+.char-sheet .power-display .power-details p.alt {
+    margin-top: 14px;
 }
 
 .char-sheet .power-display .power-details {
