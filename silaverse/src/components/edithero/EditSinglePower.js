@@ -65,7 +65,7 @@ const EditSinglePower = props => {
                     />
                 </div>
                 <div className="for-note">
-                    <label htmlFor={`power-${props.powerNum}-note`}>Descriptors</label>
+                    <label htmlFor={`power-${props.powerNum}-note`}>Note</label>
                     <input
                         type="text"
                         id={`power-${props.powerNum}-note`}
