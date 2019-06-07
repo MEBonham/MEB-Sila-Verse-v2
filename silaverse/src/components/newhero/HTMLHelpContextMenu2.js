@@ -56,7 +56,7 @@ const HTMLHelpContextMenu2 = props => {
                 <Item onClick={onClick} data={{
                     type: "insert",
                     input: props.input,
-                    payload: `<p class="alt"><span class="h3-style">:</span> <strong>&middot;</strong> <span class="cost-note"> ppt</span><br />\n<span class="lesser-note"> Power</span></p>`
+                    payload: `<p class="alt"><span class="h3-style">ALT - :</span> <strong>&middot;</strong> <span class="cost-note"> ppt</span><br />\n<span class="lesser-note"> Power</span></p>`
                 }}>
                     ALT Power Beginning
                 </Item>

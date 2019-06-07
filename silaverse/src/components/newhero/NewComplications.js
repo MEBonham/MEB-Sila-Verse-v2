@@ -22,16 +22,22 @@ const NewComplications = () => {
     const latestInputs = useRef({});
     useEffect(() => {
         latestInputs.current = inputs;
+        console.log(latestInputs.current.complicationsCount);
     });
 
     useEffect(() => {
         inputs.complicationsCount = 0;
+        console.log(inputs.complicationsCount);
     }, []);
 
     const handleAddComplication = () => {
+        if (latestInputs.current.complicationsCount === undefined) {     // Hacky; shouldn't be needed, but is.
+            latestInputs.current.complicationsCount = 0;
+        }
         if (!addComplicationCooldown.current) {
             const complicationsCopy = inputsToStateFlowComplications(latestInputs.current);
             complicationsCopy.push({});
+            console.log(latestInputs.current.complicationsCount);
             latestInputs.current.complicationsCount += 1;
             setComplicationsToRender(complicationsCopy.map((complication, i) => (
                 <NewSingleComplication
