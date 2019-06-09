@@ -8,10 +8,10 @@
     width: 94%;
     margin: 20px auto;
     padding: 24px 3%;
-    background-color: #b59f82;
+    background-color: #c2b098;
     background-image: url("../images/paper-texture.png");
     border-radius: 8px;
-    box-shadow: 2px 2px 14px #735e3a;
+    box-shadow: 2px 2px 14px #5c4b2e;
 }
 
 .char-sheet strong,
@@ -78,7 +78,7 @@
 .char-sheet .advantages .languages {
     padding: 5px 2%;
     border-radius: 4px;
-    background: #b4996a;
+    background: #bea77e;
     box-shadow: 0 0 6px black;
 }
 
@@ -150,7 +150,7 @@
 .char-sheet .advantages .equipment {
     padding: 5px 2%;
     border-radius: 4px;
-    background: #b4996a;
+    background: #bea77e;
     border: 1px #cccccc solid;
     box-shadow: 0 0 7px black;
 }
@@ -204,7 +204,7 @@
     margin-top: 12px;
     padding: 2px 2%;
     border-radius: 4px;
-    background: #b4996a;
+    background: #bea77e;
     box-shadow: 0 0 6px black;
     font-size: 1.2rem;
     line-height: 1.1;
@@ -218,7 +218,7 @@
     margin: 8px 0 10px;
     padding: 5px 2%;
     border-radius: 4px;
-    background: #b4996a;
+    background: #bea77e;
     box-shadow: 0 0 6px black;
     font-size: 1.4rem;
 }
@@ -240,7 +240,7 @@
 .char-sheet .pointTotals {
     padding: 5px 2%;
     border-radius: 4px;
-    background: #b4996a;
+    background: #bea77e;
     box-shadow: 0 0 6px black;
 }
 

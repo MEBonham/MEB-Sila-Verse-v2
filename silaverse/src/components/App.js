@@ -8,6 +8,7 @@ import Sidebar from './sidebar/Sidebar';
 import CharSheet from './main/CharSheet';
 import EditHeroForm from './edithero/EditHeroForm';
 import NewHeroForm from './newhero/NewHeroForm';
+import OrganizeHeroes from './organization/OrganizeHeroes';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
@@ -39,6 +40,8 @@ const App = () => {
             <Route path="/edithero/:urlid" component={EditHeroForm} />
             <Route path="/newhero" component={Sidebar} />
             <Route path="/newhero" component={NewHeroForm} />
+            <Route path="/organize" component={Sidebar} />
+            <Route path="/organize" component={OrganizeHeroes} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />

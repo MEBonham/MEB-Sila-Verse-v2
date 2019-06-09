@@ -17,6 +17,7 @@ const Sidebar = props => {
     return(
         <section className="full-sidebar">
             <Link to="/newhero">New Hero</Link>
+            <Link to="/organize">Organize Heroes</Link>
             <div className="hero-tree">
                 {heroList}
             </div>
