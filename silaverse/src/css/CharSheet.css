@@ -147,6 +147,10 @@
     font-weight: bold;
 }
 
+.char-sheet .advantages-list .lesser-note {
+    font-weight: normal;
+}
+
 .char-sheet .advantages .equipment {
     padding: 5px 2%;
     border-radius: 4px;
