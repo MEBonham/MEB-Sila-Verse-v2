@@ -24,7 +24,8 @@ const Sidebar = props => {
     const [ coveredHeroes, setCoveredHeroes ] = useState([]);
     const [ heroTree, setHeroTree ] = useState([]);
     useEffect(() => {
-        db.collection("folders").get()
+        db.collection("folders").orderBy("orderNum")
+            .get()
             .then(querySnapshot => {
                 let tempOrgObject = {};
                 querySnapshot.forEach(doc => {

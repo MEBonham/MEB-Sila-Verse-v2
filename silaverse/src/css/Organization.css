@@ -11,37 +11,49 @@
     margin-bottom: 20px;
 }
 
+.organization-envelope section {
+    width: 80%;
+}
+
+.organization-envelope section .heading-and-controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .organization-envelope h2 {
     font-size: 2.2rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+.organization-envelope .heading-and-controls .controls {
+    display: flex;
+}
+
+.organization-envelope .heading-and-controls .controls > img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.organization-envelope .heading-and-controls .controls .arrow-icons {
+    display: flex;
+    flex-direction: column;
+}
+
 .organization-envelope ul {
     margin-left: 20px;
 }
 
-.organization-envelope form {
-    margin: 20px 0;
-}
-
-.organization-envelope form label {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 2px;
-}
-
-.organization-envelope form button {
-    margin-left: 10px;
-}
-
 .organization-envelope section li {
-    width: 50%;
+    width: 60%;
     margin: 8px 0;
     font-size: 1.4rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .organization-envelope section li .controls {
@@ -57,4 +69,19 @@
 
 .organization-envelope section li .controls .arrow-icons img {
     cursor: pointer;
+}
+
+.organization-envelope form {
+    margin: 20px 0;
+}
+
+.organization-envelope form label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.organization-envelope form button {
+    margin-left: 10px;
 }

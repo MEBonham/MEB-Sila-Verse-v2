@@ -2,6 +2,10 @@ import React, { useState, useEffect, useGlobal } from 'reactn';
 
 import firebase from '../../fbConfig';
 
+import deleteIcon from '../../images/delete-icon.png';
+import upArrow from '../../images/up-arrow.png';
+import downArrow from '../../images/down-arrow.png';
+
 import useForm from '../../hooks/useForm';
 import HeroWithFolderDropdown from './HeroWithFolderDropdown';
 
@@ -16,6 +20,7 @@ const OrganizeHeroes = props => {
     });
 
     const [ orgObject, setOrgObject ] = useState({});
+    const [ sortedNames, setSortedNames ] = useState([]);
     const [ coveredHeroes, setCoveredHeroes ] = useState([]);
     const [ refreshFlag, setRefreshFlag ] = useState(0);
     const [ heroes ] = useGlobal('heroes');
@@ -23,7 +28,8 @@ const OrganizeHeroes = props => {
     const db = firebase.db;
     useEffect(() => {
         // console.log("Refresh fired");
-        db.collection("folders").get()
+        db.collection("folders").orderBy("orderNum")
+            .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
                     // console.log(doc.data());
@@ -31,6 +37,10 @@ const OrganizeHeroes = props => {
                         ...orgObject,
                         [doc.id]: JSON.parse(doc.data().heroes)
                     }));
+                    setSortedNames(sortedNames => ([
+                        ...sortedNames,
+                        doc.id
+                    ]));
                 });
             })
             .catch(err => {
@@ -41,7 +51,7 @@ const OrganizeHeroes = props => {
     useEffect(() => {
         // console.log(orgObject);
         let arr = [];
-        Object.keys(orgObject).forEach(folderName => {
+        sortedNames.forEach(folderName => {
             arr = [
                 ...arr,
                 ...orgObject[folderName]
@@ -56,19 +66,27 @@ const OrganizeHeroes = props => {
 
     const saveNewFolder = () => {
         // console.log("Time to add a new folder to the db:", inputs.newFolderInput);
-        db.collection("folders").doc(inputs.newFolderInput).set({
-            heroes: "[]"
-        })
-        .then(() => {
-            setInputs({
-                ...inputs,
-                newFolderInput: ""
+        db.collection("folders").get()
+            .then(querySnapshot => {
+                console.log(querySnapshot);
+                db.collection("folders").doc(inputs.newFolderInput).set({
+                    heroes: "[]",
+                    orderNum: querySnapshot.docs.length
+                })
+                .then(() => {
+                    setInputs({
+                        ...inputs,
+                        newFolderInput: ""
+                    });
+                    setRefreshFlag(refreshFlag + 1);
+                })
+                .catch(err => {
+                    console.log("Error adding new folder to db:", err);
+                });
+            })
+            .catch(err => {
+                console.log("Error counting the number of folders already extant:", err);
             });
-            setRefreshFlag(refreshFlag + 1);
-        })
-        .catch(err => {
-            console.log("Error adding new folder to db:", err);
-        });
     }
 
     // useEffect(() => {
@@ -81,19 +99,32 @@ const OrganizeHeroes = props => {
     return(
         <section className="organization-envelope">
             <h1>Organize Heroes</h1>
-            {Object.keys(orgObject).map(folderName => (
+            {sortedNames.map((folderName, i) => (
                 <section key={folderName}>
-                    <h2>{folderName}</h2>
+                    <div className="heading-and-controls">
+                        <h2>{folderName}</h2>
+                        <div className="controls">
+                            <img src={deleteIcon} alt="Delete Folder" />
+                            <div className="arrow-icons">
+                                {i > 0 ?
+                                    <img src={upArrow} alt="Move Folder Up" /> :
+                                    null}
+                                {i < sortedNames.length - 1 ?
+                                    <img src={downArrow} alt="Move Folder Down" /> :
+                                    null}
+                            </div>
+                        </div>
+                    </div>
                     <ul>
-                        {orgObject[folderName].map((heroId, i) => {
+                        {orgObject[folderName].map((heroId, j) => {
                             const hero = heroes.filter(heroObj => (heroObj.id === heroId))[0];
                             return(<HeroWithFolderDropdown
                                 key={heroId}
                                 id={heroId}
                                 name={hero.name}
-                                orderNum={i}
+                                orderNum={j}
                                 outOf={orgObject[folderName].length}
-                                folders={Object.keys(orgObject)}
+                                folders={sortedNames}
                                 prevFolder={folderName}
                                 refreshFlag={refreshFlag}
                                 setRefreshFlag={setRefreshFlag}
@@ -115,14 +146,14 @@ const OrganizeHeroes = props => {
             <section>
                 <h2>Uncategorized</h2>
                 <ul>
-                    {heroes ? heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map((heroObj, i) => (
+                    {heroes ? heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map((heroObj, j) => (
                         <HeroWithFolderDropdown
                             key={heroObj.id}
                             id={heroObj.id}
                             name={heroObj.name}
-                            orderNum={i}
+                            orderNum={j}
                             outOf={heroes.filter(hero => (!coveredHeroes.includes(hero.id))).length}
-                            folders={Object.keys(orgObject)}
+                            folders={sortedNames}
                             prevFolder="uncategorized"
                             refreshFlag={refreshFlag}
                             setRefreshFlag={setRefreshFlag}
