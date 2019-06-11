@@ -43,3 +43,18 @@
     display: flex;
     justify-content: space-between;
 }
+
+.organization-envelope section li .controls {
+    width: 30%;
+    display: flex;
+}
+
+.organization-envelope section li .controls .arrow-icons {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.organization-envelope section li .controls .arrow-icons img {
+    cursor: pointer;
+}

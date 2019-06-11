@@ -22,6 +22,7 @@ const OrganizeHeroes = props => {
 
     const db = firebase.db;
     useEffect(() => {
+        // console.log("Refresh fired");
         db.collection("folders").get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
@@ -91,6 +92,7 @@ const OrganizeHeroes = props => {
                                 id={heroId}
                                 name={hero.name}
                                 orderNum={i}
+                                outOf={orgObject[folderName].length}
                                 folders={Object.keys(orgObject)}
                                 prevFolder={folderName}
                                 refreshFlag={refreshFlag}
@@ -119,6 +121,7 @@ const OrganizeHeroes = props => {
                             id={heroObj.id}
                             name={heroObj.name}
                             orderNum={i}
+                            outOf={heroes.filter(hero => (!coveredHeroes.includes(hero.id))).length}
                             folders={Object.keys(orgObject)}
                             prevFolder="uncategorized"
                             refreshFlag={refreshFlag}
