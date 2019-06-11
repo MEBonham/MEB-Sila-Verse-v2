@@ -63,6 +63,13 @@ const Sidebar = props => {
                     })}
                 </div>
             ));
+            tempHeroTree.push(
+                <div key="uncategorized" label="Uncategorized">
+                    {heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map(thisHero => (
+                        <HeroListing key={thisHero.id} id={thisHero.id} urlid={thisHero.urlid} name={thisHero.name} history={props.history} />
+                    ))}
+                </div>
+            );
             setHeroTree(tempHeroTree);
         }
     }, [ heroes, coveredHeroes ]);
