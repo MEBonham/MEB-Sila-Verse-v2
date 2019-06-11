@@ -17,10 +17,11 @@
 }
 
 .full-sidebar .accordion {
-    margin-top: 16px;
-    padding-bottom: 6px;
+    margin-top: 20px;
+    padding: 2px 0 4px;
     border-radius: 6px;
     background-color: #BEA77E;
+    box-shadow: 0 0 8px #5c4b2e;
 }
 
 .full-sidebar .accordion .accordion-section .folder {
@@ -32,6 +33,10 @@
 
 .full-sidebar .accordion .accordion-section .folder span:first-child {
     font-size: 1.8rem;
+}
+
+.full-sidebar .accordion .accordion-section .folder span:last-child {
+    margin-top: 2px;
 }
 
 .full-sidebar .accordion .accordion-section .collapsible {
