@@ -46,24 +46,6 @@
     cursor: pointer;
 }
 
-.full-sidebar {
-    width: 28%;
-    height: calc(100% - 2.6rem - 10px);
-    border: 4px blue double;
-    background: lightblue;
-    padding: 15px 3% 5px 3%;
-    display: flex;
-    flex-direction: column;
-}
-
-.full-sidebar a {
-    font-size: 1.4rem;
-}
-
-.full-sidebar .hero-tree {
-    margin-top: 15px;
-}
-
 .login-form {
     width: 100%;
     height: calc(100% - 2.6rem - 10px);

@@ -3,9 +3,9 @@ import React, { useState, useEffect, useGlobal } from 'reactn';
 import firebase from '../../fbConfig';
 
 import useForm from '../../hooks/useForm';
+import HeroWithFolderDropdown from './HeroWithFolderDropdown';
 
 import '../../css/Organization.css';
-import HeroWithFolderDropdown from './HeroWithFolderDropdown';
 
 const OrganizeHeroes = props => {
 
@@ -49,9 +49,9 @@ const OrganizeHeroes = props => {
         setCoveredHeroes(arr);
     }, [ orgObject ]);
 
-    useEffect(() => {
-        // console.log(coveredHeroes);
-    }, [ coveredHeroes ]);
+    // useEffect(() => {
+    //     console.log(coveredHeroes);
+    // }, [ coveredHeroes ]);
 
     const saveNewFolder = () => {
         // console.log("Time to add a new folder to the db:", inputs.newFolderInput);
