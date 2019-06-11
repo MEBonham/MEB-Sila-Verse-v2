@@ -5,6 +5,7 @@ import firebase from '../../fbConfig';
 import useForm from '../../hooks/useForm';
 
 import '../../css/Organization.css';
+import HeroWithFolderDropdown from './HeroWithFolderDropdown';
 
 const OrganizeHeroes = props => {
 
@@ -15,6 +16,8 @@ const OrganizeHeroes = props => {
     });
 
     const [ orgObject, setOrgObject ] = useState({});
+    const [ coveredHeroes, setCoveredHeroes ] = useState([]);
+    const [ refreshFlag, setRefreshFlag ] = useState(0);
     const [ heroes ] = useGlobal('heroes');
 
     const db = firebase.db;
@@ -22,21 +25,55 @@ const OrganizeHeroes = props => {
         db.collection("folders").get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    // orgObject[doc.data().name] = JSON.parse(doc.data().heroes);
-                    setOrgObject({
+                    console.log(doc.data());
+                    setOrgObject(orgObject => ({
                         ...orgObject,
-                        [doc.data().name]: JSON.parse(doc.data().heroes)
-                    })
+                        [doc.id]: JSON.parse(doc.data().heroes)
+                    }));
                 });
             })
             .catch(err => {
-                console.log("Error initializing folders:", err);
+                console.log("Error initializing orgObject:", err);
             });
-    }, []);
+    }, [ refreshFlag ]);
+
+    useEffect(() => {
+        // console.log(orgObject);
+        let arr = [];
+        Object.keys(orgObject).forEach(folderName => {
+            arr = [
+                ...arr,
+                ...orgObject[folderName]
+            ];
+        })
+        setCoveredHeroes(arr);
+    }, [ orgObject ]);
+
+    useEffect(() => {
+        // console.log(coveredHeroes);
+    }, [ coveredHeroes ]);
 
     const saveNewFolder = () => {
-        console.log("Time to add a new folder to the db.");
+        // console.log("Time to add a new folder to the db:", inputs.newFolderInput);
+        db.collection("folders").doc(inputs.newFolderInput).set({
+            heroes: "[]"
+        })
+        .then(() => {
+            setInputs({
+                ...inputs,
+                newFolderInput: ""
+            });
+            setRefreshFlag(refreshFlag + 1);
+        })
+        .catch(err => {
+            console.log("Error adding new folder to db:", err);
+        });
     }
+
+    // useEffect(() => {
+    //     console.log(orgObject);
+    //     console.log(Object.keys(orgObject));
+    // });
 
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(saveNewFolder);
 
@@ -47,9 +84,18 @@ const OrganizeHeroes = props => {
                 <section key={folderName}>
                     <h2>{folderName}</h2>
                     <ul>
-                        {orgObject[folderName].map(heroId => {
+                        {orgObject[folderName].map((heroId, i) => {
                             const hero = heroes.filter(heroObj => (heroObj.id === heroId))[0];
-                            return(<li key={heroId}>{hero.name}</li>);
+                            return(<HeroWithFolderDropdown
+                                key={heroId}
+                                id={heroId}
+                                name={hero.name}
+                                orderNum={i}
+                                folders={Object.keys(orgObject)}
+                                prevFolder={folderName}
+                                refreshFlag={refreshFlag}
+                                setRefreshFlag={setRefreshFlag}
+                            />);
                         })}
                     </ul>
                 </section>
@@ -67,8 +113,17 @@ const OrganizeHeroes = props => {
             <section>
                 <h2>Uncategorized</h2>
                 <ul>
-                    {heroes ? heroes.filter(hero => (hero.folder === undefined)).map(heroObj => (
-                        <li key={heroObj.id}>{heroObj.name}</li>
+                    {heroes ? heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map((heroObj, i) => (
+                        <HeroWithFolderDropdown
+                            key={heroObj.id}
+                            id={heroObj.id}
+                            name={heroObj.name}
+                            orderNum={i}
+                            folders={Object.keys(orgObject)}
+                            prevFolder="uncategorized"
+                            refreshFlag={refreshFlag}
+                            setRefreshFlag={setRefreshFlag}
+                        />
                     )) : null}
                 </ul>
             </section>

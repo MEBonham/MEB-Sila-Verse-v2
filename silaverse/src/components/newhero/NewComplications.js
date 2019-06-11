@@ -22,12 +22,10 @@ const NewComplications = () => {
     const latestInputs = useRef({});
     useEffect(() => {
         latestInputs.current = inputs;
-        console.log(latestInputs.current.complicationsCount);
     });
 
     useEffect(() => {
         inputs.complicationsCount = 0;
-        console.log(inputs.complicationsCount);
     }, []);
 
     const handleAddComplication = () => {

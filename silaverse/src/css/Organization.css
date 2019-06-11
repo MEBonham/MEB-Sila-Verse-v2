@@ -35,3 +35,11 @@
 .organization-envelope form button {
     margin-left: 10px;
 }
+
+.organization-envelope section li {
+    width: 50%;
+    margin: 8px 0;
+    font-size: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+}
