@@ -25,7 +25,7 @@ const OrganizeHeroes = props => {
         db.collection("folders").get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    console.log(doc.data());
+                    // console.log(doc.data());
                     setOrgObject(orgObject => ({
                         ...orgObject,
                         [doc.id]: JSON.parse(doc.data().heroes)
