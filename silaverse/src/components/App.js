@@ -34,13 +34,10 @@ const App = () => {
         <div className="App">
             <Header />
             <Route exact path="/" component={Sidebar} />
-            <Route path="/viewhero" component={Sidebar} />
+            <Route path={["/viewhero", "/edithero", "/newhero", "organize"]} component={Sidebar} />
             <Route path="/viewhero/:urlid" component={CharSheet} />
-            <Route path="/edithero" component={Sidebar} />
             <Route path="/edithero/:urlid" component={EditHeroForm} />
-            <Route path="/newhero" component={Sidebar} />
             <Route path="/newhero" component={NewHeroForm} />
-            <Route path="/organize" component={Sidebar} />
             <Route path="/organize" component={OrganizeHeroes} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
