@@ -71,8 +71,8 @@ const HTMLHelpContextMenu2 = props => {
             <Separator />
             <Submenu label="Copy to Clipboard" arrow="&#9656;">
                 <Item onClick={onClick} data={{ type: "copy", payload: `<span class="lesser-note"></span>` }}>Lesser Note Span</Item>
-                <Item onClick={onClick} data={{ type: "copy", payload: `<span class=""></span>` }}>Generic span-Tag</Item>
                 <Item onClick={onClick} data={{ type: "copy", payload: ` &middot; ` }}>Spaced Out Middot</Item>
+                <Item onClick={onClick} data={{ type: "copy", payload: `<span class=""></span>` }}>Generic span-Tag</Item>
             </Submenu>
         </Menu>
     );

@@ -54,7 +54,7 @@ const HeroWithFolderDropdown = props => {
                     db.collection("folders").doc(ev.target.value)
                         .set({
                             heroes: JSON.stringify(heroArr)
-                        })
+                        }, { merge: true })
                         .then(() => {
                             removeFromPrev(props.id, props.prevFolder);
                         })

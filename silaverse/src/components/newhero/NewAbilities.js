@@ -35,12 +35,8 @@ const NewAbilities = () => {
     // );
     useEffect(() => {
         if (abilitiesInfo) {
-            if (inputs.abilitiesNote === undefined) {
-                inputs.abilitiesNote = abilitiesInfo.note;
-            }
-            if (inputs.altAbilities === undefined) {
-                inputs.altAbilities = abilitiesInfo.altAbilities;
-            }
+            inputs.abilitiesNote = abilitiesInfo.note;
+            inputs.altAbilities = abilitiesInfo.altAbilities;
             setDisplay(
                 <div className="abilities-div">
                     <NewSingleAbility abbr="Str" name="Strength" nums={abilitiesInfo["str"]} />
@@ -51,44 +47,44 @@ const NewAbilities = () => {
                     <NewSingleAbility abbr="Int" name="Intellect" nums={abilitiesInfo["int"]} />
                     <NewSingleAbility abbr="Awe" name="Awareness" nums={abilitiesInfo["awe"]} />
                     <NewSingleAbility abbr="Pre" name="Presence" nums={abilitiesInfo["pre"]} />
-                    <input
-                        type="text"
-                        id="abilitiesNote"
-                        placeholder="e.g. Load limit 50 lb."
-                        onChange={handleInputChange}
-                        value={inputs.abilitiesNote || ""}
-                    />
-                    <div className="textarea">
-                        <label htmlFor={`altAbilities`}>Alternate Abilities (can include HTML)</label>
-                        <div className="sub-textarea">
-                            <textarea
-                                id={`altAbilities`}
-                                onChange={handleInputChange}
-                                value={inputs.altAbilities || ""}
-                                placeholder=""
-                                rows="5"
-                                cols="70"
-                            />
-                            <MenuProvider id={`htmlHelp-altAbilities`}>
-                                <img
-                                    src={goldStar}
-                                    alt="HTML-help Menu"
-                                    className="star-menu"
-                                />
-                            </MenuProvider>
-                            <HTMLHelpContextMenu2 menuId={`htmlHelp-altAbilities`} input={`altAbilities`} />
-                        </div>
-                    </div>
                 </div>
             );
         }
-    }, [ abilitiesInfo, inputs.abilitiesNote, inputs.altAbilities ]);
-    // }, [ abilitiesInfo ]);
+    }, [ abilitiesInfo ]);
+    // }, [ abilitiesInfo, inputs.abilitiesNote, inputs.altAbilities ]);
 
     return(
         <section className="abilities">
             <h2>Abilities</h2>
             {display}
+            <input
+                type="text"
+                id="abilitiesNote"
+                placeholder="e.g. Load limit 50 lb."
+                onChange={handleInputChange}
+                value={inputs.abilitiesNote || ""}
+            />
+            <div className="textarea">
+                <label htmlFor={`altAbilities`}>Alternate Abilities (can include HTML)</label>
+                <div className="sub-textarea">
+                    <textarea
+                        id={`altAbilities`}
+                        onChange={handleInputChange}
+                        value={inputs.altAbilities || ""}
+                        placeholder=""
+                        rows="5"
+                        cols="70"
+                    />
+                    <MenuProvider id={`htmlHelp-altAbilities`}>
+                        <img
+                            src={goldStar}
+                            alt="HTML-help Menu"
+                            className="star-menu"
+                        />
+                    </MenuProvider>
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-altAbilities`} input={`altAbilities`} />
+                </div>
+            </div>
         </section>
     );
 }

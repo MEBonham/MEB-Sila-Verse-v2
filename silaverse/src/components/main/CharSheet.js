@@ -19,7 +19,6 @@ import '../../css/CharSheet.css';
 const CharSheet = props => {
 
     const { urlid } = props.match.params;
-    const parse = require('html-react-parser');
     
     const [ heroes ] = useGlobal('heroes');
     const filteredHeroes = heroes ?
