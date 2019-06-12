@@ -97,6 +97,7 @@ export const packageHeroForDB = (inputs) => {
         name: inputs.name,
         identity: inputs.identity,
         heroType: inputs.heroType,
+        subHero: inputs.subHero,
         powerLevel: inputs.powerLevel,
         abilities: JSON.stringify({
             str: {
@@ -202,6 +203,9 @@ export const fixBlankInputFields = (inputs) => {
     }
     if (!inputs.heroType) {
         fixedInputs.heroType = "";
+    }
+    if (!inputs.subHero) {
+        fixedInputs.subHero = "";
     }
     if (inputs.powerLevel === undefined) {
         fixedInputs.powerLevel = 10;

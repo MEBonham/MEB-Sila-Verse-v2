@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
+import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 import { PptTotalsProvider } from '../../hooks/PptTotalsContext';
 
@@ -17,6 +19,7 @@ import '../../css/CharSheet.css';
 const CharSheet = props => {
 
     const { urlid } = props.match.params;
+    const parse = require('html-react-parser');
     
     const [ heroes ] = useGlobal('heroes');
     const filteredHeroes = heroes ?
@@ -44,6 +47,16 @@ const CharSheet = props => {
     }, [ pptTotals ]);
 
     if (thisHero) {
+        let heroTypeEl;
+        if (thisHero.subHero && thisHero.subHero.length) {
+            const subHeroSplit = thisHero.subHero.split("\\");
+            const toString = `./${DOMPurify.sanitize(subHeroSplit[1])}`;
+            heroTypeEl = <p className="hero-type">{thisHero.heroType} <Link to={toString}>{subHeroSplit[0]}</Link></p>;
+        } else if (thisHero.heroType && thisHero.heroType.length) {
+            heroTypeEl = <p className="hero-type">{thisHero.heroType}</p>;
+        } else {
+            heroTypeEl = null;
+        }
         return(
             <PptTotalsProvider value={{ pptTotals, setPptTotals }}>
                 <div className="char-sheet-envelope">
@@ -51,7 +64,7 @@ const CharSheet = props => {
                         <header>
                             <h1>{thisHero.name}</h1>
                             <h2>{thisHero.identity}</h2>
-                            <p className="hero-type">{thisHero.heroType}</p>
+                            {heroTypeEl}
                             <p className="last-header-line">Power Level {thisHero.powerLevel} ({finalTotal} ppt)</p>
                         </header>
                         <AbilitiesSection hero={thisHero} />

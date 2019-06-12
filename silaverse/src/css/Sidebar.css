@@ -46,3 +46,7 @@
 .full-sidebar .accordion .accordion-section .collapsible a {
     font-size: 1.6rem;
 }
+
+.full-sidebar .accordion .collapsible .sub-hero {
+    margin-left: 14px;
+}

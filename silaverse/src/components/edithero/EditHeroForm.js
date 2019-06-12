@@ -57,6 +57,7 @@ const EditHeroForm = props => {
                                 name: doc.data().name,
                                 identity: doc.data().identity,
                                 heroType: doc.data().heroType,
+                                subHero: doc.data().subHero,
                                 powerLevel: doc.data().powerLevel
                             });
                             setAbilitiesInfo(JSON.parse(doc.data().abilities));
@@ -195,14 +196,28 @@ const EditHeroForm = props => {
                             onChange={handleInputChange}
                             value={inputs.identity || ""}
                         />
-                        <label htmlFor="heroType">Hero Type</label>
-                        <input
-                            type="text"
-                            id="heroType"
-                            placeholder="Original? NPC or PC?"
-                            onChange={handleInputChange}
-                            value={inputs.heroType || ""}
-                        />
+                        <div className="hero-type-block">
+                            <div>
+                                <label htmlFor="heroType">Hero Type</label>
+                                <input
+                                    type="text"
+                                    id="heroType"
+                                    placeholder="Original? NPC or PC?"
+                                    onChange={handleInputChange}
+                                    value={inputs.heroType || ""}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="heroType">Sub-Hero Of?</label>
+                                <input
+                                    type="text"
+                                    id="subHero"
+                                    placeholder={`Dummy\\dummy`}
+                                    onChange={handleInputChange}
+                                    value={inputs.subHero || ""}
+                                />
+                            </div>
+                        </div>
                         <label htmlFor="powerLevel">Power Level</label>
                         <input
                             type="number"

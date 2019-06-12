@@ -13,7 +13,7 @@ const HeroListing = props => {
 
     return(
         <div>
-            <MenuProvider id={providerId}>
+            <MenuProvider id={providerId} className={props.subhero ? "hero-listing sub-hero" : "hero-listing"}>
                 <Link to={url}>{props.name}</Link>
             </MenuProvider>
             <SidebarContextMenu menuId={providerId} url={props.urlid} history={props.history} />

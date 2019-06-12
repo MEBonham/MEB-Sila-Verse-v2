@@ -60,16 +60,32 @@ const Sidebar = props => {
                 <div key={folderName} label={folderName}>
                     {JSON.parse(orgObject[folderName].heroes).map(heroId => {
                         const thisHero = heroes.filter(hero => hero.id === heroId)[0];
-                        return(<HeroListing key={heroId} id={heroId} urlid={thisHero.urlid} name={thisHero.name} history={props.history} />)
+                        const subHero = (thisHero.subHero && thisHero.subHero.length);
+                        return(<HeroListing
+                            key={heroId}
+                            id={heroId}
+                            urlid={thisHero.urlid}
+                            name={thisHero.name}
+                            subhero={subHero}
+                            history={props.history}
+                        />);
                     })}
                 </div>
             ));
             if (heroes.length > coveredHeroes.length) {
                 tempHeroTree.push(
                     <div key="uncategorized" label="Uncategorized">
-                        {heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map(thisHero => (
-                            <HeroListing key={thisHero.id} id={thisHero.id} urlid={thisHero.urlid} name={thisHero.name} history={props.history} />
-                        ))}
+                        {heroes.filter(hero => (!coveredHeroes.includes(hero.id))).map(thisHero => {
+                            const subHero = (thisHero.subHero && thisHero.subHero.length);
+                            return(<HeroListing
+                                key={thisHero.id}
+                                id={thisHero.id}
+                                urlid={thisHero.urlid}
+                                name={thisHero.name}
+                                subhero={subHero}
+                                history={props.history} />
+                            );
+                        })}
                     </div>
                 );
             }

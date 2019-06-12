@@ -38,9 +38,9 @@ const PowersSection = props => {
                             <h3><strong>{power.name}:</strong></h3><span> <strong>&middot;</strong> <span className="cost-note">
                                 {power.cost}</span></span>
                         </div>
-                        <p><span className="lesser-note">{power.desc}</span>{power.note ?
-                            (<div>{parse(DOMPurify.sanitize(power.note))}</div>) :
-                            null}</p>
+                        <div><span className="lesser-note">{power.desc}</span>{power.note ?
+                            (<div className="power-note">{parse(DOMPurify.sanitize(power.note))}</div>) :
+                            null}</div>
                         {detailsArray[i]}
                     </section>
                 ))}
