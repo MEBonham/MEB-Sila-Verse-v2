@@ -29,6 +29,8 @@ const DefensesSection = props => {
             } else {
                 setShowDefRoll(`/${effToughnessWithoutDefRoll}*`);
             }
+        } else {
+            setShowDefRoll(false);
         }
     }, [ props.hero ]);
 
