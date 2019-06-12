@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
@@ -11,6 +11,7 @@ import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 const NewSinglePower = props => {
     
     const { inputs, handleInputChange } = useContext(NewMultiformContext);
+    const textareaRef = useRef(null);
 
     if (props.power) {
         return(
@@ -85,6 +86,7 @@ const NewSinglePower = props => {
                             required
                             rows="6"
                             cols="60"
+                            ref={textareaRef}
                         />
                         <MenuProvider id={`htmlHelp-power-${props.powerNum}`}>
                             <img
@@ -93,7 +95,7 @@ const NewSinglePower = props => {
                                 className="star-menu"
                             />
                         </MenuProvider>
-                        <HTMLHelpContextMenu2 menuId={`htmlHelp-power-${props.powerNum}`} input={`power-${props.powerNum}-details`} />
+                        <HTMLHelpContextMenu2 menuId={`htmlHelp-power-${props.powerNum}`} input={`power-${props.powerNum}-details`} refProp={textareaRef} />
                     </div>
                 </div>
             </div>

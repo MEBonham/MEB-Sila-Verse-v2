@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -10,6 +10,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditOffense = () => {
 
     const { inputs, setInputs, handleInputChange, offenseInfo } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     useEffect(() => {
         if (offenseInfo) {
@@ -44,6 +45,7 @@ const EditOffense = () => {
                         placeholder=""
                         rows="7"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-attacksList`}>
                         <img
@@ -52,7 +54,7 @@ const EditOffense = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-attacksList`} input={`attacksList`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-attacksList`} input={`attacksList`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
@@ -10,6 +10,7 @@ import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 const NewDefenses = () => {
 
     const { inputs, handleInputChange } = useContext(NewMultiformContext);
+    const textareaRef = useRef(null);
 
     return(
         <section className="defenses">
@@ -124,6 +125,7 @@ const NewDefenses = () => {
                             placeholder=""
                             rows="5"
                             cols="70"
+                            ref={textareaRef}
                         />
                         <MenuProvider id={`htmlHelp-altDefenses`}>
                             <img
@@ -132,7 +134,7 @@ const NewDefenses = () => {
                                 className="star-menu"
                             />
                         </MenuProvider>
-                        <HTMLHelpContextMenu2 menuId={`htmlHelp-altDefenses`} input={`altDefenses`} />
+                        <HTMLHelpContextMenu2 menuId={`htmlHelp-altDefenses`} input={`altDefenses`} refProp={textareaRef} />
                     </div>
                 </div>
             </div>

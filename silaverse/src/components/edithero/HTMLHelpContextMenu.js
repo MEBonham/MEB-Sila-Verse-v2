@@ -20,7 +20,9 @@ const HTMLHelpContextMenu = props => {
             case "copy":
                 // navigator.clipboard.writeText(event.target.href)
                 navigator.clipboard.writeText(props.payload)
-                    .then()
+                    .then(() => {
+                        props.refProp.current.focus();
+                    })
                     .catch(err => {
                         console.log("Unable to copy to clipboard;", err);
                     });
@@ -70,9 +72,9 @@ const HTMLHelpContextMenu = props => {
             </Submenu>
             <Separator />
             <Submenu label="Copy to Clipboard" arrow="&#9656;">
-                <Item onClick={onClick} data={{ type: "copy", payload: `<span class="lesser-note"></span>` }}>Lesser Note Span</Item>
-                <Item onClick={onClick} data={{ type: "copy", payload: ` &middot; ` }}>Spaced Out Middot</Item>
-                <Item onClick={onClick} data={{ type: "copy", payload: `<span class=""></span>` }}>Generic span-Tag</Item>
+                <Item onClick={onClick} data={{ type: "copy", payload: `<span class="lesser-note"></span>`, refProp: props.refProp }}>Lesser Note Span</Item>
+                <Item onClick={onClick} data={{ type: "copy", payload: ` &middot; `, refProp: props.refProp }}>Spaced Out Middot</Item>
+                <Item onClick={onClick} data={{ type: "copy", payload: `<span class=""></span>`, refProp: props.refProp }}>Generic span-Tag</Item>
             </Submenu>
         </Menu>
     );

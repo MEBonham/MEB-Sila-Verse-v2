@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -10,6 +10,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditNotes = () => {
 
     const { inputs, setInputs, handleInputChange, notesInfo } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     useEffect(() => {
         if (notesInfo) {
@@ -33,6 +34,7 @@ const EditNotes = () => {
                         placeholder=""
                         rows="8"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-notes`}>
                         <img
@@ -41,7 +43,7 @@ const EditNotes = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-notes`} input={`notes`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-notes`} input={`notes`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

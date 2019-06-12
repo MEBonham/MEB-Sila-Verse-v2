@@ -16,25 +16,12 @@ const NewSkills = () => {
 
     const { inputs, setInputs, handleInputChange } = useContext(NewMultiformContext);
     const [ skillsToRender, setSkillsToRender ] = useState([]);
+    const textareaRef = useRef(null);
     
     const latestInputs = useRef({});
     useEffect(() => {
         latestInputs.current = inputs;
     }, [ inputs ]);
-
-    // useEffect(() => {
-    //     if (skillsInfo) {
-    //         inputs.skillsCount = Object.keys(skillsInfo).length;
-    //         setSkillsToRender(Object.keys(skillsInfo).sort().map((skillName, i) => (
-    //             <EditSingleSkill
-    //                 key={uuidv1()}
-    //                 skillNum={i}
-    //                 handleDeleteSkill={handleDeleteSkill}
-    //             />
-    //         )));
-    //         setInputs(stateToInputsFlowSkills(skillsInfo, inputs));
-    //     }
-    // }, [ skillsInfo ]);
 
     useEffect(() => {
         setInputs(inputs => ({
@@ -104,6 +91,7 @@ const NewSkills = () => {
                         placeholder=""
                         rows="4"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-altSkills`}>
                         <img
@@ -112,7 +100,7 @@ const NewSkills = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-altSkills`} input={`altSkills`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-altSkills`} input={`altSkills`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -11,6 +11,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditSingleComplication = props => {
     
     const { inputs, handleInputChange } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     return(
         <div className="complication">
@@ -42,6 +43,7 @@ const EditSingleComplication = props => {
                             value={inputs[`complication-${props.num}-desc`] || ""}
                             rows="4"
                             cols="50"
+                            ref={textareaRef}
                         />
                         <MenuProvider id={`htmlHelp-complication-${props.num}`}>
                             <img
@@ -50,7 +52,7 @@ const EditSingleComplication = props => {
                                 className="star-menu"
                             />
                         </MenuProvider>
-                        <HTMLHelpContextMenu menuId={`htmlHelp-complication-${props.num}`} input={`complication-${props.num}-desc`} />
+                        <HTMLHelpContextMenu menuId={`htmlHelp-complication-${props.num}`} input={`complication-${props.num}-desc`} refProp={textareaRef} />
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -11,6 +11,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditSinglePower = props => {
     
     const { inputs, handleInputChange } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     if (props.power) {
         return(
@@ -85,6 +86,7 @@ const EditSinglePower = props => {
                             required
                             rows="6"
                             cols="60"
+                            ref={textareaRef}
                         />
                         <MenuProvider id={`htmlHelp-power-${props.powerNum}`}>
                             <img
@@ -93,7 +95,7 @@ const EditSinglePower = props => {
                                 className="star-menu"
                             />
                         </MenuProvider>
-                        <HTMLHelpContextMenu menuId={`htmlHelp-power-${props.powerNum}`} input={`power-${props.powerNum}-details`} />
+                        <HTMLHelpContextMenu menuId={`htmlHelp-power-${props.powerNum}`} input={`power-${props.powerNum}-details`} refProp={textareaRef} />
                     </div>
                 </div>
             </div>

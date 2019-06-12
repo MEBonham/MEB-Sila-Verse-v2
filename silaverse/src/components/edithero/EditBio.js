@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -10,6 +10,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditBio = () => {
 
     const { inputs, setInputs, handleInputChange, bioInfo } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     useEffect(() => {
         if (bioInfo) {
@@ -33,6 +34,7 @@ const EditBio = () => {
                         placeholder=""
                         rows="8"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-bio`}>
                         <img
@@ -41,7 +43,7 @@ const EditBio = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-bio`} input={`bio`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-bio`} input={`bio`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

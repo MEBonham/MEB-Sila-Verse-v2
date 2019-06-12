@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
@@ -10,6 +10,7 @@ import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 const NewBio = () => {
 
     const { inputs, handleInputChange } = useContext(NewMultiformContext);
+    const textareaRef = useRef(null);
 
     return(
         <section className="bio">
@@ -24,6 +25,7 @@ const NewBio = () => {
                         placeholder=""
                         rows="8"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-bio`}>
                         <img
@@ -32,7 +34,7 @@ const NewBio = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-bio`} input={`bio`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-bio`} input={`bio`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'reactn';
+import React, { useState, useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -11,6 +11,7 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditAbilities = () => {
 
     const { inputs, handleInputChange, abilitiesInfo } = useContext(EditMultiformContext);
+    const textareaRef = useRef(null);
 
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
     useEffect(() => {
@@ -53,6 +54,7 @@ const EditAbilities = () => {
                         placeholder=""
                         rows="5"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-altAbilities`}>
                         <img
@@ -61,7 +63,7 @@ const EditAbilities = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-altAbilities`} input={`altAbilities`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-altAbilities`} input={`altAbilities`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

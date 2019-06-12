@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'reactn';
+import React, { useState, useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
@@ -11,28 +11,10 @@ import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 const NewAbilities = () => {
 
     const { inputs, handleInputChange, abilitiesInfo } = useContext(NewMultiformContext);
-    // const { inputs, handleInputChange } = useContext(NewMultiformContext);
-
+    const textareaRef = useRef(null);
+    
     const [ display, setDisplay ] = useState(<div className="abilities-div"></div>);
-    // const [ display ] = useState(
-    //     <div className="abilities-div">
-    //         <NewSingleAbility abbr="Str" name="Strength" nums={{}} />
-    //         <NewSingleAbility abbr="Sta" name="Stamina" nums={{}} />
-    //         <NewSingleAbility abbr="Agl" name="Agility" nums={{}} />
-    //         <NewSingleAbility abbr="Dex" name="Dexterity" nums={{}} />
-    //         <NewSingleAbility abbr="Fgt" name="Fighting" nums={{}} />
-    //         <NewSingleAbility abbr="Int" name="Intellect" nums={{}} />
-    //         <NewSingleAbility abbr="Awe" name="Awareness" nums={{}} />
-    //         <NewSingleAbility abbr="Pre" name="Presence" nums={{}} />
-    //         <input
-    //             type="text"
-    //             id="abilitiesNote"
-    //             placeholder="e.g. Load limit 50 lb."
-    //             onChange={handleInputChange}
-    //             value={inputs.abilitiesNote || ""}
-    //         />
-    //     </div>
-    // );
+
     useEffect(() => {
         if (abilitiesInfo) {
             inputs.abilitiesNote = abilitiesInfo.note;
@@ -74,6 +56,7 @@ const NewAbilities = () => {
                         placeholder=""
                         rows="5"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-altAbilities`}>
                         <img
@@ -82,7 +65,7 @@ const NewAbilities = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-altAbilities`} input={`altAbilities`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-altAbilities`} input={`altAbilities`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

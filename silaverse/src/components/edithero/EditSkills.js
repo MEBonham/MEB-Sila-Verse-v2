@@ -16,6 +16,7 @@ const EditSkills = () => {
 
     const { inputs, setInputs, handleInputChange, skillsInfo } = useContext(EditMultiformContext);
     const [ skillsToRender, setSkillsToRender ] = useState([]);
+    const textareaRef = useRef(null);
     
     const latestInputs = useRef({});
     useEffect(() => {
@@ -101,6 +102,7 @@ const EditSkills = () => {
                         placeholder=""
                         rows="4"
                         cols="70"
+                        ref={textareaRef}
                     />
                     <MenuProvider id={`htmlHelp-altSkills`}>
                         <img
@@ -109,7 +111,7 @@ const EditSkills = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-altSkills`} input={`altSkills`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-altSkills`} input={`altSkills`} refProp={textareaRef} />
                 </div>
             </div>
         </section>

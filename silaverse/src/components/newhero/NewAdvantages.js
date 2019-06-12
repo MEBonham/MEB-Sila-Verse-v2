@@ -1,4 +1,4 @@
-import React, { useContext } from 'reactn';
+import React, { useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import NewMultiformContext from '../../hooks/NewMultiformContext';
@@ -9,21 +9,10 @@ import HTMLHelpContextMenu2 from './HTMLHelpContextMenu2';
 
 const NewAdvantages = () => {
 
-    // const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(NewMultiformContext);
     const { inputs, handleInputChange } = useContext(NewMultiformContext);
-
-    // useEffect(() => {
-    //     if (advantagesInfo) {
-    //         setInputs(inputs => ({
-    //             ...inputs,
-    //             totalAdvantagesCost: advantagesInfo.totalAdvantagesCost,
-    //             advantagesList: advantagesInfo.advantagesList,
-    //             totalEquipmentCost: advantagesInfo.totalEquipmentCost,
-    //             equipmentInfo: advantagesInfo.equipmentInfo,
-    //             languagesInfo: advantagesInfo.languagesInfo
-    //         }));
-    //     }
-    // }, [ advantagesInfo ]);
+    const advantagesRef = useRef(null);
+    const equipmentRef = useRef(null);
+    const languagesRef = useRef(null);
 
     return(
         <section className="advantages">
@@ -45,6 +34,7 @@ const NewAdvantages = () => {
                         placeholder="Accurate Attack"
                         rows="6"
                         cols="70"
+                        ref={advantagesRef}
                     />
                     <MenuProvider id={`htmlHelp-advantagesList`}>
                         <img
@@ -53,7 +43,7 @@ const NewAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-advantagesList`} input={`advantagesList`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-advantagesList`} input={`advantagesList`} refProp={advantagesRef} />
                 </div>
             </div>
             <label htmlFor="totalEquipmentCost">Total Equipment Points (ep)</label>
@@ -73,6 +63,7 @@ const NewAdvantages = () => {
                         placeholder={`<ul><li><strong>Commlink &middot;</strong> <span class="lesser-note">1 ep</span><li></ul>`}
                         rows="6"
                         cols="70"
+                        ref={equipmentRef}
                     />
                     <MenuProvider id={`htmlHelp-equipmentInfo`}>
                         <img
@@ -81,7 +72,7 @@ const NewAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-equipmentInfo`} input={`equipmentInfo`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-equipmentInfo`} input={`equipmentInfo`} refProp={equipmentRef} />
                 </div>
             </div>
             <div className="textarea">
@@ -94,6 +85,7 @@ const NewAdvantages = () => {
                         placeholder={`<strong>&middot;</strong> native: <strong>English &middot;</strong>`}
                         rows="6"
                         cols="70"
+                        ref={languagesRef}
                     />
                     <MenuProvider id={`htmlHelp-languagesInfo`}>
                         <img
@@ -102,7 +94,7 @@ const NewAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu2 menuId={`htmlHelp-languagesInfo`} input={`languagesInfo`} />
+                    <HTMLHelpContextMenu2 menuId={`htmlHelp-languagesInfo`} input={`languagesInfo`} refProp={languagesRef} />
                 </div>
             </div>
         </section>

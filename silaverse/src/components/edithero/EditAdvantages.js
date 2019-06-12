@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'reactn';
+import React, { useEffect, useContext, useRef } from 'reactn';
 import { MenuProvider } from 'react-contexify';
 
 import EditMultiformContext from '../../hooks/EditMultiformContext';
@@ -10,6 +10,9 @@ import HTMLHelpContextMenu from './HTMLHelpContextMenu';
 const EditAdvantages = () => {
 
     const { inputs, setInputs, handleInputChange, advantagesInfo } = useContext(EditMultiformContext);
+    const advantagesRef = useRef(null);
+    const equipmentRef = useRef(null);
+    const languagesRef = useRef(null);
 
     useEffect(() => {
         if (advantagesInfo) {
@@ -44,6 +47,7 @@ const EditAdvantages = () => {
                         placeholder="Accurate Attack"
                         rows="6"
                         cols="70"
+                        ref={advantagesRef}
                     />
                     <MenuProvider id={`htmlHelp-advantagesList`}>
                         <img
@@ -52,7 +56,7 @@ const EditAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-advantagesList`} input={`advantagesList`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-advantagesList`} input={`advantagesList`} refProp={advantagesRef} />
                 </div>
             </div>
             <label htmlFor="totalEquipmentCost">Total Equipment Points (ep)</label>
@@ -72,6 +76,7 @@ const EditAdvantages = () => {
                         placeholder={`<ul><li><strong>Commlink &middot;</strong> <span class="lesser-note">1 ep</span><li></ul>`}
                         rows="6"
                         cols="70"
+                        ref={equipmentRef}
                     />
                     <MenuProvider id={`htmlHelp-equipmentInfo`}>
                         <img
@@ -80,7 +85,7 @@ const EditAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-equipmentInfo`} input={`equipmentInfo`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-equipmentInfo`} input={`equipmentInfo`} refProp={equipmentRef} />
                 </div>
             </div>
             <div className="textarea">
@@ -93,6 +98,7 @@ const EditAdvantages = () => {
                         placeholder={`<strong>&middot;</strong> native: <strong>English &middot;</strong>`}
                         rows="6"
                         cols="70"
+                        ref={languagesRef}
                     />
                     <MenuProvider id={`htmlHelp-languagesInfo`}>
                         <img
@@ -101,7 +107,7 @@ const EditAdvantages = () => {
                             className="star-menu"
                         />
                     </MenuProvider>
-                    <HTMLHelpContextMenu menuId={`htmlHelp-languagesInfo`} input={`languagesInfo`} />
+                    <HTMLHelpContextMenu menuId={`htmlHelp-languagesInfo`} input={`languagesInfo`} refProp={languagesRef} />
                 </div>
             </div>
         </section>
