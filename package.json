@@ -5,6 +5,7 @@
     "html-react-parser": "^0.7.1",
     "react-contexify": "^4.1.0",
     "react-router-dom": "^5.0.0",
+    "react-router-hash-link": "^1.2.1",
     "reactn": "^2.0.2",
     "uuid": "^3.3.2"
   }

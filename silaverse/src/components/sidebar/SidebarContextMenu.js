@@ -1,6 +1,7 @@
 import React from 'reactn';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
+import { HashLink } from 'react-router-hash-link';
 
 const SidebarContextMenu = props => {
     
@@ -31,33 +32,32 @@ const SidebarContextMenu = props => {
         <Menu id={props.menuId}>
             <Item onClick={onClick} data={{ type: "edit", url: `/edithero/${props.url}`, history: props.history }}>Edit Hero</Item>
             <Submenu label="Edit Hero by Section" arrow="&#9656;">
-                {/* <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`abilities-section` }}> */}
                 <Item>
-                    <Link to={{ pathname: `edithero/${props.url}`, hash: `abilities-section` }}>Abilities</Link>
+                    <HashLink to={`/edithero/${props.url}#abilities-section`}>Abilities</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`powers-section` }}>
-                    Powers
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#powers-section`}>Powers</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`advantages-section` }}>
-                    Advantages
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#advantages-section`}>Advantages</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`skills-section` }}>
-                    Skills
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#skills-section`}>Skills</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`defenses-section` }}>
-                    Defenses
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#defenses-section`}>Defenses</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`offense-section` }}>
-                    Offense
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#offense-section`}>Offense</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`complications-section` }}>
-                    Complications
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#complications-section`}>Complications</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`bio-section` }}>
-                    Bio
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#bio-section`}>Bio</HashLink>
                 </Item>
-                <Item onClick={onClick} data={{ type: "edit", url: `edithero/${props.url}`, anchor:`notes-section` }}>
-                    Notes
+                <Item>
+                    <HashLink to={`/edithero/${props.url}#notes-section`}>Notes</HashLink>
                 </Item>
             </Submenu>
             <Item onClick={onClick} data={{ type: "newTab", url: `/viewhero/${props.url}` }}>View Hero in New Tab</Item>
