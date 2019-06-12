@@ -37,10 +37,12 @@ const OrganizeHeroes = props => {
                         ...orgObject,
                         [doc.id]: JSON.parse(doc.data().heroes)
                     }));
-                    setSortedNames(sortedNames => ([
-                        ...sortedNames,
-                        doc.id
-                    ]));
+                    if (!sortedNames.includes(doc.id)) {
+                        setSortedNames(sortedNames => ([
+                            ...sortedNames,
+                            doc.id
+                        ]));
+                    }
                 });
             })
             .catch(err => {
@@ -58,7 +60,7 @@ const OrganizeHeroes = props => {
             ];
         })
         setCoveredHeroes(arr);
-    }, [ orgObject ]);
+    }, [ orgObject, sortedNames ]);
 
     // useEffect(() => {
     //     console.log(coveredHeroes);
@@ -68,7 +70,7 @@ const OrganizeHeroes = props => {
         // console.log("Time to add a new folder to the db:", inputs.newFolderInput);
         db.collection("folders").get()
             .then(querySnapshot => {
-                console.log(querySnapshot);
+                // console.log(querySnapshot);
                 db.collection("folders").doc(inputs.newFolderInput).set({
                     heroes: "[]",
                     orderNum: querySnapshot.docs.length
@@ -89,10 +91,69 @@ const OrganizeHeroes = props => {
             });
     }
 
-    // useEffect(() => {
-    //     console.log(orgObject);
-    //     console.log(Object.keys(orgObject));
-    // });
+    const handleDelete = ev => {
+        // console.log(ev.target.getAttribute("ordernum"));
+        const folderNum = parseInt(ev.target.getAttribute("ordernum"));
+        if (window.confirm("Are you sure you want to delete this folder? Its heroes will become Uncategorized.")) {
+            const folderName = ev.target.id.substring(4);
+            db.collection("folders").doc(folderName).delete()
+                .then(() => {
+                    for (let i = folderNum + 1; i < sortedNames.length; i++) {
+                        const folderToModify = sortedNames[i];
+                        db.collection("folders").doc(folderToModify)
+                            .set({
+                                orderNum: i - 1
+                            }, { merge: true })
+                            .catch(err => {
+                                console.log(`Error adjusting orderNum for subsequent folder ${folderToModify}:`, err);
+                            });
+                    }
+                    const modArr = sortedNames.slice();
+                    modArr.splice(folderNum, 1);
+                    setSortedNames(modArr);
+                })
+                .catch(err => {
+                    console.log("Error deleting folder:", err);
+                });
+        }
+    }
+
+    const handleUp = ev => {
+        const index = parseInt(ev.target.id.substring(10));
+        swapFolders(index - 1, index);
+    }
+
+    const handleDown = ev => {
+        const index = parseInt(ev.target.id.substring(12));
+        swapFolders(index, index + 1);
+    }
+
+    const swapFolders = (a, b) => {
+        const name1 = sortedNames[a];
+        const name2 = sortedNames[b];
+        db.collection("folders").doc(name1)
+            .set({
+                orderNum: b
+            }, { merge: true })
+            .then(() => {
+                db.collection("folders").doc(name2)
+                    .set({
+                        orderNum: a
+                    }, { merge: true })
+                    .then(() => {
+                        const modArr = sortedNames.slice();
+                        modArr[a] = name2;
+                        modArr[b] = name1;
+                        setSortedNames(modArr);
+                    })
+                    .catch(err => {
+                        console.log(`Error resolving swapFolders:`, err);
+                    });
+            })
+            .catch(err => {
+                console.log(`Error modifying folder ${name1}:`, err);
+            });
+    }
 
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(saveNewFolder);
 
@@ -104,13 +165,13 @@ const OrganizeHeroes = props => {
                     <div className="heading-and-controls">
                         <h2>{folderName}</h2>
                         <div className="controls">
-                            <img src={deleteIcon} alt="Delete Folder" />
+                            <img src={deleteIcon} alt="Delete Folder" onClick={handleDelete} id={`del-${folderName}`} ordernum={i} />
                             <div className="arrow-icons">
                                 {i > 0 ?
-                                    <img src={upArrow} alt="Move Folder Up" /> :
+                                    <img src={upArrow} alt="Move Folder Up" id={`up-button-${i}`} onClick={handleUp} /> :
                                     null}
                                 {i < sortedNames.length - 1 ?
-                                    <img src={downArrow} alt="Move Folder Down" /> :
+                                    <img src={downArrow} alt="Move Folder Down" id={`down-button-${i}`} onClick={handleDown} /> :
                                     null}
                             </div>
                         </div>

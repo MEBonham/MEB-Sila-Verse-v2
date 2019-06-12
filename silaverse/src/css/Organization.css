@@ -13,6 +13,7 @@
 
 .organization-envelope section {
     width: 80%;
+    margin-top: 20px;
 }
 
 .organization-envelope section .heading-and-controls {
@@ -67,7 +68,8 @@
     flex-direction: column;
 }
 
-.organization-envelope section li .controls .arrow-icons img {
+.organization-envelope section li .controls .arrow-icons img,
+.organization-envelope .heading-and-controls .controls img {
     cursor: pointer;
 }
 

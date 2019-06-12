@@ -51,7 +51,7 @@ const DefensesSection = props => {
                 ({defenses.toughness.eff}{showDefRoll ? showDefRoll : null}) &middot; Will
                 </strong> {defenses.will.base} <strong>({defenses.will.eff}) &middot;</strong></p>
             {showDefRoll ?
-                <p>* <span className="lesser-note">without Defensive Roll</span></p> :
+                <p><strong>*</strong><span className="lesser-note">without Defensive Roll</span></p> :
                 null}
             { defenses.altDefenses ? (parse(cleaned)) : null }
         </section>
