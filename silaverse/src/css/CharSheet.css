@@ -1,5 +1,5 @@
 .char-sheet-envelope {
-    width: 72%;
+    width: 70%;
     height: calc(100% - 2.6rem - 10px);
     overflow-y: auto;
 }
