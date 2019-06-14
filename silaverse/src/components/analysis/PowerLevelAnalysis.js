@@ -3,18 +3,17 @@ import { Link } from 'react-router-dom';
 
 import { sortByName, sortByNumber } from './SortFcts';
 
-const IntellectAnalysis = () => {
+const PowerLevelAnalysis = () => {
 
     const [ heroes ] = useGlobal('heroes');
     const [ objStructure, setObjStructure ] = useState({});
     const [ display, setDisplay ] = useState([]);
-    const abbr = "int";
 
     useEffect(() => {
         if (heroes) {
             let obj = {};
             heroes.sort(sortByName).forEach(hero => {
-                const eff = hero.abilities[abbr].eff;
+                const eff = hero.powerLevel;
                 if (obj[eff]) {
                     obj[eff].push(hero);
                 } else {
@@ -40,11 +39,11 @@ const IntellectAnalysis = () => {
     }, [ objStructure ]);
 
     return(
-        <section className="intellect-analysis">
-            <h2>Intellect</h2>
+        <section className="power-level-analysis">
+            <h2>Power Levels</h2>
             {display}
         </section>
     );
 }
 
-export default IntellectAnalysis;
+export default PowerLevelAnalysis;

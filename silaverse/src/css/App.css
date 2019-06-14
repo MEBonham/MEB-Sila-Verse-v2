@@ -55,6 +55,8 @@
 .analysis-envelope header {
     width: 100%;
     height: calc(2.6rem + 10px);
+    position: sticky;
+    top: 0;
     border-top: 4px double lightgray;
     background: gray;
 }

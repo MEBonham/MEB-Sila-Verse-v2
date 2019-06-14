@@ -1,6 +1,7 @@
 import React from 'reactn';
 import { Route, NavLink } from 'react-router-dom';
 
+import PowerLevelAnalysis from './PowerLevelAnalysis';
 import StrengthAnalysis from './StrengthAnalysis';
 import StaminaAnalysis from './StaminaAnalysis';
 import AgilityAnalysis from './AgilityAnalysis';
@@ -27,6 +28,7 @@ const StatAnalysis = () => {
             </header>
             <div className="for-padding">
                 <h1>Setting Stat Analysis</h1>
+                <Route exact path="/analysis" component={PowerLevelAnalysis} />
                 <Route path="/analysis/strength" component={StrengthAnalysis} />
                 <Route path="/analysis/stamina" component={StaminaAnalysis} />
                 <Route path="/analysis/agility" component={AgilityAnalysis} />

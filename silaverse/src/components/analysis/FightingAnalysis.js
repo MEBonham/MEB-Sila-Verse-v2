@@ -1,34 +1,14 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
 import { Link } from 'react-router-dom';
 
+import { sortByName, sortByNumber } from './SortFcts';
+
 const FightingAnalysis = () => {
 
     const [ heroes ] = useGlobal('heroes');
     const [ objStructure, setObjStructure ] = useState({});
     const [ display, setDisplay ] = useState([]);
     const abbr = "fgt";
-
-    const sortByName = (a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        } else if (nameA > nameB) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    const sortByNumber = (a, b) => {
-        if (isNaN(a)) {
-            return -1;
-        } else if (isNaN(b)) {
-            return 1;
-        } else {
-            return Number(a) - Number(b);
-        }
-    }
 
     useEffect(() => {
         if (heroes) {
