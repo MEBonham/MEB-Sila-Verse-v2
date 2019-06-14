@@ -9,6 +9,7 @@ import CharSheet from './main/CharSheet';
 import EditHeroForm from './edithero/EditHeroForm';
 import NewHeroForm from './newhero/NewHeroForm';
 import OrganizeHeroes from './organization/OrganizeHeroes';
+import StatAnalysis from './analysis/StatAnalysis';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
@@ -34,11 +35,12 @@ const App = () => {
         <div className="App">
             <Header />
             <Route exact path="/" component={Sidebar} />
-            <Route path={["/viewhero", "/edithero", "/newhero", "/organize"]} component={Sidebar} />
+            <Route path={["/viewhero", "/edithero", "/newhero", "/organize", "/analysis"]} component={Sidebar} />
             <Route path="/viewhero/:urlid" component={CharSheet} />
             <Route path="/edithero/:urlid" component={EditHeroForm} />
             <Route path="/newhero" component={NewHeroForm} />
             <Route path="/organize" component={OrganizeHeroes} />
+            <Route path="/analysis" component={StatAnalysis} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />

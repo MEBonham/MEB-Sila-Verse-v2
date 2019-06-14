@@ -42,8 +42,6 @@ const Sidebar = props => {
     }, []);
 
     useEffect(() => {
-        // console.log(orgObject);
-        // console.log(Object.keys(orgObject));
         let arr = [];
         Object.keys(orgObject).forEach(folderName => {
             arr = [
@@ -97,9 +95,7 @@ const Sidebar = props => {
         <section className="full-sidebar">
             <Link to="/newhero">New Hero</Link>
             <Link to="/organize">Organize Heroes</Link>
-            {/* <div className="hero-tree">
-                {heroList}
-            </div> */}
+            <Link to="/analysis">Analyze Setting</Link>
             <Accordion allowMultipleOpen>
                 {heroTree}
             </Accordion>

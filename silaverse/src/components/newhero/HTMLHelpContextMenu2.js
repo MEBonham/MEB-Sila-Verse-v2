@@ -45,7 +45,7 @@ const HTMLHelpContextMenu2 = props => {
                 <Item onClick={onClick} data={{
                     type: "insert",
                     input: props.input,
-                    payload: `<ul>\n<li><strong></strong> () <strong>&middot;</strong> <span class="lesser-note"> ppt</span><br />\n</li>\n</ul>`
+                    payload: `<ul>\n<li><strong></strong> () <strong>&middot;</strong> <span class="lesser-note"> ep</span><br />\n</li>\n</ul>`
                 }}>
                     List Beginning
                 </Item>
