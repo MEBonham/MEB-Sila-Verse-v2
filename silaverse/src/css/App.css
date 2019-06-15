@@ -119,6 +119,18 @@
     color: #004400;
 }
 
+.world-map {
+    width: 100%;
+    height: calc(100% - 2.6rem - 10px);
+    padding: 24px 2%;
+}
+
+.world-map h1 {
+    margin-bottom: 20px;
+    font-size: 2.8rem;
+    font-weight: bold;
+}
+
 .login-form {
     width: 100%;
     height: calc(100% - 2.6rem - 10px);

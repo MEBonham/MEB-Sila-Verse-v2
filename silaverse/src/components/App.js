@@ -10,6 +10,7 @@ import EditHeroForm from './edithero/EditHeroForm';
 import NewHeroForm from './newhero/NewHeroForm';
 import OrganizeHeroes from './organization/OrganizeHeroes';
 import StatAnalysis from './analysis/StatAnalysis';
+import WorldMap from './mapping/WorldMap';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
@@ -41,6 +42,7 @@ const App = () => {
             <Route path="/newhero" component={NewHeroForm} />
             <Route path="/organize" component={OrganizeHeroes} />
             <Route path="/analysis" component={StatAnalysis} />
+            <Route path="/worldmap" component={WorldMap} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/forgot-password" component={ForgotPassword} />

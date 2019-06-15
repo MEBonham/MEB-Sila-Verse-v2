@@ -96,6 +96,7 @@ const Sidebar = props => {
             <Link to="/newhero">New Hero</Link>
             <Link to="/organize">Organize Heroes</Link>
             <Link to="/analysis">Analyze Setting</Link>
+            <Link to="/worldmap">World Map</Link>
             <Accordion allowMultipleOpen>
                 {heroTree}
             </Accordion>
