@@ -212,7 +212,7 @@ const EditHeroForm = props => {
                                 <input
                                     type="text"
                                     id="subHero"
-                                    placeholder={`Dummy\\dummy`}
+                                    placeholder={`Dummy\\dummy or *dummy`}
                                     onChange={handleInputChange}
                                     value={inputs.subHero || ""}
                                 />

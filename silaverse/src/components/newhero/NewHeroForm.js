@@ -49,28 +49,69 @@ const NewHeroForm = props => {
         const db = firebase.db;
         const inputsCopy = fixBlankInputFields(inputs);
         const newHero = packageHeroForDB(inputsCopy);
-        db.collection("heroes").add(newHero)
-            .then(heroRef => {
-                db.collection("heroes").doc(heroRef.id).get()
-                    .then(querySnapshot => {
-                        if (!querySnapshot.exists) {
-                            console.log("Error getting newly created hero from database.");
-                        } else {
-                            const newHeroForGlobal = packageHeroForGlobal(heroRef.id, newHero);
-                            setHeroes([
-                                ...prevHeroes,
-                                newHeroForGlobal
-                            ]);
-                            props.history.push(`/viewhero/${newHero.urlid}`);
-                        }
-                    })
-                    .catch(err => {
-                        console.log("Error updating global variables with new hero info: ", err);
-                    });
-            })
-            .catch(err => {
-                console.log("Error adding hero to database: ", err);
-            });
+        if (inputsCopy.subHero && (inputsCopy.subHero[0] === "*")) {
+            const masterUrlid = inputsCopy.subHero.substring(1);
+            const formId = inputsCopy.urlid;
+            db.collection("heroes").where("urlid", "==", masterUrlid)
+                .get()
+                .then(querySnapshot => {
+                    const masterId = querySnapshot.docs[0].id;
+                    db.collection("heroes").doc(masterId)
+                        .get()
+                        .then(doc => {
+                            const masterCopy  = JSON.parse(JSON.stringify(doc.data()));
+                            if (!masterCopy.forms) {
+                                masterCopy.forms = [];
+                            }
+                            masterCopy.forms.push(formId);
+                            db.collection("heroes").doc(masterId)
+                                .set(masterCopy)
+                                .then(() => {
+                                    newHero.urlid = `${masterUrlid}.${formId}`;
+                                    db.collection("forms").doc(`${masterUrlid}.${formId}`)
+                                        .set(newHero)
+                                        .then(() => {
+                                            props.history.push(`/viewhero/${masterUrlid}`);
+                                        })
+                                        .catch(err => {
+                                            console.log("Error adding new form to forms db:", err);
+                                        });
+                                })
+                                .catch(err => {
+                                    console.log("Error:", err);
+                                });
+                        })
+                        .catch(err => {
+                            console.log("Error:", err);
+                        });
+                })
+                .catch(err => {
+                    console.log(`Cannot find hero with urlid ${masterUrlid}:`, err);
+                });
+        } else {
+            db.collection("heroes").add(newHero)
+                .then(heroRef => {
+                    db.collection("heroes").doc(heroRef.id).get()
+                        .then(querySnapshot => {
+                            if (!querySnapshot.exists) {
+                                console.log("Error getting newly created hero from database.");
+                            } else {
+                                const newHeroForGlobal = packageHeroForGlobal(heroRef.id, newHero);
+                                setHeroes([
+                                    ...prevHeroes,
+                                    newHeroForGlobal
+                                ]);
+                                props.history.push(`/viewhero/${newHero.urlid}`);
+                            }
+                        })
+                        .catch(err => {
+                            console.log("Error updating global variables with new hero info: ", err);
+                        });
+                })
+                .catch(err => {
+                    console.log("Error adding hero to database: ", err);
+                });
+        }
     }
 
     const { inputs, setInputs, handleInputChange, handleSubmit } = useForm(sendInfo);
@@ -121,7 +162,7 @@ const NewHeroForm = props => {
                                 <input
                                     type="text"
                                     id="subHero"
-                                    placeholder={`Dummy\\dummy`}
+                                    placeholder={`Dummy\\dummy or *dummy`}
                                     onChange={handleInputChange}
                                     value={inputs.subHero || ""}
                                 />
