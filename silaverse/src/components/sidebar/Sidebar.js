@@ -14,6 +14,7 @@ const Sidebar = props => {
     const db = firebase.db;
 
     const [ heroes ] = useGlobal('heroes');
+    const [ user ] = useGlobal('user');
     // const heroList = heroes ?
     //     heroes.map(hero => {
     //         return (<HeroListing key={hero.id} id={hero.id} urlid={hero.urlid} name={hero.name} history={props.history} />)
@@ -93,8 +94,8 @@ const Sidebar = props => {
 
     return(
         <section className="full-sidebar">
-            <Link to="/newhero">New Hero</Link>
-            <Link to="/organize">Organize Heroes</Link>
+            {user ? <Link to="/newhero">New Hero</Link> : null}
+            {user ? <Link to="/organize">Organize Heroes</Link> : null}
             <Link to="/analysis">Analyze Setting</Link>
             <Link to="/worldmap">World Map</Link>
             <Accordion allowMultipleOpen>
