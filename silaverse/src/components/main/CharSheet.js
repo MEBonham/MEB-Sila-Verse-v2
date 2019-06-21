@@ -101,7 +101,7 @@ const CharSheet = props => {
                 </nav>
             );
         }
-    }, [ formTitles ]);
+    }, [ formTitles, activeForm ]);
     
     const [ finalTotal, setFinalTotal ] = useState(0);
     const [ pptTotals, setPptTotals ] = useState({
