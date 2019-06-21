@@ -41,11 +41,9 @@ const CharSheet = props => {
             if (activeForm > 0) {
                 const db = firebase.db;
                 const formName = thisHero.forms[activeForm - 1];
-                console.log(`${thisHero.urlid}.${formName}`);
                 db.collection("forms").doc(`${thisHero.urlid}.${formName}`)
                     .get()
                     .then(doc => {
-                        // console.log(doc);
                         setThisHeroPrime(packageHeroForGlobal(`${thisHero.urlid}.${formName}`, doc.data()));
                     })
                     .catch(err => {
@@ -55,6 +53,7 @@ const CharSheet = props => {
                 setThisHeroPrime(thisHero);
             }
         } else if (thisHero) {
+            setHasForms(false);
             setThisHeroPrime(thisHero);
         }
     }, [ thisHero, activeForm ]);
@@ -80,14 +79,14 @@ const CharSheet = props => {
         setActiveForm(parseInt(ev.target.id.split("-")[2]));
     }
 
-    if (thisHeroPrime) {
+    if (thisHero && thisHeroPrime) {
         let heroTypeEl;
-        if (thisHeroPrime.subHero && thisHeroPrime.subHero.length) {
-            const subHeroSplit = thisHeroPrime.subHero.split("\\");
+        if (thisHero.subHero && thisHero.subHero.length) {
+            const subHeroSplit = thisHero.subHero.split("\\");
             const toString = `./${DOMPurify.sanitize(subHeroSplit[1])}`;
-            heroTypeEl = <p className="hero-type">{thisHeroPrime.heroType} <Link to={toString}>{subHeroSplit[0]}</Link></p>;
-        } else if (thisHeroPrime.heroType && thisHeroPrime.heroType.length) {
-            heroTypeEl = <p className="hero-type">{thisHeroPrime.heroType}</p>;
+            heroTypeEl = <p className="hero-type">{thisHero.heroType} <Link to={toString}>{subHeroSplit[0]}</Link></p>;
+        } else if (thisHero.heroType && thisHero.heroType.length) {
+            heroTypeEl = <p className="hero-type">{thisHero.heroType}</p>;
         } else {
             heroTypeEl = null;
         }
@@ -95,14 +94,21 @@ const CharSheet = props => {
         if (hasForms) {
             tabDiv = (
                 <nav className="char-sheet-tabs">
-                    <div className="char-sheet-tab" id="form-tab-0" onClick={handleTabSelect}>
-                        <label id="form-tab-0">{thisHero.urlid}</label>
+                    <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
+                        <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
                     </div>
                     {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {
                         // const styleStr = `width: calc(100% / ${thisHero.forms.length});`;
-                        return(<div key={i + 1} className="char-sheet-tab" id={`form-tab-${i + 1}`} onClick={handleTabSelect}>
-                            <label id={`form-tab-${i + 1}`}>{formName}</label>
-                        </div>);
+                        return(
+                            <div
+                                key={i + 1}
+                                className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
+                                id={`form-tab-${i + 1}`}
+                                onClick={handleTabSelect}
+                            >
+                            <label id={`form-tab-${i + 1}`}>{thisHeroPrime.formTitle || formName}</label>
+                            </div>
+                        );
                     })}
                 </nav>
             );

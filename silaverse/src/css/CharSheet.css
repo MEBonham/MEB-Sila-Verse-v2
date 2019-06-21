@@ -9,6 +9,7 @@
     width: 94%;
     margin: 0 auto;
     border-radius: 8px;
+    background-color: #A8A297;
     box-shadow: 2px 2px 14px #5c4b2e;
 }
 
@@ -20,9 +21,13 @@
 .char-sheet-tab {
     width: 100%;
     padding: 4px 0;
-    background-color: #c2b098;
+    background-color: #9d825d;
     background-image: url("../images/paper-texture.png");
     border-radius: 8px 8px 0 0;
+}
+
+.char-sheet-tab.active {
+    background-color: #c2b098;
 }
 
 .char-sheet-tab label {

@@ -44,52 +44,90 @@ const EditHeroForm = props => {
     const [ notesInfo, setNotesInfo ] = useState("");
     
     useEffect(() => {
-        db.collection("heroes").where("urlid", "==", urlid)
-            .get()
-            .then(querySnapshot => {
-                if (!querySnapshot.empty) {
-                    const heroId = querySnapshot.docs[0].id;
-                    const heroPrevData = db.collection("heroes").doc(heroId);
-                    heroPrevData.get()
-                        .then(doc => {
-                            setInputs({
-                                urlid: doc.data().urlid,
-                                name: doc.data().name,
-                                identity: doc.data().identity,
-                                heroType: doc.data().heroType,
-                                subHero: doc.data().subHero,
-                                powerLevel: doc.data().powerLevel
-                            });
-                            setAbilitiesInfo(JSON.parse(doc.data().abilities));
-                            setPowerInfo(JSON.parse(doc.data().powers));
-                            setTotalPowersCost(doc.data().totalPowersCost);
-                            setAdvantagesInfo({
-                                advantagesList: doc.data().advantagesList,
-                                totalAdvantagesCost: doc.data().totalAdvantagesCost,
-                                totalEquipmentCost: doc.data().totalEquipmentCost,
-                                equipmentInfo: doc.data().equipmentInfo,
-                                languagesInfo: doc.data().languages
-                            });
-                            setSkillsInfo({
-                                ...JSON.parse(doc.data().skills),
-                                altSkills: doc.data().altSkills
-                            });
-                            setDefensesInfo(JSON.parse(doc.data().defenses));
-                            setOffenseInfo(JSON.parse(doc.data().offense));
-                            setComplicationsInfo(JSON.parse(doc.data().complications));
-                            setBioInfo(doc.data().bio);
-                            setNotesInfo(doc.data().notes);
-                        })
-                        .catch(err => {
-                            console.log("Error getting hero data: ", err);
+        if (urlid.includes(".")) {
+            db.collection("forms").doc(urlid)
+                .get()
+                .then(doc => {
+                    if (doc.exists) {
+                        setInputs({
+                            urlid: doc.data().urlid.split(".")[1],
+                            name: doc.data().name,
+                            identity: doc.data().identity,
+                            heroType: doc.data().heroType,
+                            subHero: doc.data().subHero,
+                            powerLevel: doc.data().powerLevel
                         });
-                } else {
-                    console.log("No hero was found matching this url.");
-                }
-            })
-            .catch(err => {
-                console.log("Error getting hero that goes with this page in order to edit: ", err);
-            });
+                        setAbilitiesInfo(JSON.parse(doc.data().abilities));
+                        setPowerInfo(JSON.parse(doc.data().powers));
+                        setTotalPowersCost(doc.data().totalPowersCost);
+                        setAdvantagesInfo({
+                            advantagesList: doc.data().advantagesList,
+                            totalAdvantagesCost: doc.data().totalAdvantagesCost,
+                            totalEquipmentCost: doc.data().totalEquipmentCost,
+                            equipmentInfo: doc.data().equipmentInfo,
+                            languagesInfo: doc.data().languages
+                        });
+                        setSkillsInfo({
+                            ...JSON.parse(doc.data().skills),
+                            altSkills: doc.data().altSkills
+                        });
+                        setDefensesInfo(JSON.parse(doc.data().defenses));
+                        setOffenseInfo(JSON.parse(doc.data().offense));
+                        setComplicationsInfo(JSON.parse(doc.data().complications));
+                        setBioInfo(doc.data().bio);
+                        setNotesInfo(doc.data().notes);
+                    } else {
+                        console.log("No hero was found matching this url.");
+                    }
+                })
+        } else {
+            db.collection("heroes").where("urlid", "==", urlid)
+                .get()
+                .then(querySnapshot => {
+                    if (!querySnapshot.empty) {
+                        const heroId = querySnapshot.docs[0].id;
+                        const heroPrevData = db.collection("heroes").doc(heroId);
+                        heroPrevData.get()
+                            .then(doc => {
+                                setInputs({
+                                    urlid: doc.data().urlid,
+                                    name: doc.data().name,
+                                    identity: doc.data().identity,
+                                    heroType: doc.data().heroType,
+                                    subHero: doc.data().subHero,
+                                    powerLevel: doc.data().powerLevel
+                                });
+                                setAbilitiesInfo(JSON.parse(doc.data().abilities));
+                                setPowerInfo(JSON.parse(doc.data().powers));
+                                setTotalPowersCost(doc.data().totalPowersCost);
+                                setAdvantagesInfo({
+                                    advantagesList: doc.data().advantagesList,
+                                    totalAdvantagesCost: doc.data().totalAdvantagesCost,
+                                    totalEquipmentCost: doc.data().totalEquipmentCost,
+                                    equipmentInfo: doc.data().equipmentInfo,
+                                    languagesInfo: doc.data().languages
+                                });
+                                setSkillsInfo({
+                                    ...JSON.parse(doc.data().skills),
+                                    altSkills: doc.data().altSkills
+                                });
+                                setDefensesInfo(JSON.parse(doc.data().defenses));
+                                setOffenseInfo(JSON.parse(doc.data().offense));
+                                setComplicationsInfo(JSON.parse(doc.data().complications));
+                                setBioInfo(doc.data().bio);
+                                setNotesInfo(doc.data().notes);
+                            })
+                            .catch(err => {
+                                console.log("Error getting hero data: ", err);
+                            });
+                    } else {
+                        console.log("No hero was found matching this url.");
+                    }
+                })
+                .catch(err => {
+                    console.log("Error getting hero that goes with this page in order to edit: ", err);
+                });
+        }
     }, [ urlid ]);
 
     const sendInfo = () => {

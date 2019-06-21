@@ -16,7 +16,7 @@ const HeroListing = props => {
             <MenuProvider id={providerId} className={props.subhero ? "hero-listing sub-hero" : "hero-listing"}>
                 <Link to={url}>{props.name}</Link>
             </MenuProvider>
-            <SidebarContextMenu menuId={providerId} url={props.urlid} history={props.history} />
+            <SidebarContextMenu menuId={providerId} url={props.urlid} forms={props.forms} history={props.history} />
         </div>
     );
 }

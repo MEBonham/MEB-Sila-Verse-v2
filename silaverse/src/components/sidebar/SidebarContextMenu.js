@@ -1,16 +1,15 @@
 import React from 'reactn';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
 import { HashLink } from 'react-router-hash-link';
 
 const SidebarContextMenu = props => {
     
-    const onClick = ({ event, props }) => {
+    const handleClick = ({ event, props }) => {
         switch (props.type) {
             case "edit":
                 props.history.push({
-                    pathname: props.url,
-                    // hash: props.anchor
+                    pathname: props.url
                 });
                 break;
             case "newTab":
@@ -28,9 +27,22 @@ const SidebarContextMenu = props => {
         }
     }
 
+    const formsMenu = (props.forms && props.forms.length) ?
+        <Submenu label="Edit Hero's Forms" arrow="&#9656;">
+            {props.forms.map(formName => (
+                <Item
+                    key={formName}
+                    onClick={handleClick}
+                    data={{ type: "edit", url: `/edithero/${props.url}.${formName}`, history: props.history }}
+                >{formName}</Item>
+            ))}
+        </Submenu> :
+        null;
+
     return(
         <Menu id={props.menuId}>
-            <Item onClick={onClick} data={{ type: "edit", url: `/edithero/${props.url}`, history: props.history }}>Edit Hero</Item>
+            <Item onClick={handleClick} data={{ type: "edit", url: `/edithero/${props.url}`, history: props.history }}>Edit Hero</Item>
+            {formsMenu}
             <Submenu label="Edit Hero by Section" arrow="&#9656;">
                 <Item>
                     <HashLink to={`/edithero/${props.url}#abilities-section`}>Abilities</HashLink>
@@ -60,9 +72,9 @@ const SidebarContextMenu = props => {
                     <HashLink to={`/edithero/${props.url}#notes-section`}>Notes</HashLink>
                 </Item>
             </Submenu>
-            <Item onClick={onClick} data={{ type: "newTab", url: `/viewhero/${props.url}` }}>View Hero in New Tab</Item>
+            <Item onClick={handleClick} data={{ type: "newTab", url: `/viewhero/${props.url}` }}>View Hero in New Tab</Item>
             <Separator />
-            <Item onClick={onClick} data={{ type: "copyAddress", url: `/viewhero/${props.url}` }}>Copy Link Address</Item>
+            <Item onClick={handleClick} data={{ type: "copyAddress", url: `/viewhero/${props.url}` }}>Copy Link Address</Item>
         </Menu>
     );
 }

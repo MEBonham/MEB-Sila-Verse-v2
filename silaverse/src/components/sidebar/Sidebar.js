@@ -10,16 +10,10 @@ import '../../css/Sidebar.css';
 
 const Sidebar = props => {
 
-    // console.log(props);
     const db = firebase.db;
 
     const [ heroes ] = useGlobal('heroes');
     const [ user ] = useGlobal('user');
-    // const heroList = heroes ?
-    //     heroes.map(hero => {
-    //         return (<HeroListing key={hero.id} id={hero.id} urlid={hero.urlid} name={hero.name} history={props.history} />)
-    //     }) :
-    //     "";
 
     const [ orgObject, setOrgObject ] = useState({});
     const [ coveredHeroes, setCoveredHeroes ] = useState([]);
@@ -66,6 +60,7 @@ const Sidebar = props => {
                             urlid={thisHero.urlid}
                             name={thisHero.name}
                             subhero={subHero}
+                            forms={thisHero.forms}
                             history={props.history}
                         />);
                     })}
@@ -82,6 +77,7 @@ const Sidebar = props => {
                                 urlid={thisHero.urlid}
                                 name={thisHero.name}
                                 subhero={subHero}
+                                forms={thisHero.forms}
                                 history={props.history} />
                             );
                         })}
