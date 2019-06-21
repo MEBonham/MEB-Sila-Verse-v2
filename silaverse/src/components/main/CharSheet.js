@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useGlobal } from 'reactn';
+import React, { useState, useEffect, useRef, useGlobal } from 'reactn';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
@@ -23,64 +23,74 @@ const CharSheet = props => {
 
     const { urlid } = props.match.params;
     
-    const [ heroes ] = useGlobal('heroes');
-    const filteredHeroes = heroes ?
-        heroes.filter(hero => hero.urlid === urlid) :
-        [];
+    const [ heroes, setHeroes ] = useGlobal('heroes');
     const [ thisHero, setThisHero ] = useState(null);
-    if (filteredHeroes.length && thisHero !== filteredHeroes[0]) {
-        setThisHero(filteredHeroes[0]);
-    }
-
-    const [ activeForm, setActiveForm ] = useState(0);
-    const [ hasForms, setHasForms ] = useState(false);
     const [ thisHeroPrime, setThisHeroPrime ] = useState(null);
+    const [ activeForm, setActiveForm ] = useState(0);
+    const [ formTitles, setFormTitles ] = useState([]);
+    const [ tabDiv, setTabDiv ] = useState(null);
+    const [ finalTotal, setFinalTotal ] = useState(0);
+    const [ pptTotals, setPptTotals ] = useState({
+        abilities: 0,
+        powers: 0,
+        advantages: 0,
+        skills: 0,
+        defenses: 0
+    });
+    
     useEffect(() => {
-        if (thisHero && thisHero.forms && thisHero.forms.length) {
-            setHasForms(true);
-            if (activeForm > 0) {
-                const db = firebase.db;
-                const formName = thisHero.forms[activeForm - 1];
-                db.collection("forms").doc(`${thisHero.urlid}.${formName}`)
-                    .get()
-                    .then(doc => {
-                        setThisHeroPrime(packageHeroForGlobal(`${thisHero.urlid}.${formName}`, doc.data()));
-                    })
-                    .catch(err => {
-                        console.log("Error retrieving form from db:", err);
-                    });
-            } else {
-                setThisHeroPrime(thisHero);
+        if (heroes) {
+            const filteredHeroes = heroes.filter(hero => hero.urlid === urlid);
+            if (filteredHeroes.length) {
+                setThisHero(filteredHeroes[0]);
+                if (filteredHeroes[0].lastFormViewed) {
+                    setActiveForm(filteredHeroes[0].lastFormViewed);
+                } else {
+                    setActiveForm(0);
+                }
             }
-        } else if (thisHero) {
-            setHasForms(false);
+        }
+    }, [ urlid, heroes ]);
+
+    useEffect(() => {
+        if (thisHero && thisHero.forms && thisHero.forms.length && (activeForm > 0)) {
+            const db = firebase.db;
+            const formUrlid = thisHero.forms[activeForm - 1];
+            db.collection("forms").doc(`${thisHero.urlid}.${formUrlid}`)
+                .get()
+                .then(doc => {
+                    setThisHeroPrime(packageHeroForGlobal(`${thisHero.urlid}.${formUrlid}`, doc.data()));
+                })
+                .catch(err => {
+                    console.log("Error getting form info from db", err);
+                });
+        } else {
             setThisHeroPrime(thisHero);
         }
     }, [ thisHero, activeForm ]);
 
-    const [ formTitles, setFormTitles ] = useState([]);
     useEffect(() => {
-        if (hasForms) {
+        if (thisHero && thisHero.forms && thisHero.forms.length) {
+            const newTitlesList = [];
             const db = firebase.db;
-            thisHero.forms.forEach(formName => {
-                db.collection("forms").doc(`${thisHero.urlid}.${formName}`)
+            thisHero.forms.forEach(formUrlid => {
+                db.collection("forms").doc(`${thisHero.urlid}.${formUrlid}`)
                     .get()
                     .then(doc => {
-                        setFormTitles(formTitles => ([
-                            ...formTitles,
-                            doc.data().formTitle
-                        ]));
+                        newTitlesList.push(doc.data().formTitle);
+                        setFormTitles(newTitlesList);
                     })
                     .catch(err => {
-                        console.log("Error retrieving form title to put on tab:", err);
-                    });
-            });
+                        console.log("Error getting FormTitles of various forms:", err);
+                    })
+            })
+        } else {
+            setFormTitles([]);
         }
-    }, [ hasForms ]);
-    
-    const [ tabDiv, setTabDiv ] = useState(null);
+    }, [ thisHero ]);
+
     useEffect(() => {
-        if (thisHero && (formTitles.length == thisHero.forms.length)) {
+        if (thisHero && thisHero.forms && (formTitles.length === thisHero.forms.length)) {
             setTabDiv(
                 <nav className="char-sheet-tabs">
                     <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
@@ -102,15 +112,7 @@ const CharSheet = props => {
             );
         }
     }, [ formTitles, activeForm ]);
-    
-    const [ finalTotal, setFinalTotal ] = useState(0);
-    const [ pptTotals, setPptTotals ] = useState({
-        abilities: 0,
-        powers: 0,
-        advantages: 0,
-        skills: 0,
-        defenses: 0
-    });
+
     useEffect(() => {
         let totalVar = 0;
         Object.keys(pptTotals).forEach(type => {
@@ -120,8 +122,15 @@ const CharSheet = props => {
     }, [ pptTotals ]);
 
     const handleTabSelect = ev => {
-        // console.log(ev.target.id);
-        setActiveForm(parseInt(ev.target.id.split("-")[2]));
+        const formIndex = parseInt(ev.target.id.split("-")[2]);
+        const minusOneHero = heroes.filter(hero => (hero.urlid !== urlid));
+        setHeroes([
+            ...minusOneHero,
+            {
+                ...thisHero,
+                lastFormViewed: formIndex
+            }
+        ]);
     }
 
     if (thisHero && thisHeroPrime) {
@@ -135,37 +144,12 @@ const CharSheet = props => {
         } else {
             heroTypeEl = null;
         }
-        // let tabDiv;
-        // if (hasForms) {
-        //     tabDiv = (
-        //         <nav className="char-sheet-tabs">
-        //             <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
-        //                 <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
-        //             </div>
-        //             {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {
-        //                 // const styleStr = `width: calc(100% / ${thisHero.forms.length});`;
-        //                 return(
-        //                     <div
-        //                         key={i + 1}
-        //                         className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
-        //                         id={`form-tab-${i + 1}`}
-        //                         onClick={handleTabSelect}
-        //                     >
-        //                     <label id={`form-tab-${i + 1}`}>{thisHeroPrime.formTitle || formName}</label>
-        //                     </div>
-        //                 );
-        //             })}
-        //         </nav>
-        //     );
-        // } else {
-        //     tabDiv = null;    
-        // }
         return(
             <PptTotalsProvider value={{ pptTotals, setPptTotals }}>
                 <div className="char-sheet-envelope">
-                    <div className={hasForms ? "char-sheet-paper has-tabs" : "char-sheet-paper"}>
+                    <section className="char-sheet-paper">
                         {tabDiv}
-                        <section className="char-sheet">
+                        <div className="char-sheet">
                             <header>
                                 <h1>
                                     {thisHeroPrime.name}
@@ -189,8 +173,8 @@ const CharSheet = props => {
                                 <h2><strong>= {finalTotal} PPT TOTAL</strong></h2>
                             </section>
                             <BioSection hero={thisHeroPrime} />
-                        </section>
-                    </div>
+                        </div>
+                    </section>
                     <NotesSection hero={thisHeroPrime} />
                 </div>
             </PptTotalsProvider>

@@ -52,6 +52,7 @@ const EditHeroForm = props => {
                         setInputs({
                             urlid: doc.data().urlid.split(".")[1],
                             name: doc.data().name,
+                            formTitle: doc.data().formTitle,
                             identity: doc.data().identity,
                             heroType: doc.data().heroType,
                             subHero: doc.data().subHero,
