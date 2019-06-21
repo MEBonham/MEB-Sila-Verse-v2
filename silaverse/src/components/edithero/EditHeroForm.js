@@ -132,59 +132,110 @@ const EditHeroForm = props => {
 
     const sendInfo = () => {
         const inputsCopy = fixBlankInputFields(inputs);
-        db.collection("heroes").where("urlid", "==", urlid)
-            .get()
-            .then(querySnapshot => {
-                if (querySnapshot.empty) {
-                    console.log("Cannot find hero matching this page's URL.");
-                } else {
-                    const heroId = querySnapshot.docs[0].id;
-                    const editedHero = packageHeroForDB(inputsCopy);
-                    db.collection("heroes").doc(heroId)
-                        .set(editedHero)
-                        .then(() => {
-                            const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
-                            const formattedHero = packageHeroForGlobal(heroId, editedHero);
-                            setPrevHeroes([
-                                ...minusOneHero,
-                                formattedHero
-                            ]);
-                            props.history.push(`/viewhero/${inputs.urlid}`);
-                        })
-                        .catch(err => {
-                            console.log("Error editing hero: ", err);
-                        });
-                }
-            })
-            .catch(err => {
-                console.log("Error getting hero that goes with this page in order to edit: ", err);
-            });
-    }
-
-    const handleDelete = () => {
-        if (window.confirm("Are you sure you want to delete this hero?")) {
-            db.collection("heroes").where("urlid", "==", urlid).get()
+        if (urlid.includes(".")) {
+            const editedHero = packageHeroForDB(inputsCopy);
+            editedHero.urlid = `${urlid.split(".")[0]}.${inputsCopy.urlid}`;
+            db.collection("forms").doc(urlid)
+                .set(editedHero)
+                .then(() => {
+                    props.history.push(`/viewhero/${urlid.split(".")[0]}`);
+                })
+                .catch(err => {
+                    console.log("Error editing form:", err);
+                });
+        } else {
+            db.collection("heroes").where("urlid", "==", urlid)
+                .get()
                 .then(querySnapshot => {
                     if (querySnapshot.empty) {
-                        console.log("Cannot find hero matching this page.");
+                        console.log("Cannot find hero matching this page's URL.");
                     } else {
                         const heroId = querySnapshot.docs[0].id;
-                        db.collection("heroes").doc(heroId).delete()
+                        const editedHero = packageHeroForDB(inputsCopy);
+                        db.collection("heroes").doc(heroId)
+                            .set(editedHero)
                             .then(() => {
                                 const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
+                                const formattedHero = packageHeroForGlobal(heroId, editedHero);
                                 setPrevHeroes([
-                                    ...minusOneHero
+                                    ...minusOneHero,
+                                    formattedHero
                                 ]);
-                                props.history.push("/");
+                                props.history.push(`/viewhero/${inputs.urlid}`);
                             })
                             .catch(err => {
-                                console.log("Error deleting hero from database: ", err);
+                                console.log("Error editing hero: ", err);
                             });
                     }
                 })
                 .catch(err => {
-                    console.log("Error retrieving hero from database: ", err);
+                    console.log("Error getting hero that goes with this page in order to edit: ", err);
                 });
+        }
+    }
+
+    const handleDelete = () => {
+        if (window.confirm("Are you sure you want to delete this hero?")) {
+            if (urlid.includes(".")) {
+                db.collection("heroes").where("urlid", "==", urlid.split(".")[0])
+                    .get()
+                    .then(querySnapshot => {
+                        if (querySnapshot.empty) {
+                            console.log("Cannot find master hero matching this page.");
+                        } else {
+                            const masterId = querySnapshot.docs[0].id;
+                            db.collection("heroes").doc(masterId)
+                                .get()
+                                .then(doc => {
+                                    const masterCopy  = JSON.parse(JSON.stringify(doc.data()));
+                                    const indexToDelete = masterCopy.forms.indexOf(urlid.split(".")[1]);
+                                    if (indexToDelete > -1) {
+                                        masterCopy.forms.splice(indexToDelete, 1);
+                                    }
+                                    db.collection("heroes").doc(masterId)
+                                        .set(masterCopy)
+                                        .then(() => {
+                                            db.collection("forms").doc(urlid)
+                                                .delete()
+                                                .then(() => {
+                                                    props.history.push(`/viewhero/${urlid.split(".")[0]}`);
+                                                })
+                                                .catch(err => {
+                                                    console.log("Error deleting form:", err);
+                                                })
+                                        })
+                                        .catch(err => {
+                                            console.log("Error removing form from master's list of forms:", err);
+                                        })
+                                })
+                        }
+                    })
+            } else {
+                db.collection("heroes").where("urlid", "==", urlid)
+                    .get()
+                    .then(querySnapshot => {
+                        if (querySnapshot.empty) {
+                            console.log("Cannot find hero matching this page.");
+                        } else {
+                            const heroId = querySnapshot.docs[0].id;
+                            db.collection("heroes").doc(heroId)
+                                .delete()
+                                .then(() => {
+                                    const minusOneHero = prevHeroes.filter(hero => hero.urlid !== urlid);
+                                    setPrevHeroes([
+                                        ...minusOneHero
+                                    ]);
+                                    props.history.push("/");
+                                })
+                                .catch(err => {
+                                    console.log("Error deleting hero from database: ", err);
+                                });
+                        }
+                    })
+                    .catch(err => {
+                        console.log("Error retrieving hero from database: ", err);
+                    });
+            }
         }
     }
 
@@ -253,6 +304,7 @@ const EditHeroForm = props => {
                                     placeholder={`Dummy\\dummy or *dummy`}
                                     onChange={handleInputChange}
                                     value={inputs.subHero || ""}
+                                    disabled={urlid.includes(".") ? true : false}
                                 />
                             </div>
                         </div>
