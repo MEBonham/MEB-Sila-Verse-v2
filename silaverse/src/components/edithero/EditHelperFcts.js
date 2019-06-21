@@ -95,6 +95,7 @@ export const packageHeroForDB = (inputs) => {
     return {
         urlid: inputs.urlid,
         name: inputs.name,
+        formTitle: inputs.formTitle,
         identity: inputs.identity,
         heroType: inputs.heroType,
         subHero: inputs.subHero,
@@ -198,6 +199,9 @@ export const packageHeroForGlobal = (heroId, heroDbVersion) => {
 
 export const fixBlankInputFields = (inputs) => {
     const fixedInputs = { ...inputs };
+    if (!inputs.formTitle) {
+        fixedInputs.formTitle = "";
+    }
     if (!inputs.identity) {
         fixedInputs.identity = "";
     }
@@ -289,4 +293,12 @@ export const fixBlankInputFields = (inputs) => {
         fixedInputs.notes = "";
     }
     return fixedInputs;
+}
+
+export const purgeProblemCharacters = (inputs) => {
+    const purgedInputs = { ...inputs };
+    while (purgedInputs.urlid.includes(".")) {
+        purgedInputs.urlid = purgedInputs.replace(".", "");
+    }
+    return purgedInputs;
 }

@@ -5,7 +5,7 @@ import firebase from '../../fbConfig';
 import useForm from '../../hooks/useForm';
 import { NewProvider } from '../../hooks/NewMultiformContext';
 
-import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from '../edithero/EditHelperFcts';
+import { fixBlankInputFields, purgeProblemCharacters, packageHeroForDB, packageHeroForGlobal } from '../edithero/EditHelperFcts';
 import NewAbilities from './NewAbilities';
 import NewPowers from './NewPowers';
 import NewAdvantages from './NewAdvantages';
@@ -37,17 +37,11 @@ const NewHeroForm = props => {
         pre: {},
         note: ""
     });
-    // const [ powerInfo ] = useState([]);
-    // const [ totalPowersCost ] = useState(0);
-    // const [ advantagesInfo ] = useState({
-    //     totalAdvantagesCost: 0,
-    //     advantagesList: ""
-    // });
 
     const [ prevHeroes, setHeroes ] = useGlobal("heroes");
     const sendInfo = () => {
         const db = firebase.db;
-        const inputsCopy = fixBlankInputFields(inputs);
+        const inputsCopy = purgeProblemCharacters(fixBlankInputFields(inputs));
         const newHero = packageHeroForDB(inputsCopy);
         if (inputsCopy.subHero && (inputsCopy.subHero[0] === "*")) {
             const masterUrlid = inputsCopy.subHero.substring(1);
@@ -131,14 +125,27 @@ const NewHeroForm = props => {
                             value={inputs.urlid || ""}
                             required
                         />
-                        <label htmlFor="name">Heroic Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            onChange={handleInputChange}
-                            value={inputs.name || ""}
-                            required
-                        />
+                        <div className="hero-name-block">
+                            <div>
+                                <label htmlFor="name">Heroic Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    onChange={handleInputChange}
+                                    value={inputs.name || ""}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="formTitle">Form Title (if hero has multiple Forms)</label>
+                                <input
+                                    type="text"
+                                    id="formTitle"
+                                    onChange={handleInputChange}
+                                    value={inputs.formTitle || ""}
+                                />
+                            </div>
+                        </div>
                         <label htmlFor="identity">Identity</label>
                         <input
                             type="text"

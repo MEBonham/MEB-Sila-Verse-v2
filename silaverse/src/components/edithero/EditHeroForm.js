@@ -7,7 +7,7 @@ import { EditProvider } from '../../hooks/EditMultiformContext';
 
 import deleteIcon from '../../images/delete-icon.png';
 
-import { fixBlankInputFields, packageHeroForDB, packageHeroForGlobal } from './EditHelperFcts';
+import { fixBlankInputFields, purgeProblemCharacters, packageHeroForDB, packageHeroForGlobal } from './EditHelperFcts';
 import EditAbilities from './EditAbilities';
 import EditPowers from './EditPowers';
 import EditAdvantages from './EditAdvantages';
@@ -92,6 +92,7 @@ const EditHeroForm = props => {
                                 setInputs({
                                     urlid: doc.data().urlid,
                                     name: doc.data().name,
+                                    formTitle: doc.data().formTitle,
                                     identity: doc.data().identity,
                                     heroType: doc.data().heroType,
                                     subHero: doc.data().subHero,
@@ -131,7 +132,7 @@ const EditHeroForm = props => {
     }, [ urlid ]);
 
     const sendInfo = () => {
-        const inputsCopy = fixBlankInputFields(inputs);
+        const inputsCopy = purgeProblemCharacters(fixBlankInputFields(inputs));
         if (urlid.includes(".")) {
             const editedHero = packageHeroForDB(inputsCopy);
             editedHero.urlid = `${urlid.split(".")[0]}.${inputsCopy.urlid}`;
@@ -270,14 +271,27 @@ const EditHeroForm = props => {
                             value={inputs.urlid || ""}
                             required
                         />
-                        <label htmlFor="name">Heroic Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            onChange={handleInputChange}
-                            value={inputs.name || ""}
-                            required
-                        />
+                        <div className="hero-name-block">
+                            <div>
+                                <label htmlFor="name">Heroic Name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    onChange={handleInputChange}
+                                    value={inputs.name || ""}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="formTitle">Form Title (if hero has multiple Forms)</label>
+                                <input
+                                    type="text"
+                                    id="formTitle"
+                                    onChange={handleInputChange}
+                                    value={inputs.formTitle || ""}
+                                />
+                            </div>
+                        </div>
                         <label htmlFor="identity">Identity</label>
                         <input
                             type="text"

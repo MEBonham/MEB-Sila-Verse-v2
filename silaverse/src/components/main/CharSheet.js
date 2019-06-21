@@ -57,6 +57,51 @@ const CharSheet = props => {
             setThisHeroPrime(thisHero);
         }
     }, [ thisHero, activeForm ]);
+
+    const [ formTitles, setFormTitles ] = useState([]);
+    useEffect(() => {
+        if (hasForms) {
+            const db = firebase.db;
+            thisHero.forms.forEach(formName => {
+                db.collection("forms").doc(`${thisHero.urlid}.${formName}`)
+                    .get()
+                    .then(doc => {
+                        setFormTitles(formTitles => ([
+                            ...formTitles,
+                            doc.data().formTitle
+                        ]));
+                    })
+                    .catch(err => {
+                        console.log("Error retrieving form title to put on tab:", err);
+                    });
+            });
+        }
+    }, [ hasForms ]);
+    
+    const [ tabDiv, setTabDiv ] = useState(null);
+    useEffect(() => {
+        if (thisHero && (formTitles.length == thisHero.forms.length)) {
+            setTabDiv(
+                <nav className="char-sheet-tabs">
+                    <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
+                        <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
+                    </div>
+                    {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {                        
+                        return(
+                            <div
+                                key={i + 1}
+                                className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
+                                id={`form-tab-${i + 1}`}
+                                onClick={handleTabSelect}
+                            >
+                            <label id={`form-tab-${i + 1}`}>{formTitles[i] || formName}</label>
+                            </div>
+                        );
+                    })}
+                </nav>
+            );
+        }
+    }, [ formTitles ]);
     
     const [ finalTotal, setFinalTotal ] = useState(0);
     const [ pptTotals, setPptTotals ] = useState({
@@ -90,31 +135,31 @@ const CharSheet = props => {
         } else {
             heroTypeEl = null;
         }
-        let tabDiv;
-        if (hasForms) {
-            tabDiv = (
-                <nav className="char-sheet-tabs">
-                    <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
-                        <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
-                    </div>
-                    {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {
-                        // const styleStr = `width: calc(100% / ${thisHero.forms.length});`;
-                        return(
-                            <div
-                                key={i + 1}
-                                className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
-                                id={`form-tab-${i + 1}`}
-                                onClick={handleTabSelect}
-                            >
-                            <label id={`form-tab-${i + 1}`}>{thisHeroPrime.formTitle || formName}</label>
-                            </div>
-                        );
-                    })}
-                </nav>
-            );
-        } else {
-            tabDiv = null;    
-        }
+        // let tabDiv;
+        // if (hasForms) {
+        //     tabDiv = (
+        //         <nav className="char-sheet-tabs">
+        //             <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
+        //                 <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
+        //             </div>
+        //             {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {
+        //                 // const styleStr = `width: calc(100% / ${thisHero.forms.length});`;
+        //                 return(
+        //                     <div
+        //                         key={i + 1}
+        //                         className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
+        //                         id={`form-tab-${i + 1}`}
+        //                         onClick={handleTabSelect}
+        //                     >
+        //                     <label id={`form-tab-${i + 1}`}>{thisHeroPrime.formTitle || formName}</label>
+        //                     </div>
+        //                 );
+        //             })}
+        //         </nav>
+        //     );
+        // } else {
+        //     tabDiv = null;    
+        // }
         return(
             <PptTotalsProvider value={{ pptTotals, setPptTotals }}>
                 <div className="char-sheet-envelope">
@@ -122,7 +167,10 @@ const CharSheet = props => {
                         {tabDiv}
                         <section className="char-sheet">
                             <header>
-                                <h1>{thisHeroPrime.name}</h1>
+                                <h1>
+                                    {thisHeroPrime.name}
+                                    {thisHeroPrime.formTitle ? ` (${thisHeroPrime.formTitle})` : null}
+                                </h1>
                                 <h2>{thisHeroPrime.identity}</h2>
                                 {heroTypeEl}
                                 <p className="last-header-line">Power Level {thisHeroPrime.powerLevel} ({finalTotal} ppt)</p>
