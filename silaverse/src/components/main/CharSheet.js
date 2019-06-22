@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useGlobal } from 'reactn';
+import React, { useState, useEffect, useGlobal } from 'reactn';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
@@ -27,7 +27,7 @@ const CharSheet = props => {
     const [ thisHero, setThisHero ] = useState(null);
     const [ thisHeroPrime, setThisHeroPrime ] = useState(null);
     const [ activeForm, setActiveForm ] = useState(0);
-    const [ formTitles, setFormTitles ] = useState([]);
+    const [ formTitles, setFormTitles ] = useState({});
     const [ tabDiv, setTabDiv ] = useState(null);
     const [ finalTotal, setFinalTotal ] = useState(0);
     const [ pptTotals, setPptTotals ] = useState({
@@ -71,13 +71,13 @@ const CharSheet = props => {
 
     useEffect(() => {
         if (thisHero && thisHero.forms && thisHero.forms.length) {
-            const newTitlesList = [];
+            const newTitlesList = {};
             const db = firebase.db;
             thisHero.forms.forEach(formUrlid => {
                 db.collection("forms").doc(`${thisHero.urlid}.${formUrlid}`)
                     .get()
                     .then(doc => {
-                        newTitlesList.push(doc.data().formTitle);
+                        newTitlesList[formUrlid] = doc.data().formTitle;
                         setFormTitles(newTitlesList);
                     })
                     .catch(err => {
@@ -90,7 +90,7 @@ const CharSheet = props => {
     }, [ thisHero ]);
 
     useEffect(() => {
-        if (thisHero && thisHero.forms && (formTitles.length === thisHero.forms.length)) {
+        if (thisHero && thisHero.forms && (Object.keys(formTitles).length === thisHero.forms.length)) {
             setTabDiv(
                 <nav className="char-sheet-tabs">
                     <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
@@ -104,7 +104,7 @@ const CharSheet = props => {
                                 id={`form-tab-${i + 1}`}
                                 onClick={handleTabSelect}
                             >
-                            <label id={`form-tab-${i + 1}`}>{formTitles[i] || formName}</label>
+                            <label id={`form-tab-${i + 1}`}>{formTitles[formName] || formName}</label>
                             </div>
                         );
                     })}
