@@ -21,7 +21,7 @@
 .char-sheet-tab {
     width: 100%;
     padding: 4px 0;
-    margin-right: 2px;
+    margin-right: 1px;
     background-color: #9d825d;
     background-image: url("../images/paper-texture.png");
     border-radius: 8px 8px 0 0;

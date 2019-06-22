@@ -27,7 +27,6 @@ const CharSheet = props => {
     const [ thisHero, setThisHero ] = useState(null);
     const [ thisHeroPrime, setThisHeroPrime ] = useState(null);
     const [ activeForm, setActiveForm ] = useState(0);
-    const [ formTitles, setFormTitles ] = useState({});
     const [ tabDiv, setTabDiv ] = useState(null);
     const [ finalTotal, setFinalTotal ] = useState(0);
     const [ pptTotals, setPptTotals ] = useState({
@@ -78,40 +77,35 @@ const CharSheet = props => {
                     .get()
                     .then(doc => {
                         newTitlesList[formUrlid] = doc.data().formTitle;
-                        setFormTitles(newTitlesList);
+                        console.log(newTitlesList);
+                        setTabDiv(
+                            <nav className="char-sheet-tabs">
+                                <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
+                                    <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
+                                </div>
+                                {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {                        
+                                    return(
+                                        <div
+                                            key={i + 1}
+                                            className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
+                                            id={`form-tab-${i + 1}`}
+                                            onClick={handleTabSelect}
+                                        >
+                                        <label id={`form-tab-${i + 1}`}>{newTitlesList[formName] || formName}</label>
+                                        </div>
+                                    );
+                                })}
+                            </nav>
+                        );
                     })
                     .catch(err => {
                         console.log("Error getting FormTitles of various forms:", err);
                     })
             })
         } else {
-            setFormTitles([]);
+            setTabDiv(null);
         }
     }, [ thisHero ]);
-
-    useEffect(() => {
-        if (thisHero && thisHero.forms && (Object.keys(formTitles).length === thisHero.forms.length)) {
-            setTabDiv(
-                <nav className="char-sheet-tabs">
-                    <div className={activeForm === 0 ? "char-sheet-tab active" : "char-sheet-tab"} id="form-tab-0" onClick={handleTabSelect}>
-                        <label id="form-tab-0">{thisHero.formTitle || thisHero.urlid}</label>
-                    </div>
-                    {thisHero.forms && thisHero.forms.length && thisHero.forms.map((formName, i) => {                        
-                        return(
-                            <div
-                                key={i + 1}
-                                className={activeForm === (i + 1) ? "char-sheet-tab active" : "char-sheet-tab"}
-                                id={`form-tab-${i + 1}`}
-                                onClick={handleTabSelect}
-                            >
-                            <label id={`form-tab-${i + 1}`}>{formTitles[formName] || formName}</label>
-                            </div>
-                        );
-                    })}
-                </nav>
-            );
-        }
-    }, [ formTitles, activeForm ]);
 
     useEffect(() => {
         let totalVar = 0;
