@@ -56,7 +56,8 @@ const EditHeroForm = props => {
                             identity: doc.data().identity,
                             heroType: doc.data().heroType,
                             subHero: doc.data().subHero,
-                            powerLevel: doc.data().powerLevel
+                            powerLevel: doc.data().powerLevel,
+                            excludeFromAnalysis: doc.data().excludeFromAnalysis
                         });
                         setAbilitiesInfo(JSON.parse(doc.data().abilities));
                         setPowerInfo(JSON.parse(doc.data().powers));
@@ -97,7 +98,8 @@ const EditHeroForm = props => {
                                     identity: doc.data().identity,
                                     heroType: doc.data().heroType,
                                     subHero: doc.data().subHero,
-                                    powerLevel: doc.data().powerLevel
+                                    powerLevel: doc.data().powerLevel,
+                                    excludeFromAnalysis: doc.data().excludeFromAnalysis
                                 });
                                 setAbilitiesInfo(JSON.parse(doc.data().abilities));
                                 setPowerInfo(JSON.parse(doc.data().powers));
@@ -323,15 +325,28 @@ const EditHeroForm = props => {
                                 />
                             </div>
                         </div>
-                        <label htmlFor="powerLevel">Power Level</label>
-                        <input
-                            type="number"
-                            id="powerLevel"
-                            placeholder={10}
-                            onChange={handleInputChange}
-                            value={inputs.powerLevel || 10}
-                            required
-                        />
+                        <div className="power-level-block">
+                            <div>
+                                <label htmlFor="powerLevel">Power Level</label>
+                                <input
+                                    type="number"
+                                    id="powerLevel"
+                                    placeholder={10}
+                                    onChange={handleInputChange}
+                                    value={inputs.powerLevel || 10}
+                                    required
+                                />
+                            </div>
+                            <div className="checkbox">
+                                <label htmlFor="excludeFromAnalysis">Exclude this hero from Analysis section?</label>
+                                <input
+                                    type="checkbox"
+                                    id="excludeFromAnalysis"
+                                    onChange={handleInputChange}
+                                    checked={inputs.excludeFromAnalysis || false}
+                                />
+                            </div>
+                        </div>
                     </header>
                     <EditAbilities />
                     <EditPowers />

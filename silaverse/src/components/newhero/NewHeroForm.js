@@ -175,15 +175,28 @@ const NewHeroForm = props => {
                                 />
                             </div>
                         </div>
-                        <label htmlFor="powerLevel">Power Level</label>
-                        <input
-                            type="number"
-                            id="powerLevel"
-                            placeholder={10}
-                            onChange={handleInputChange}
-                            value={inputs.powerLevel || 10}
-                            required
-                        />
+                        <div className="power-level-block">
+                            <div>
+                                <label htmlFor="powerLevel">Power Level</label>
+                                <input
+                                    type="number"
+                                    id="powerLevel"
+                                    placeholder={10}
+                                    onChange={handleInputChange}
+                                    value={inputs.powerLevel || 10}
+                                    required
+                                />
+                            </div>
+                            <div className="checkbox">
+                                <label htmlFor="excludeFromAnalysis">Exclude this hero from Analysis section?</label>
+                                <input
+                                    type="checkbox"
+                                    id="excludeFromAnalysis"
+                                    onChange={handleInputChange}
+                                    checked={inputs.excludeFromAnalysis || false}
+                                />
+                            </div>
+                        </div>
                     </header>
                     <NewAbilities />
                     <NewPowers />

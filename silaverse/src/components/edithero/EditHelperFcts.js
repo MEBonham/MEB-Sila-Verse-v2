@@ -100,6 +100,7 @@ export const packageHeroForDB = (inputs) => {
         heroType: inputs.heroType,
         subHero: inputs.subHero,
         powerLevel: inputs.powerLevel,
+        excludeFromAnalysis: inputs.excludeFromAnalysis,
         abilities: JSON.stringify({
             str: {
                 base: inputs.baseStr,
