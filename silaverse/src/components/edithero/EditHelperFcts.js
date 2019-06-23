@@ -215,6 +215,9 @@ export const fixBlankInputFields = (inputs) => {
     if (inputs.powerLevel === undefined) {
         fixedInputs.powerLevel = 10;
     }
+    if (!inputs.excludeFromAnalysis) {
+        fixedInputs.excludeFromAnalysis = false;
+    }
     if (!inputs.abilitiesNote) {
         fixedInputs.abilitiesNote = "";
     }

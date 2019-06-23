@@ -113,6 +113,11 @@
     line-height: 1.2;
 }
 
+.char-sheet .alt-abilities p,
+.char-sheet .alt-defenses p {
+    margin-bottom: 10px;
+}
+
 .char-sheet .power-display,
 .char-sheet .advantages .languages {
     padding: 5px 2%;
