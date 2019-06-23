@@ -1,62 +1,48 @@
 import React, { useState, useEffect, useGlobal } from 'reactn';
 import { Link } from 'react-router-dom';
 
-import firebase from '../../fbConfig';
-
 import { sortByName, sortByNumber, sortByNameAndTitle, allHaveTheSameVal } from './SortFcts';
 
 const StrengthAnalysis = () => {
 
-    const db = firebase.db;
-
     const [ heroes ] = useGlobal('heroes');
+    const [ forms ] = useGlobal('forms');
     const [ objStructure, setObjStructure ] = useState({});
     const [ display, setDisplay ] = useState([]);
     const abbr = "str";
 
     useEffect(() => {
-        if (heroes) {
+        if (heroes && forms) {
             let obj = {};
             heroes.sort(sortByName).forEach(hero => {
                 if (hero.forms && hero.forms.length) {
-                    let formsArr = [ hero ];
-                    hero.forms.forEach(formUrlid => {
-                        db.collection("forms").doc(`${hero.urlid}.${formUrlid}`)
-                            .get()
-                            .then(doc => {
-                                formsArr.push(doc.data());
-                                if (formsArr.length === hero.forms.length + 1) {
-                                    formsArr = formsArr.filter(form => !form.excludeFromAnalysis);
-                                    if (formsArr.length < 2 || allHaveTheSameVal(formsArr, abbr)) {
-                                        const eff = hero.abilities[abbr].eff;
-                                        if (obj[eff]) {
-                                            obj[eff].push(hero);
-                                        } else {
-                                            obj[eff] = [ hero ];
-                                        }
-                                        setObjStructure(obj);
-                                    } else {
-                                        formsArr = formsArr.map(formObj => ({
-                                            ...formObj,
-                                            nameAndTitle: `${formObj.name} (${formObj.formTitle})`
-                                        }));
-                                        formsArr.sort(sortByNameAndTitle);
-                                        formsArr.forEach(formObj => {
-                                            const eff = formObj.abilities[abbr].eff;
-                                            if (obj[eff]) {
-                                                obj[eff].push(formObj);
-                                            } else {
-                                                obj[eff] = [ formObj ];
-                                            }
-                                        });
-                                        setObjStructure(obj);
-                                    }
-                                }
-                            })
-                            .catch(err => {
-                                console.log("Error retrieving forms from db:", err);
-                            });
-                    })
+                    let formsArr = [
+                        hero,
+                        ...forms.filter(form => form.subHero === `*${hero.urlid}`)
+                    ];
+                    formsArr = formsArr.filter(form => !form.excludeFromAnalysis);                                    
+                    if (formsArr.length < 2 || allHaveTheSameVal(formsArr, abbr)) {
+                        const eff = hero.abilities[abbr].eff;
+                        if (obj[eff]) {
+                            obj[eff].push(hero);
+                        } else {
+                            obj[eff] = [ hero ];
+                        }
+                    } else {
+                        formsArr = formsArr.map(formObj => ({
+                            ...formObj,
+                            nameAndTitle: `${formObj.name} (${formObj.formTitle})`
+                        }));
+                        formsArr.sort(sortByNameAndTitle);
+                        formsArr.forEach(formObj => {
+                            const eff = formObj.abilities[abbr].eff;
+                            if (obj[eff]) {
+                                obj[eff].push(formObj);
+                            } else {
+                                obj[eff] = [ formObj ];
+                            }
+                        });
+                    }
                 } else if (!hero.excludeFromAnalysis) {
                     const eff = hero.abilities[abbr].eff;
                     if (obj[eff]) {
@@ -68,7 +54,7 @@ const StrengthAnalysis = () => {
             });
             setObjStructure(obj);
         }
-    }, [ heroes ]);
+    }, [ heroes, forms ]);
 
     useEffect(() => {
         if (objStructure) {

@@ -41,6 +41,28 @@ db.collection("heroes").get()
         console.log("Error initializing heroes from database:", err);
     });
 
+    const formsLib = [];
+    db.collection("forms").get()
+        .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                const hero = doc.data();
+                hero.id = doc.id;
+                hero.abilities = JSON.parse(doc.data().abilities);
+                hero.powers = JSON.parse(doc.data().powers);
+                hero.skills = JSON.parse(doc.data().skills);
+                hero.defenses = JSON.parse(doc.data().defenses);
+                hero.offense = JSON.parse(doc.data().offense);
+                hero.complications = JSON.parse(doc.data().complications);
+                formsLib.push(hero);
+            });
+            setGlobal({
+                forms: formsLib
+            });
+        })
+        .catch(err => {
+            console.log("Error initializing forms from database:", err);
+        });
+
 // Render
 ReactDOM.render(
     <BrowserRouter>
