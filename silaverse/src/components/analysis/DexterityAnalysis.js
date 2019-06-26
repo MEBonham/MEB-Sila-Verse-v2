@@ -62,7 +62,7 @@ const DexterityAnalysis = () => {
                 <p key={num}><span className="with-colon"><strong>{num}:</strong></span> {objStructure[num].map((hero, i) => {
                     const comma = (i === objStructure[num].length - 1) ? null : ", ";
                     return(
-                        <span key={hero.urlid}><Link to={`/viewhero/${hero.urlid}`}>{hero.nameAndTitle || hero.name}</Link>{comma}</span>
+                        <span key={hero.urlid}><Link to={`/viewhero/${hero.urlid}`.split(".")[0]}>{hero.nameAndTitle || hero.name}</Link>{comma}</span>
                     )
                 })}</p>
             ));
