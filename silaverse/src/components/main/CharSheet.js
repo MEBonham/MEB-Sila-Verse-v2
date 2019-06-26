@@ -110,7 +110,9 @@ const CharSheet = props => {
     useEffect(() => {
         let totalVar = 0;
         Object.keys(pptTotals).forEach(type => {
-            totalVar += pptTotals[type];
+            if (!isNaN(pptTotals[type])) {
+                totalVar += pptTotals[type];
+            }
         });
         setFinalTotal(totalVar);
     }, [ pptTotals ]);

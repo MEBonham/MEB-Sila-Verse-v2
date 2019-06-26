@@ -27,12 +27,10 @@ const OrganizeHeroes = props => {
 
     const db = firebase.db;
     useEffect(() => {
-        // console.log("Refresh fired");
         db.collection("folders").orderBy("orderNum")
             .get()
             .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
-                    // console.log(doc.data());
                     setOrgObject(orgObject => ({
                         ...orgObject,
                         [doc.id]: JSON.parse(doc.data().heroes)
@@ -51,7 +49,6 @@ const OrganizeHeroes = props => {
     }, [ refreshFlag ]);
 
     useEffect(() => {
-        // console.log(orgObject);
         let arr = [];
         sortedNames.forEach(folderName => {
             arr = [
@@ -62,15 +59,9 @@ const OrganizeHeroes = props => {
         setCoveredHeroes(arr);
     }, [ orgObject, sortedNames ]);
 
-    // useEffect(() => {
-    //     console.log(coveredHeroes);
-    // }, [ coveredHeroes ]);
-
     const saveNewFolder = () => {
-        // console.log("Time to add a new folder to the db:", inputs.newFolderInput);
         db.collection("folders").get()
             .then(querySnapshot => {
-                // console.log(querySnapshot);
                 db.collection("folders").doc(inputs.newFolderInput).set({
                     heroes: "[]",
                     orderNum: querySnapshot.docs.length
@@ -92,7 +83,6 @@ const OrganizeHeroes = props => {
     }
 
     const handleDelete = ev => {
-        // console.log(ev.target.getAttribute("ordernum"));
         const folderNum = parseInt(ev.target.getAttribute("ordernum"));
         if (window.confirm("Are you sure you want to delete this folder? Its heroes will become Uncategorized.")) {
             const folderName = ev.target.id.substring(4);
@@ -179,17 +169,21 @@ const OrganizeHeroes = props => {
                     <ul>
                         {orgObject[folderName].map((heroId, j) => {
                             const hero = heroes.filter(heroObj => (heroObj.id === heroId))[0];
-                            return(<HeroWithFolderDropdown
-                                key={heroId}
-                                id={heroId}
-                                name={hero.name}
-                                orderNum={j}
-                                outOf={orgObject[folderName].length}
-                                folders={sortedNames}
-                                prevFolder={folderName}
-                                refreshFlag={refreshFlag}
-                                setRefreshFlag={setRefreshFlag}
-                            />);
+                            if (hero) {
+                                return(<HeroWithFolderDropdown
+                                    key={heroId}
+                                    id={heroId}
+                                    name={hero.name}
+                                    orderNum={j}
+                                    outOf={orgObject[folderName].length}
+                                    folders={sortedNames}
+                                    prevFolder={folderName}
+                                    refreshFlag={refreshFlag}
+                                    setRefreshFlag={setRefreshFlag}
+                                />);
+                            } else {
+                                return null;
+                            }
                         })}
                     </ul>
                 </section>
