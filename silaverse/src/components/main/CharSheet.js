@@ -145,7 +145,7 @@ const CharSheet = props => {
                 <div className="char-sheet-envelope">
                     <section className="char-sheet-paper">
                         {tabDiv}
-                        <div className="char-sheet">
+                        <div className={tabDiv ? "char-sheet" : "char-sheet no-tabs"}>
                             <header>
                                 <h1>
                                     {thisHeroPrime.name}
