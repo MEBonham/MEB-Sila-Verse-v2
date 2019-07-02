@@ -156,6 +156,9 @@ const EditHeroForm = props => {
                     } else {
                         const heroId = querySnapshot.docs[0].id;
                         const editedHero = packageHeroForDB(inputsCopy);
+                        if (querySnapshot.docs[0].data().forms) {
+                            editedHero.forms = querySnapshot.docs[0].data().forms;
+                        }
                         db.collection("heroes").doc(heroId)
                             .set(editedHero)
                             .then(() => {

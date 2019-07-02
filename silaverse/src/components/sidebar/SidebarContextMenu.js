@@ -1,5 +1,4 @@
 import React from 'reactn';
-import { Link } from 'react-router-dom';
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
 import { HashLink } from 'react-router-hash-link';
 
