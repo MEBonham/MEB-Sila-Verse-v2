@@ -46,6 +46,92 @@
     cursor: pointer;
 }
 
+.landing-envelope {
+    width: 70%;
+    height: calc(100% - 2.6rem - 10px);
+    overflow-y: auto;
+    padding: 20px 3%;
+}
+
+.landing em {
+    font-style: italic;
+}
+
+.landing a,
+.analysis-envelope section p a {
+    color: #004400;
+}
+
+.landing h2,
+.landing h3,
+.landing h4,
+.landing strong,
+.analysis-envelope strong,
+.analysis-envelope h1,
+.analysis-envelope h2 {
+    font-weight: bold;
+}
+
+.landing h2 {
+    margin: 12px 0;
+    font-size: 2.8rem;
+}
+
+.landing h3 {
+    margin: 2px 0;
+    font-size: 2.0rem;
+}
+
+.landing p {
+    margin: 10px 0;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.landing .toc .lesser-note {
+    margin: 2px 0;
+    font-size: 1.0rem;
+    font-style: italic;
+}
+
+.landing .accordion {
+    width: 100%;
+    border-radius: 6px;
+    background-color: #BEA77E;
+    box-shadow: 0 0 8px #5c4b2e;
+}
+
+.landing .accordion .accordion-section .folder {
+    padding: 6px 2%;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.landing .accordion .accordion-section .folder span:first-child {
+    font-size: 1.8rem;
+}
+
+.landing .accordion .accordion-section .folder span:last-child {
+    margin-top: 2px;
+}
+
+.landing .toc .accordion-section .collapsible {
+    padding-bottom: 2px;
+}
+
+.landing .toc .accordion-section .collapsible section {
+    margin: 0 2% 12px;
+    padding: 10px 2%;
+    background-color: lightblue;
+}
+
+.landing .toc li {
+    margin: 0 0 0 20px;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
 .analysis-envelope {
     width: 70%;
     height: calc(100% - 2.6rem - 10px);
@@ -89,12 +175,6 @@
     box-shadow: 2px 2px 14px #5c4b2e;
 }
 
-.analysis-envelope strong,
-.analysis-envelope h1,
-.analysis-envelope h2 {
-    font-weight: bold;
-}
-
 .analysis-envelope h1 {
     margin-bottom: 6px;
     font-size: 2.8rem;
@@ -113,10 +193,6 @@
 
 .analysis-envelope section p span.with-colon {
     margin-right: 4px;
-}
-
-.analysis-envelope section p a {
-    color: #004400;
 }
 
 .world-map {

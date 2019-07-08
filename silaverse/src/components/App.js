@@ -5,6 +5,7 @@ import firebase from '../fbConfig';
 
 import Header from './auth/Header';
 import Sidebar from './sidebar/Sidebar';
+import Landing from './landing/Landing';
 import CharSheet from './main/CharSheet';
 import EditHeroForm from './edithero/EditHeroForm';
 import NewHeroForm from './newhero/NewHeroForm';
@@ -36,6 +37,7 @@ const App = () => {
         <div className="App">
             <Header />
             <Route exact path="/" component={Sidebar} />
+            <Route exact path="/" component={Landing} />
             <Route path={["/viewhero", "/edithero", "/newhero", "/organize", "/analysis"]} component={Sidebar} />
             <Route path="/viewhero/:urlid" component={CharSheet} />
             <Route path="/edithero/:urlid" component={EditHeroForm} />
