@@ -124,6 +124,27 @@ const Landing = () => {
                     <li><Link to="/viewhero/tickpocket">The Tickpocket</Link> (PL7) <strong>&middot;</strong> <span className="lesser-note">A time-traveling art thief scoundrel</span></li>
                 </ul>
             </section>
+            <section>
+                <h3>Villainous Lieutenants</h3>
+                <ul>
+                    <li><Link to="/viewhero/antoniobrick">Antonio the Brick</Link> (PL10) <strong>&middot;</strong> <span className="lesser-note">President Landry's loyal and vigilant bodyguard</span></li>
+                    <li><Link to="/viewhero/gelnon">Gelnon</Link> (PL13) <strong>&middot;</strong> <span className="lesser-note">A mercenary super-brute with a cloning lab</span></li>
+                    <li><Link to="/viewhero/glint">Glint</Link> (PL8, PC budget) <strong>&middot;</strong> <span className="lesser-note">A teleporting, strobe-light-emitting assassin with a bit of super-speed</span></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Villainous Henchmen</h3>
+                <ul>
+                    <li><Link to="/viewhero/biker">Biker</Link> (PL2) <strong>&middot;</strong> <span className="lesser-note">A typical biker gang member</span></li>
+                    <li><Link to="/viewhero/crimelord">Crime Lord</Link> (PL4) <strong>&middot;</strong> <span className="lesser-note">A generic head of local organized crime</span></li>
+                    <li><Link to="/viewhero/gangleader">Gang Leader</Link> (PL3) <strong>&middot;</strong> <span className="lesser-note">Leader of a neighborhood of a street gang</span></li>
+                    <li><Link to="/viewhero/goon">Goon</Link> (PL3) <strong>&middot;</strong> <span className="lesser-note">A run-of-the-mill crinimal gunman</span></li>
+                    <li><Link to="/viewhero/hitman">Hitman</Link> (PL6) <strong>&middot;</strong> <span className="lesser-note">A rough-and-tumble assassin</span></li>
+                    <li><Link to="/viewhero/thief">Thief</Link> (PL1) <strong>&middot;</strong> <span className="lesser-note">A common thief</span></li>
+                    <li><Link to="/viewhero/thug">Thug</Link> (PL3) <strong>&middot;</strong> <span className="lesser-note">A brute sent by organized crime to punish someone but leave them alive</span></li>
+                    <li><Link to="/viewhero/biker">Tough</Link> (PL2) <strong>&middot;</strong> <span className="lesser-note">A common street gang member</span></li>
+                </ul>
+            </section>
         </div>
     ];
 
