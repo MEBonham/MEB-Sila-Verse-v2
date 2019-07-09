@@ -110,6 +110,20 @@ const Landing = () => {
                     <li><Link to="/viewhero/vinelash">Vine Lash</Link> (PL10) <strong>&middot;</strong> <span className="lesser-note">A plant-controller</span></li>
                 </ul>
             </section>
+            <section>
+                <h3>Master Villains</h3>
+                <ul>
+                    <li><Link to="/viewhero/errdravalimus">Errdravalimus</Link> (PL14) <strong>&middot;</strong> <span className="lesser-note">Draconic hands-off dictator of Scandinavia</span></li>
+                    <li><Link to="/viewhero/haffrubinghoul">Haffru bin Ghoul</Link> (PL10) <strong>&middot;</strong> <span className="lesser-note">A regenerating super-soldier produced by radical extremist Islam</span></li>
+                    <li><Link to="/viewhero/presidentlandry">President Landry Archambault</Link> (PL8) <strong>&middot;</strong> <span className="lesser-note">The corrupt and unfriendly de facto leader of Western Europe</span></li>
+                    <li><Link to="/viewhero/bowlingpin">The Bowling Pin</Link> (PL8) <strong>&middot;</strong> <span className="lesser-note">Tiger Strike's nemesis, head of the Kansas City mob</span>
+                        <ul>
+                            <li>Sidekick <Link to="/viewhero/nikayris">Nik Ayris</Link> <strong>&middot;</strong> <span className="lesser-note">A genius absent-minded scientist</span></li>
+                        </ul>
+                    </li>
+                    <li><Link to="/viewhero/tickpocket">The Tickpocket</Link> (PL7) <strong>&middot;</strong> <span className="lesser-note">A time-traveling art thief scoundrel</span></li>
+                </ul>
+            </section>
         </div>
     ];
 

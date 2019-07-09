@@ -25,7 +25,7 @@ const HeroWithFolderDropdown = props => {
                     db.collection("folders").doc(prevFolder)
                         .set({
                             heroes: JSON.stringify(heroArr)
-                        })
+                        }, { merge: true })
                         .then(() => {
                             props.setRefreshFlag(props.refreshFlag + 1);
                         })
