@@ -113,14 +113,16 @@
 }
 
 .landing .accordion .accordion-section .folder span:last-child {
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
-.landing .toc .accordion-section .collapsible {
+.landing .toc .accordion-section .collapsible,
+.landing .setting-info .accordion-section .collapsible {
     padding-bottom: 2px;
 }
 
-.landing .toc .accordion-section .collapsible section {
+.landing .toc .accordion-section .collapsible section,
+.landing .setting-info .accordion-section .collapsible section {
     margin: 0 2% 12px;
     padding: 8px 2%;
     border-radius: 2px;
@@ -131,6 +133,10 @@
     margin: 0 0 0 20px;
     font-size: 1.4rem;
     line-height: 1.2;
+}
+
+.landing .setting-info .collapsible p {
+    margin: 2px 0;
 }
 
 .analysis-envelope {
