@@ -219,7 +219,8 @@ const Landing = () => {
             </section>
             <section>
                 <h3>Technology: Cutting-Edge Super-Science</h3>
-                <p>In any period of history, technology that is sufficiently avant garde can be considered a superpower, and this era is certainly no exception.</p>
+                <p>In any period of history, technology that is sufficiently <em>avant garde</em> can be considered a superpower, and this era is certainly no exception.</p>
+                <p>Particularly in the current era of warring between superheroes and super-villains, a lot of cutting-edge technology is kept quite secret, rather than puclicly released for maximum profitability, especially in the areas of cybernetics and robotics.</p>
             </section>
         </div>
     ];
