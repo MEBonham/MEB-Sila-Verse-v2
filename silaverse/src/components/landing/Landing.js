@@ -130,6 +130,7 @@ const Landing = () => {
                     <li><Link to="/viewhero/antoniobrick">Antonio the Brick</Link> (PL10) <strong>&middot;</strong> <span className="lesser-note">President Landry's loyal and vigilant bodyguard</span></li>
                     <li><Link to="/viewhero/gelnon">Gelnon</Link> (PL13) <strong>&middot;</strong> <span className="lesser-note">A mercenary super-brute with a cloning lab</span></li>
                     <li><Link to="/viewhero/glint">Glint</Link> (PL8, PC budget) <strong>&middot;</strong> <span className="lesser-note">A teleporting, strobe-light-emitting assassin with a bit of super-speed</span></li>
+                    <li><Link to="/viewhero/hamasakichiyo">Hamasaki Chiyo</Link> (PL10) <strong>&middot;</strong> <span className="lesser-note">The Bowling Pin's ninja consort</span></li>
                 </ul>
             </section>
             <section>
@@ -222,6 +223,100 @@ const Landing = () => {
                 <p>In any period of history, technology that is sufficiently <em>avant garde</em> can be considered a superpower, and this era is certainly no exception.</p>
                 <p>Particularly in the current era of warring between superheroes and super-villains, a lot of cutting-edge technology is kept quite secret, rather than puclicly released for maximum profitability, especially in the areas of cybernetics and robotics.</p>
             </section>
+            <section>
+                <h3>Other: Mundane-But-Super</h3>
+                <p>Some people just train hard enough to be able to hang with superheroes and super-villains, at some level, without needing any other "origin" for their power.</p>
+                <p>Also in this miscellaneous category are actual aliens whose powers, naturally, are of Alien Origin. Also, there may be very rare super individuals whose minor powers come from natural mutations, with no interference from the Bequesting.</p>
+            </section>
+        </div>,
+        <div label="Society's Reaction to Powers">
+            <section>
+                <h3>Overlords</h3>
+                <p>Some parts of the world are ruled by super individuals, not always benevolently.</p>
+                <p>Most prominent of these instances is the rule of the Indian Subcontinent by Dark Lord Gajasura. A close second is the nominal rule of the Scandinavian nations by the dragon Errdravalimus.</p>
+                <p>One example that <em>is</em> benevolent is Quetzalcoatl, the mythological god of Mesoamerica, whose word is essentially treated as law in Guatemala.</p>
+            </section>
+            <section>
+                <h3>Outcasts</h3>
+                <p>Many parts of the world look upon super-powered individuals with suspicion, and confine them to the edges of society.</p>
+                <p>The most prominent example of this treatment of supers is Western Europe under the Dinaux political party, which has done a pretty good job of getting most native superheroes to move elsewhere to escape harassment.</p>
+                <p>Many smaller regions have similar suspicious reactions to supers, mostly due to lack of familiarity rather than systemic, organized opposition. Note that places that shun superheroes are prime territory for super-villains to enact their own schemes, which tends to reinforce society's mistrust.</p>
+            </section>
+            <section>
+                <h3>Egalitarian-ish</h3>
+                <p>Many parts of the world set themselves up as beacons of "fairness to supers," where they are ostensibly welcomed as long as they use their powers for good.</p>
+                <p>The USA is officially one of these, but in practice it is politically polarized enough that only half of the country tends to approve of a given superhero. Still, superheroes tend to get by well enough, at least as far as judicial treatment goes.</p>
+                <p>Indonesia is another populous nation where this hands-off approach seems to be working ok, largely thanks to the benevolence and success of one of the world's most powerful superheroes, Gloria.</p>
+                <p>Chile, Ghana, Thailand, and New Zealand are other examples of nations who pride themselves on fair treatment to supers. Unsurprisingly, some prominent superhero teams have set up bases in these nations.</p>
+            </section>
+            <section>
+                <h3>Strict Governmental Control</h3>
+                <p>In China especially, the government tries to keep an iron grip of control over the use of superpowers. Superheroes must be registered and are subject to draconian control at times, although between crises they are given a short leash to hire themselves out as mercenaries (with the government taking 30% of their profits).</p>
+            </section>
+            <section>
+                <h3>Still Figuring It Out</h3>
+                <p>Supers are rare enough, and in most cases new enough, that many parts of the world haven't yet figured out how to treat them. In these regions, reactions to superheroes will vary from individual to individual rather than being prescribed by governmental leadership of any sort.</p>
+                <p>This is kind of the default scenario in most of the Sila-Verse. Brazil, most of Africa, and Eastern Europe fall in this category.</p>
+            </section>
+        </div>,
+        <div label="Influence of Superpowers on Aspects of Civilization">
+            <section>
+                <h3>Communication</h3>
+                <p>Powers have the potential to improve communication even beyond what the Internet and cellular networks can do. Powers of this sort are not widespread, but are highly coveted for their ability to spread emergency messages (or propoganda).</p>
+                <p>Heroes may also find themselves pestered by special forms of communication on occasion.</p>
+            </section>
+            <section>
+                <h3>Education</h3>
+                <p>In rare cases, education has been improved by leaps and bounds by use of cybernetics or other superpowers. Learning can be accelerated far beyond traditional speeds. In general, this is an expensive enough process that it is not mass-produced, although Japan has been pushing the envelope on that ...</p>
+            </section>
+            <section>
+                <h3>Entertainment</h3>
+                <p>One of the more widespread uses of superpowers outside of law enforcement is in entertainment. To name only one example, only minor illusionary powers are required to revolutionize special effects and Virtual Reality (which is an area where "mundane" technology is making leaps and bounds anyway).</p>
+                <p>As opposed to the thriving of other forms of entertainment, it is worth noting that athletics-as-entertainment is struggling, mostly due to how no one can agree on the role of superpowers in professional sports. Should performance-enhancing powers be banned? Or have their own leagues? If so, how do you define or detect performance-enhancing powers in the first place? Do technological "powers" count?</p>
+            </section>
+            <section>
+                <h3>Exploration</h3>
+                <p>Superpowers, mostly of the technological variety, are greatly accelerating society's ability to explore space (at least within our Solar System) and the deep oceans.</p>
+                <p>Space exploration has led to awareness of other intelligent life in the universe, which complicates civilization's existence in many ways. It's hard to see this as a bad thing, though, given that it means humanity has <em>some</em> chance of resisting alien threats such as the Vord.</p>
+                <p>Exploring of time is still a fledgeling and poorly-understood frontier, as technology has not managed to crack time travel at all, and other superpowers that deal with it are exceedingly rare.</p>
+            </section>
+            <section>
+                <h3>Law Enforcement</h3>
+                <p>Of course, the most extensive area in which superpowers thrive is in crime and the fighting thereof. Wars between superheroes and super-villains who intend to commit "crimes" on some scale abound.</p>
+                <p>Society is unsure of how to deal with crimes being "prevented" by telepathic or predictive divinatory powers. In most jurisdictions, such evidence of crimes-to-come is not considered valid legally, due to the impossibility of supers proving what their powers are telling them about would-be-criminals' intents. This doesn't stop all supers with such abilities from acting as vigilantes, of course.</p>
+                <p>On the other hand, forensic science's ability to solve crimes in the past has grown quite far beyond what it is in our world. So mundane criminals face greater challenges in not getting caught than they have historically.</p>
+            </section>
+            <section>
+                <h3>Medicine</h3>
+                <p>Medical technology and expertise in the Sila-Verse have progressed far beyond our own, allowing many lives to be saved.</p>
+                <p>In rare and expensive cases, super-powers besides medical technology can also perform amazing acts of healing.</p>
+                <p>The use of powers for "mental health" remains very controversial. Is it valid for a mental power to "cure" a neurosis? Are there any side-effects of doing so, and what counts as a neurosis anyway?</p>
+            </section>
+            <section>
+                <h3>Politics</h3>
+                <p>Many powers have the ability to influence politics, such as Mind Reading, Mind Control, Detect Truth, and abilities that counter any of these.</p>
+                <p>The effects of these abilities on politics are a mess. Outside of places like Western Europe where any use of powers in politics is strictly forbidden, nobody has quite figured out how politics should adapt to the advent of powers.</p>
+            </section>
+            <section>
+                <h3>Religion</h3>
+                <p>Religion remains a potent force in civilization, in all the varieties we are familiar with as well as some new ones. Powers have utterly failed to prove who's right and who's wrong in religion. They have, however, proved the existence of extraterrestial intelligence and mystic dimensions.</p>
+                <p>Besides traditional religions, some question whether aliens, mighty superpowered individuals, or the Bequest Probe itself are worthy of worship.</p>
+            </section>
+            <section>
+                <h3>Science</h3>
+                <p>While science is advancing at a rate unheard of in history, due to advancements in technology and civilization's experience, it has become clearer than ever how far science is from understanding everything. The Collective Unconscious and mystic dimensions are very poorly understood, as is the particle physics that drive the Bequest Probe.</p>
+            </section>
+            <section>
+                <h3>Transportation</h3>
+                <p>"Mundane" transportation is an area of technology that is progressing rapidly, mostly in the realm of self-driving vehicles.</p>
+                <p>Teleportation, extremely fast flight, and other "super" transportation options remain rare and too expensive to be used routinely.</p>
+            </section>
+        </div>,
+        <div label="Organizations">
+            <section>
+                <h3>To Be Added Later</h3>
+                <p>I haven't determined much about shadowy world-spanning organizations yet. Until I do, this is an area for the GM to have complete control.</p>
+            </section>
         </div>
     ];
 
@@ -231,7 +326,7 @@ const Landing = () => {
                 <section className="introduction">
                     <h2>Introduction</h2>
                     <p>The Sila-Verse is a setting for the <em>Mutants and Masterminds 3rd Edition Roleplaying Game</em> by <a href="https://greenronin.com/" target="_blank">Green Ronin</a>. It is set in a near-future version of Earth, and is designed to accommodate series with a wide variety of Power Levels.</p>
-                    <p>There are plenty of PC-worthy builds provided in this setting, but there is also space for your players to come up with their own PC concepts. Feel free to add to or modify this material if using it to run a series of your own.</p>
+                    <p>There are plenty of PC-worthy builds provided in this setting, which players are welcome to adopt, but there is also space for your players to come up with their own PC concepts. Feel free to add to or modify this material if using it to run a series of your own.</p>
                 </section>
                 <section className="toc">
                     <h2>Table of Contents (with brief synopses)</h2>
