@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "dompurify": "^1.0.10",
+    "dompurify": "^2.0.3",
     "firebase": "^6.0.4",
     "html-react-parser": "^0.7.1",
     "react-contexify": "^4.1.0",
